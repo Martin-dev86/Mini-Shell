@@ -6,14 +6,16 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/12 19:19:44 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:17:25 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **env)
+int	main(int argc, int **argv, char **env)
 {
-	
+	(void *)argc;
+	(void *)argv;
+	parse(**env);
 	return ();
 }
