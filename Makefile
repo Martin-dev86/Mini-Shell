@@ -33,9 +33,10 @@ DARK_YELLOW =	\033[38;5;143m
 
 NAME = minishell
 
-SRC_DIR = src
+SRC_DIR = ./
 
 LIBFT	= Library/Libft
+READLINE = -lreadline -ltinfo
 
 SRC_FILES =		$(wildcard $(SRC_DIR)/*.c)
 SRC = 			$(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -62,7 +63,7 @@ libft:
 	@$(CC) $(CFLAGS) -L./$(FT_PRINTF) -c $< -o $@
 
 $(NAME):	$(OBJ_SRC) 
-			@$(CC) $(OBJ_SRC) $(LIBS) -o $(NAME) 
+			@$(CC) $(OBJ_SRC) $(LIBS) -o $(NAME) $(READLINE)
 			@echo "\n${YELLOW} ► $(GREEN)$(BOLD)Created $(NAME) correctly$(DEF_COLOR)\n"
 
 clean:
