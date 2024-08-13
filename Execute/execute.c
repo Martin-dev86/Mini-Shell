@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/13 13:42:53 by cagarci2         ###   ########.fr       */
+/*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
+/*   Updated: 2024/08/13 13:45:15 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <fcntl.h>
-# include <memory.h>
-# include <stdint.h>
-# include <stddef.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
-# include "execute.h"
-# include "libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-
-#endif
+int execute_simple_command(t_execute *execute)
+{
+    
+}
