@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/13 16:52:37 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:18:47 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef enum e_type
     VARIABLE,
     EXPANSION,
     ASSIGNMENT,
-    FILE,
+    FILE_PATH,
     HEREDOC,
     ENDLINE
 }	t_type;
@@ -39,8 +39,10 @@ typedef struct s_token
 
 typedef struct s_node
 {
-    t_token     *operation;
-    t_node      *left_content;
-    t_node      *right_content;
-    int         n_childs;
+    t_token             *operation;
+    struct s_node      *left_content;
+    struct s_node      *right_content;
+    int                 n_childs;
 }	t_node;
+
+char **token_maker(t_token *token, char **env);

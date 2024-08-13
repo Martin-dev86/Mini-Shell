@@ -6,24 +6,11 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 15:59:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/13 17:30:43 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:15:10 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "minishell.h"
-
-# include <fcntl.h>
-# include <memory.h>
-# include <stdint.h>
-# include <stddef.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
-# include "libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "../includes/parse.h"
+#include "minishell.h"
 
 void    env_parse(char *str, char **env)
 {
