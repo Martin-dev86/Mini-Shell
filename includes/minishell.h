@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/13 12:10:56 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/13 12:27:58 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include "libft.h"
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 #endif
