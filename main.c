@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/14 15:24:03 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:34:40 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		printf("\n\ntoken->content = %s\n\n", token->content);
 		token_maker(token, env);
-		//execute(execute, token->content);
+		execute(execute, token->content);
 		add_history(token->content);
 	}
 	return (0);

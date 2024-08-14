@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/14 15:25:06 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:34:52 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,5 @@ typedef struct s_node
     struct s_node      *right_content;
     int                 n_childs;
 }	t_node;
->>>>>>> Parse
 
 char **token_maker(t_token *token, char **env);

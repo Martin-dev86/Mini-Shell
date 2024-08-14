@@ -26,5 +26,6 @@
 # include "libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "parse.h"
 
 #endif
