@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:14:52 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/13 13:32:55 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:55:46 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#DEFINE READ_END = 0;
-#DEFINE WRITE_END = 1;
+# define READ_END = 0;
+# define WRITE_END = 1;
 
 typedef struct s_execute
 {
@@ -20,4 +20,4 @@ typedef struct s_execute
     int     fd_in;
     int     fd_out;
     int     fd[2];
-}
+} t_execute;

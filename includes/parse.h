@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/13 20:58:42 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:57:04 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef enum e_type
     ASSIGNMENT,
     FILE,
     HEREDOC,
-    ENDLINE
+    ENDLINE,
 }	t_type;
 
 typedef struct s_token
@@ -44,4 +44,3 @@ typedef struct s_node
     t_node      *right_content;
     int         n_childs;
 }	t_node;
->>>>>>> Parse

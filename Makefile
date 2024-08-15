@@ -6,7 +6,7 @@
 #    By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/22 12:45:34 by cagarci2          #+#    #+#              #
-#    Updated: 2024/03/22 12:45:34 by cagarci2         ###   ########.fr        #
+#    Updated: 2024/08/15 15:53:52 by cagarci2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,14 +33,14 @@ DARK_YELLOW =	\033[38;5;143m
 
 NAME = minishell
 
-SRC_DIR = ./
+SRC_DIR = ./ ./Execute ./Parse
 
 LIBFT	= Library/Libft
 READLINE = -lreadline -ltinfo
 
-SRC_FILES =		$(wildcard $(SRC_DIR)/*.c)
+SRC_FILES =		$(shell find $(SRC_DIR) -name '*.c')
 SRC = 			$(addprefix $(SRC_DIR)/, $(SRC_FILES))
-LIBS	= $(LIBFT)/libft.a -ldl -lglfw -pthread -lm  -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+LIBS	= $(LIBFT)/libft.a
 OBJ_SRC		=	$(SRC_FILES:.c=.o)
 
 HEADER_DIR	=	includes
@@ -58,7 +58,7 @@ all:	libft $(NAME)
 libft:
 	@make --no-print-directory -C $(LIBFT)
 
-%.o: %.c Makefile
+%.o: %.c $(HEADER)
 	@echo "${YELLOW} • $(CYAN)COMPILE ${RED}→ $(DARK_GRAY)$< ${WHITE}✓$(DEF_COLOR)"
 	@$(CC) $(CFLAGS) -L./$(FT_PRINTF) -c $< -o $@
 
