@@ -6,7 +6,7 @@
 #    By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/22 12:45:34 by cagarci2          #+#    #+#              #
-#    Updated: 2024/08/15 15:53:52 by cagarci2         ###   ########.fr        #
+#    Updated: 2024/08/15 18:30:39 by cagarci2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,7 @@ HEADER		=	$(addprefix $(HEADER_DIR)/, $(HEADER_SRCS))
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g -Iincludes -I$(LIBFT)
-
+CFLAGS = -Wall -Werror -Wextra -g -Iincludes -I$(LIBFT) #-I$(SRC_DIR)
 RM = rm -f
 
 all:	libft $(NAME) 

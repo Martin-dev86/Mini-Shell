@@ -3,30 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/13 20:58:27 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:49:53 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char	*ft_get_pwd(void);
+
 int	main(int argc, char **argv, char **env)
 {
-	t_token		*token;
+	//t_token		*token;
 
 	(void)argc;
 	(void)argv;
+	(void)env;
+
+	char	*content;
 	while (1)
 	{
-		token->content = readline("Minishell>");
-		if (token->content == NULL || ft_strcmp(token->content, "exit") == 0)
+		content = readline("Minishell>");
+		if (content == NULL || ft_strcmp(content, "exit") == 0)
 			break ;
-		printf("\n\ntoken->content = %s\n\n", token->content);
-		parse(token, env);
-		execute(execute, token->content);
-		add_history(token->content);
+		//printf("%s", holiiiii());
+		if (ft_strcmp(content, "pwd") == 0)
+			printf("%s\n", ft_get_pwd());
+		// parse(token, env);
+		// execute(execute, token->content);
+		add_history(content);
 	}
 	return (0);
 }
