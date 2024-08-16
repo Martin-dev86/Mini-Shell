@@ -6,7 +6,7 @@
 #    By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/22 12:45:34 by cagarci2          #+#    #+#              #
-#    Updated: 2024/08/15 18:30:39 by cagarci2         ###   ########.fr        #
+#    Updated: 2024/08/16 15:18:47 by cagarci2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,15 +33,14 @@ DARK_YELLOW =	\033[38;5;143m
 
 NAME = minishell
 
-SRC_DIR = ./ ./Execute ./Parse
-
+SRC_DIR = ./ Execute/ Parse/
 LIBFT	= Library/Libft
 READLINE = -lreadline -ltinfo
 
-SRC_FILES =		$(shell find $(SRC_DIR) -name '*.c')
-SRC = 			$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 LIBS	= $(LIBFT)/libft.a
-OBJ_SRC		=	$(SRC_FILES:.c=.o)
+SRC_FILES =		$(shell find $(SRC_DIR) -name '*.c')
+SRC = 			$(addprefix $(SRC_DIR)/, $(addsuffix .c, $(SRC_FILES)))
+OBJ_SRC		=	Execute/execute.o Execute/built-ins/echo.o Execute/built-ins/mini_pwd.o Parse/tokenizer.o main.o
 
 HEADER_DIR	=	includes
 HEADER_SRCS	=	minishell.h \
@@ -49,20 +48,20 @@ HEADER		=	$(addprefix $(HEADER_DIR)/, $(HEADER_SRCS))
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g -Iincludes -I$(LIBFT) #-I$(SRC_DIR)
+CFLAGS = -Wall -Werror -Wextra -g -I$(HEADER_DIR) -I$(LIBFT) 
 RM = rm -f
 
 all:	libft $(NAME) 
 
 libft:
 	@make --no-print-directory -C $(LIBFT)
-
-%.o: %.c $(HEADER)
+	
+%.o: %.c
 	@echo "${YELLOW} • $(CYAN)COMPILE ${RED}→ $(DARK_GRAY)$< ${WHITE}✓$(DEF_COLOR)"
-	@$(CC) $(CFLAGS) -L./$(FT_PRINTF) -c $< -o $@
-
+	@$(CC) $(CFLAGS) -c $< -o $@
+	
 $(NAME):	$(OBJ_SRC) 
-			@$(CC) $(OBJ_SRC) $(LIBS) -o $(NAME) $(READLINE)
+			@$(CC) $(OBJ_SRC) -o $(NAME) $(READLINE) $(LIBS)
 			@echo "\n${YELLOW} ► $(GREEN)$(BOLD)Created $(NAME) correctly$(DEF_COLOR)\n"
 
 clean:

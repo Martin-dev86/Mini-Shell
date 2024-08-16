@@ -6,16 +6,15 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:14:52 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/15 18:45:29 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/16 14:10:38 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 # define EXECUTE_H
 
-#define READ_END = 0;
-#define WRITE_END = 1;
-//#include "minishell.h"
+// #define READ_END = 0;
+// #define WRITE_END = 1;
 // typedef struct s_execute
 // {
 // 	pid_t	pid;
