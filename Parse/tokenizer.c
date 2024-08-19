@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 15:59:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/14 15:37:11 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:48:22 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ void token_typer (t_token *token)
 void    env_parse(char *str, char **env)
 {
     char *result;
-    
+
+    if (env == NULL)
+    {
+        
+    };
     result = NULL;
     str = strtrim(str, "$");
     result = getenv(str);
