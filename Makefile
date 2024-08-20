@@ -6,7 +6,7 @@
 #    By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/22 12:45:34 by cagarci2          #+#    #+#              #
-#    Updated: 2024/08/16 15:18:47 by cagarci2         ###   ########.fr        #
+#    Updated: 2024/08/20 11:12:10 by cagarci2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ DARK_YELLOW =	\033[38;5;143m
 
 NAME = minishell
 
-SRC_DIR = ./ Execute/ Parse/
+SRC_DIR = ./ ./Execute ./Parse
 LIBFT	= Library/Libft
 READLINE = -lreadline -ltinfo
 
