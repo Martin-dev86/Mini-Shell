@@ -23,8 +23,12 @@
 # include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+<<<<<<< HEAD
 # include "libft.h"
 # include "execute.h"
+=======
+# include "parse.h"
+>>>>>>> Master
 
 char	*ft_get_pwd(void);
 #endif
