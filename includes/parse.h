@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/19 19:53:33 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/20 10:20:52 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef enum e_type
     FILE_PATH,
     HEREDOC,
     ENDLINE,
+    APPEND,
 }	t_type;
 
 typedef struct s_token
