@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/20 12:19:36 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:45:40 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@
 # include <readline/history.h>
 # include "libft.h"
 # include "execute.h"
+# include "parse.h"
+
+typedef struct s_env
+{
+	char	*value;
+	char	*path;
+}
 
 char	*ft_get_pwd(void);
 #endif
