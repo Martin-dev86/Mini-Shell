@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dfa.c                                              :+:      :+:    :+:   */
+/*   env_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/19 19:49:37 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/20 18:18:57 by jeandrad         ###   ########.fr       */
+/*   Created: 2024/08/20 13:02:15 by jeandrad          #+#    #+#             */
+/*   Updated: 2024/08/20 18:13:56 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void dfa_main (t_token *token)
-{
-    
+void get_env(char **env)
+{   
+    if (env== NULL)
+        exit (1);
+    else if (!getenv("PATH"))
+        exit(1);
+    else if (!getenv("USER"))
+        exit(1);
+    else if (!getenv("HOME"))
+        exit(1);
 }
