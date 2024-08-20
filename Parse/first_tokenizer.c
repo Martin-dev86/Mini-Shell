@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:21:19 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/20 10:56:04 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:00:39 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,21 @@ char **token_split(t_token *token)
     // First pass to count the number of tokens
     while (str[i]) 
     {
-        if (str[i] == 34 || str[i] == 39) { // ASCII code for " or '
+        if (str[i] == 34 || str[i] == 39) 
+        { // ASCII code for " or '
             int quote = str[i];
             i++;
             while (str[i] && str[i] != quote) i++;
             if (str[i] == quote) i++;
-        } else if (str[i] == '|' || str[i] == '>' || str[i] == '<' || str[i] == ';' || str[i] == '\n') {
+        } 
+        else if (str[i] == '|' || str[i] == '>' || str[i] == '<' || str[i] == '\n' || str[i] == '<<' || str[i] == '>>' || str[i] == '$') 
+        {
             token_count++;
             i++;
-        } else {
-            while (str[i] && str[i] != 34 && str[i] != 39 && str[i] != '|' && str[i] != '>' && str[i] != '<' && str[i] != ';' && str[i] != '\n') i++;
+        } else 
+        {
+            while (str[i] && str[i] != 34 && str[i] != 39 && str[i] != '|' && str[i] != '>' && str[i] != '<' && str[i] != '\n') 
+                i++;
             token_count++;
         }
     }
@@ -63,40 +68,59 @@ char **token_split(t_token *token)
             i++;
             tokens[j] = quote_catcher(str, &i, 34);
             j++;
-        } else if (str[i] == 39) 
+        } 
+        else if (str[i] == 39) 
         { // ASCII code for '
             i++;
             tokens[j] = quote_catcher(str, &i, 39);
             j++;
-        } else if (str[i] == '|')
+        } 
+        else if (str[i] == '|')
         {
             tokens[j] = strdup("|");
             j++;
             i++;
-        } else if (str[i] == '>') 
+        } 
+        else if (str[i] == '>') 
         {
             tokens[j] = strdup(">");
             j++;
             i++;
-        } else if (str[i] == '<') 
+        } 
+        else if (str[i] == '<') 
         {
             tokens[j] = strdup("<");
             j++;
             i++;
-        } else if (str[i] == ';') 
+        } 
+        else if (str[i] == '$') 
         {
-            tokens[j] = strdup(";");
+            tokens[j] = strdup("$");
             j++;
             i++;
-        } else if (str[i] == '\n') 
+        }
+        else if (str[i] == '<' && str[i + 1] == '<')
+        {
+            tokens[j] = strdup("<<");
+            j++;
+            i++;
+        }
+        else if (str[i] == '>' && str[i + 1] == '>')
+        {
+            tokens[j] = strdup(">>");
+            j++;
+            i++;
+        }
+        else if (str[i] == '\n') 
         {
             tokens[j] = strdup("\n");
             j++;
             i++;
-        } else 
+        } 
+        else 
         {
             int start = i;
-            while (str[i] && str[i] != 34 && str[i] != 39 && str[i] != '|' && str[i] != '>' && str[i] != '<' && str[i] != ';' && str[i] != '\n') i++;
+            while (str[i] && str[i] != 34 && str[i] != 39 && str[i] != '|' && str[i] != '>' && str[i] != '<' && str[i] != '$' && str[i] != '\n') i++;
             tokens[j] = strndup(str + start, i - start);
             j++;
         }
