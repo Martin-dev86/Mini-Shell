@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_typer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:50:05 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/20 10:55:36 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:41:18 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ void token_typer (t_token *token)
         else if (token->content[i] == '\n')
             token->type = ENDLINE;
         else
-            token->type = CMD;
+            token->type = BUILTIN;
     }   
 }

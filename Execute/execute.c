@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/20 12:47:48 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:58:09 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execute_builtins(t_node *node)
+int	execute_builtins(t_token *token, t_son *son)
 {
-	if (node->operation->content == "pwd")
-		mini_pwd(node);
+	if (ft_strcmp(token->content, "pwd") == 0)
+		mini_pwd(son);
+	return (0);
 }
 
-int	execute(t_node *node)
+int	execute(t_token *token, t_son *son)
 {
-	if (node->operation->type == BUILTIN)
-		execute_builtins(node);
+	if (token->type == BUILTIN)
+		execute_builtins(token, son);
+	return (0);
 }
-

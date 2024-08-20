@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/20 12:45:40 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:59:10 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <fcntl.h>
+# include <sys/wait.h>
 # include <memory.h>
 # include <stdint.h>
 # include <stddef.h>
@@ -27,11 +28,8 @@
 # include "execute.h"
 # include "parse.h"
 
-typedef struct s_env
-{
-	char	*value;
-	char	*path;
-}
-
-char	*ft_get_pwd(void);
+char	*get_pwd(void);
+int		mini_pwd(t_son *son);
+int		execute(t_token *token, t_son *son);
+int		execute_builtins(t_token *token, t_son *son);
 #endif

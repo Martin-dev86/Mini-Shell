@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/20 12:45:24 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:47:57 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ typedef struct s_node
 }	t_node;
 
 //List for the env variables
-typedef struct s_list
-{
-	int				content;
-	struct s_list	*next;
-}					t_list;
+// typedef struct s_list
+// {
+// 	int				content;
+// 	struct s_list	*next;
+// }	t_list;
 
 char	**token_maker(t_token *token, char **env);

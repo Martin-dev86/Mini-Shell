@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mini_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:00:29 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/20 12:34:18 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:57:47 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_get_pwd(void)
+char	*get_pwd(void)
 {
 	char	*cwd;
 
@@ -29,10 +29,32 @@ char	*ft_get_pwd(void)
 	}
 }
 
-int	mini_pwd(t_node *node)
+int	mini_pwd(t_son *son)
 {
-	char	*rute;
+	char	*result;
 
-	rute = ft_get_pwd;
-
+	son->pid = fork();
+	if (son->pid < 0)
+	{
+		perror("fork");
+		return (1);
+	}
+	if (son->pid == 0)
+	{
+		result = get_pwd();
+		if (!result)
+		{	
+			perror ("getpwd");
+			exit (1);
+		}
+		printf("%s\n", result);
+		free (result);
+		exit (0);
+	}
+	if (waitpid(son->pid, NULL, 0) < 0)
+	{
+		perror("waitpid");
+		return (1);
+	}
+	return (0);
 }
