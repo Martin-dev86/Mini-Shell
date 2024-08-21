@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/21 11:58:47 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:50:53 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ typedef enum e_type
 
 typedef struct s_token
 {
-	char		*content;
+	char		*read;
+	char		**argument;
 	t_type		type;
 	int			priority;
 	char		*path;
+	int			len;
 }	t_token;
 
 typedef struct s_node
@@ -54,3 +56,4 @@ typedef struct s_node
 // }	t_list;
 
 char	**token_maker(t_token *token, char **env);
+void	token_typer (t_token *token);

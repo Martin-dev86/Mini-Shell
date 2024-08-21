@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+         #
+#    By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/22 12:45:34 by cagarci2          #+#    #+#              #
-#    Updated: 2024/08/21 13:10:12 by cagarci2         ###   ########.fr        #
+#    Updated: 2024/08/21 16:56:09 by cagarci2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ READLINE = -lreadline -ltinfo
 
 LIBS	= $(LIBFT)/libft.a
 SRC_FILES =		$(shell find $(SRC_DIR) -name '*.c')
-OBJ_SRC		=	Execute/execute.o Execute/built-ins/mini_pwd.o Execute/built-ins/mini_echo.o Parse/tokenizer.o main.o Print_tree.o
+OBJ_SRC		=	Execute/redirect.o Execute/execute.o Execute/built-ins/mini_pwd.o Execute/built-ins/mini_echo.o Parse/token_typer.o main.o Print_tree.o
 
 HEADER_DIR	=	includes
 HEADER_SRCS	=	minishell.h \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:20:09 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/21 13:12:14 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:59:09 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int mini_echo(t_son *son, t_token *token)
 	}
 	if (son->pid == 0)
 	{
-		result = token->content;
+		result = token->argument[1];
 		if (!result)
 		{
 			perror ("echo");

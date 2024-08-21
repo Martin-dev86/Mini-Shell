@@ -3,38 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   token_typer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:50:05 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/21 10:40:12 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:58:09 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Gives the type to the token after the token split
-// void token_typer (t_token *token)
-// {
-//     int i;
-//     int j;
+void token_typer (t_token *token)
+{    
+	int	i;
 
-//     i = 0;
-//     j = 0;
-//     while(token->content[i])  
-//     {
-//         if (token->content[i] == '|')
-//             token->type = PIPE;
-//         else if (token->content[i] == '>')
-//             token->type = REDIR;
-//         else if (token->content[i] == '<')
-//             token->type = REDIR;
-//         else if (token->content[i] == '>>')
-//             token->type = APPEND;
-//         else if (token->content[i] == '<<')
-//             token->type = HEREDOC;
-//         else if (token->content[i] == '\n')
-//             token->type = ENDLINE;
-//         else
-//             token->type = BUILTIN;
-//     }   
-// }
+	i = 0;
+	token->len = 0;
+    while(token->argument[i])
+    {	
+		i++;
+		token->len += 1;
+	}
+	i = 0;
+    while(i < token->len)
+	{	
+		if (ft_strcmp(token->argument[i], "|") == 0)
+			token->type = PIPE;
+		if (ft_strcmp(token->argument[i], ">") == 0)
+			token->type = REDIR;
+		if (ft_strcmp(token->argument[i], "<") == 0)
+			token->type = REDIR;
+		if (ft_strcmp(token->argument[i], ">>") == 0)
+			token->type = APPEND;
+		if (ft_strcmp(token->argument[i], "<<") == 0)
+			token->type = HEREDOC;
+		if (ft_strcmp(token->argument[i], "\n") == 0)
+			token->type = ENDLINE;
+		else
+			token->type = BUILTIN;
+		i++;
+	}
+}

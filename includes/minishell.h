@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/21 13:08:39 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:23:38 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ int		execute(t_token *token, t_son *son);
 int		execute_builtins(t_token *token, t_son *son);
 void	print_ast(t_node *root);
 int     mini_echo(t_son *son, t_token *token);
+int     redirect(t_token *token, t_son *son);
 
 #endif
