@@ -6,7 +6,7 @@
 #    By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/22 12:45:34 by cagarci2          #+#    #+#              #
-#    Updated: 2024/08/21 13:10:12 by cagarci2         ###   ########.fr        #
+#    Updated: 2024/08/21 11:31:04 by cagarci2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,18 +33,17 @@ DARK_YELLOW =	\033[38;5;143m
 
 NAME = minishell
 
-SRC_DIR = ./ ./Execute ./Parse
+HEADER_DIR	=	./includes
+SRC_DIR = . Execute Parse
 LIBFT	= Library/Libft
 READLINE = -lreadline -ltinfo
+OBJ_DIR = obj
 
 LIBS	= $(LIBFT)/libft.a
-SRC_FILES =		$(shell find $(SRC_DIR) -name '*.c')
-OBJ_SRC		=	Execute/execute.o Execute/built-ins/mini_pwd.o Execute/built-ins/mini_echo.o Parse/tokenizer.o main.o Print_tree.o
-
-HEADER_DIR	=	includes
-HEADER_SRCS	=	minishell.h \
-HEADER		=	$(addprefix $(HEADER_DIR)/, $(HEADER_SRCS))
-
+#SRC_FILES =		$(shell find $(SRC_DIR) -name '*.c')
+#OBJ_FILES = $(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+SRC_FILES = $(foreach dir,$(SRC_DIR),$(shell find $(dir) -name '*.c'))
+OBJ_FILES = $(patsubst %,$(OBJ_DIR)/%,$(patsubst %.c,%.o,$(notdir $(SRC_FILES))))
 CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra -g -I$(HEADER_DIR) -I$(LIBFT) 
@@ -54,18 +53,27 @@ all:	libft $(NAME)
 
 libft:
 	@make --no-print-directory -C $(LIBFT)
+
+diagnose:
+	@echo "SRC_FILES: $(SRC_FILES)"
+	@echo "OBJ_FILES: $(OBJ_FILES)"
 	
-%.o: %.c
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+			
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@echo "${YELLOW} • $(CYAN)COMPILE ${RED}→ $(DARK_GRAY)$< ${WHITE}✓$(DEF_COLOR)"
+	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) -c $< -o $@
 	
-$(NAME):	$(OBJ_SRC) 
-			@$(CC) $(OBJ_SRC) -o $(NAME) $(READLINE) $(LIBS)
+
+$(NAME):	$(OBJ_FILES) 
+			@$(CC) $(OBJ_FILES) -o $(NAME) $(READLINE) $(LIBS)
 			@echo "\n${YELLOW} ► $(GREEN)$(BOLD)Created $(NAME) correctly$(DEF_COLOR)\n"
 
 clean:
 	@make clean -C $(LIBFT) > /dev/null 2>&1
-	@$(RM) $(OBJ_SRC) 
+	@$(RM) -r $(OBJ_DIR) 
 	@echo "\n${YELLOW} ¤ $(ORANGE)objects cleaned successfully ${GREEN}✓$(DEF_COLOR)\n"
 
 fclean: clean	

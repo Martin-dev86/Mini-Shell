@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:00:29 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/20 17:57:47 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:50:17 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	mini_pwd(t_son *son)
 	{
 		result = get_pwd();
 		if (!result)
-		{	
+		{
 			perror ("getpwd");
 			exit (1);
 		}
@@ -51,10 +51,10 @@ int	mini_pwd(t_son *son)
 		free (result);
 		exit (0);
 	}
-	if (waitpid(son->pid, NULL, 0) < 0)
+	if (waitpid(son->pid, &son->code, 0) < 0)
 	{
 		perror("waitpid");
-		return (1);
+		return (son->code);
 	}
-	return (0);
+	return (son->code);
 }
