@@ -3,22 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:14:52 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/15 16:14:04 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:55:40 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
-# define READ_END = 0;
-# define WRITE_END = 1;
 
-typedef struct s_execute
+#define READ  0
+#define WRITE  1
+
+typedef struct s_son
 {
-    pid_t   pid;
-    int     fd_in;
-    int     fd_out;
-    int     fd[2];
-} t_execute;
+	pid_t	pid;
+	int		fd_read;
+	int		fd_write;
+	int		fd[2];
+	int		fd_in;
+	int		fd_out;
+	int		code;
+}	t_son;
+
