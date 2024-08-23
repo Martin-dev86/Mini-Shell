@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_typer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:50:05 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/21 16:58:09 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/23 19:45:01 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
