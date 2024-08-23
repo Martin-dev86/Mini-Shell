@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:02:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/23 16:15:33 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/23 18:55:55 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_list_env env_parse(char **env, t_list_env env_list)
     while (env[i])
     {
         new->content = env[i];
+        new = new->next;
         new->next = NULL;
         i++;
     }
