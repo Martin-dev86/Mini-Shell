@@ -14,13 +14,13 @@
 
 int	mini_env(t_list *env)
 {
-	char	*current_env;
+	t_list	*current_env;
 
 	current_env = *env;
 	while (current_env->next != NULL)
 	{
 		printf("%s\n", env->content);
-		env->next 
+		current_env = env->next;
 	}
 	return (0);
 }

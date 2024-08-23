@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/23 12:18:48 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:22:19 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ void	print_ast(t_node *root);
 int		mini_echo(t_son *son, t_token *token);
 int		mini_redirect(t_token *token, t_son *son);
 int		mini_env(t_list *env);
-
+int		mini_cd(t_list_env *env, t_token *token);
 #endif
