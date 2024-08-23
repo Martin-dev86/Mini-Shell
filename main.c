@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/15 19:06:01 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:56:45 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int main(int argc, char **argv, char **env)
         token_maker(token, env);
 
         // AST creation for the command `echo "Hello, World!" > output.txt` to test execute function
-        t_token *echo = create_token("echo",CMD, NULL);
+        t_token *echo = create_token("echo",BUILTIN, NULL);
         t_token *hello_token = create_token("\"Hello, World!\"", ARG, NULL);
-        t_token *redirect_token = create_token(">", FILE_PATH, 0);
+        t_token *redirect_token = create_token(">", REDIR, 0);
         t_token *output_token = create_token("output.txt", FILE_PATH, 0);
         t_node *output_node = create_node(output_token, NULL, NULL);
         t_node *redirect_node = create_node(redirect_token, NULL, output_node);
