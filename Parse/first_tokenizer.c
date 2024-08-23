@@ -6,31 +6,31 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:21:19 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/23 12:28:44 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/23 12:40:05 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// char *quote_catcher(char *str, int *i, int quote)
-// {
-//     char *result = NULL;
-//     while (str[*i] && str[*i] != quote) {
-//         char temp[2] = {str[*i], '\0'};
-//         result = ft_strjoin(result, temp);
-//         (*i)++;
-//     }
-//     if (str[*i] == quote) {
-//         (*i)++; // Skip the closing quote
-//     }
-//     return result;
-// }
+char *quote_catcher(char *str, int *i, int quote)
+{
+    char *result = NULL;
+    while (str[*i] && str[*i] != quote) {
+        char temp[2] = {str[*i], '\0'};
+        result = ft_strjoin(result, temp);
+        (*i)++;
+    }
+    if (str[*i] == quote) {
+        (*i)++; // Skip the closing quote
+    }
+    return result;
+}
 
-// char **token_split(t_token *token) 
-// {
-//     char *str = token->content;
-//     int i = 0, j = 0;
-//     int token_count = 0;
+char **token_split(t_token *token) 
+{
+    char *str = token->read;
+    int i = 0, j = 0;
+    int token_count = 0;
 
     // First pass to count the number of tokens
     while (str[i]) 
@@ -54,10 +54,10 @@
         }
     }
 
-//     // Allocate memory for the array of tokens
-//     char **tokens = malloc((token_count + 1) * sizeof(char *));
-//     if (!tokens) 
-//         return NULL;
+    // Allocate memory for the array of tokens
+    char **tokens = malloc((token_count + 1) * sizeof(char *));
+    if (!tokens) 
+        return NULL;
 
     // Second pass to populate the array of tokens
     i = 0;
@@ -129,14 +129,14 @@
     return tokens;
 }
 
-// // Gives the split content to each token for typing
-// void token_content_filler(t_token token)
-// {
-//     int i = 0;
-//     char **tokens = token_split(&token);
-//     while (tokens[i]) 
-//     {
-//         token.content = tokens[i];
-//         i++;
-//     }
-// }
+// Gives the split read to each token for typing
+void token_read_filler(t_token token)
+{
+    int i = 0;
+    char **tokens = token_split(&token);
+    while (tokens[i]) 
+    {
+        token.read = tokens[i];
+        i++;
+    }
+}
