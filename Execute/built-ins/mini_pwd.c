@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:00:29 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/21 12:50:17 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:35:23 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_pwd(void)
 	}
 }
 
-int	mini_pwd(t_son *son)
+int	mini_pwd(t_son *son, t_token *token)
 {
 	char	*result;
 
@@ -47,6 +47,7 @@ int	mini_pwd(t_son *son)
 			perror ("getpwd");
 			exit (1);
 		}
+		mini_redirect(token, son);
 		printf("%s\n", result);
 		free (result);
 		exit (0);

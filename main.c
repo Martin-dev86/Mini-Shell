@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/21 16:47:23 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/23 00:05:43 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	main(int argc, char **argv, char **env)
 	i = 0;
 	(void)argc;
 	(void)argv;
-	(void)env;
 	son = malloc(sizeof(t_son));
 	if (son == NULL)
 	{
@@ -101,13 +100,9 @@ int	main(int argc, char **argv, char **env)
 			i++;
 		token->argument = ft_split(token->read, ' ');
 		token_typer(token);
-		// if (ft_strcmp(token->content, "pwd") == 0)
-		// 	token->type = BUILTIN;
-		// if (ft_strcmp(token->content, "echo") == 0)
-		// 	token->type = BUILTIN;
 		//pwd_node = make_tree();
 		//print_ast(pwd_node);
-		execute(token, son);
+		execute(token, son, env);
 		add_history(token->read);
 	}
 	return (0);
