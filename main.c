@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/23 00:05:43 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/23 12:09:48 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv, char **env)
 	t_token	*token;
 	t_son	*son;
 	int		i;
-	
+
 	i = 0;
 	(void)argc;
 	(void)argv;
@@ -88,15 +88,15 @@ int	main(int argc, char **argv, char **env)
 			exit(EXIT_FAILURE);
 		}
 		token->argument = (char **)malloc((i + 1) * sizeof(char *));
-    	if (!token->argument)
+		if (!token->argument)
 		{
-        	perror("Error al asignar memoria");
-        	exit(EXIT_FAILURE);
+			perror("Error al asignar memoria");
+			exit(EXIT_FAILURE);
 		}
 		token->read = readline("Minishell>");
 		if (token->read == NULL || ft_strcmp(token->read, "exit") == 0)
 			break ;
-		while(token->argument[i])
+		while (token->argument[i])
 			i++;
 		token->argument = ft_split(token->read, ' ');
 		token_typer(token);
