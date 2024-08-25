@@ -12,10 +12,7 @@
 
 #include "minishell.h"
 
-// void token_typer (t_token *token)
-// {
-    
-// }
+//THIS IS USELESS, I'M JUST TESTING THE TOKENIZER
 
 // void    env_parse(char *str, char **env)
 // {

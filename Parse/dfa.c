@@ -12,29 +12,68 @@
 
 #include "minishell.h"
 
-int dfa_main (t_token *token)
+// Deterministic Finite Automaton
+// It will do the sintax analysis of the tokens
+
+// !!!!!!!!
+// FIXME: This is a draft, it needs to be reviewed
+// !!!!!!!!
+int dfa_main (t_list_token *token_list)
 {
+¡   t_list_token *head = token_list;
+    t_list_token *current = head;
+    t_list_token *next = head->next;
+    int state = 0;
+
+    // Start the DFA
+    if (token_list == NULL)
+        return (state);
     
-}
-
-// I create a list of tokens for the DFA
-t_list token_list (t_token *token)
-{
-    t_list list;
-    t_list *new;
-    int i;
-
-    i = 0;
-    list = NULL;
-    while (token->argument[i])
+    // Real DFA process REVIEW THIS
+    while (current->next)
     {
-        new = (t_list *)malloc(sizeof(t_list));
-        if (!new)
-            exit(1);
-        new->content = token->argument[i];
-        new->next = list;
-        list = new;
-        i++;
+        if (current->content->type == CMD)
+        {
+            state = 0;
+            if (next->content->type == PIPE)
+            {
+                state = 1;
+                current->content->type = PIPE;
+                current->content->priority = 1;
+            }
+            else if (next->content->type == REDIR)
+            {
+                // state
+                current->content->type = REDIR;
+                current->content->priority = 2;
+            }
+            else if (next->content->type == APPEND)
+            {
+                state = 1;
+                current->content->type = APPEND;
+                current->content->priority = 2;
+            }
+            else if (next->content->type == HEREDOC)
+            {
+                // state
+                current->content->type = HEREDOC;
+                current->content->priority = 2;
+            }
+            else if (next->content->type == ENDLINE)
+            {
+                state = 0;
+                current->content->type = ENDLINE;
+                current->content->priority = 3;
+            }
+            else
+            {
+                state = 0;
+                current->content->type = CMD;
+                current->content->priority = 0;
+            }
+        }
+        current = current->next;
+        next = current->next;
     }
-    return (list);
+    return (state);
 }

@@ -12,6 +12,22 @@
 
 #include "minishell.h"
 
+// I create a list of tokens for the DFA
+t_list_token token_list(t_token *token)
+{
+    t_list_token *new;
+    t_list_token *head;
+    
+    new = (t_list_token *)malloc(sizeof(t_list_token));
+    if (!new)
+        exit(1);
+    head = new;
+    new->content = token;
+    new->next = NULL;
+    return (head);
+}
+
+// This function will determine the type of token
 void token_typer (t_token *token)
 {    
 	int	i;

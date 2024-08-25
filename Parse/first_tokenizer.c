@@ -130,13 +130,23 @@ char **token_split(t_token *token)
 }
 
 // Gives the split read to each token for typing
-void token_read_filler(t_token token)
+void token_read_filler(t_token token, t_list_token *head)
 {
     int i = 0;
     char **tokens = token_split(&token);
     while (tokens[i]) 
     {
         token.read = tokens[i];
+        i++;
+    }
+
+    // Put the tokens in the array to the list for easier work of the DFA
+    i = 0;
+    while (tokens[i]) 
+    {
+        head->content = tokens[i];
+        head = head->next;
+        head->next = NULL;
         i++;
     }
 }

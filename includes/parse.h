@@ -54,5 +54,12 @@ typedef struct s_list_env
 	struct s_list	*next;
 }	t_list_env;
 
+typedef struct s_list_token
+{
+	t_token				*content;
+	struct t_list_token	*next;
+}	t_list_token;
+
+
 char	**token_maker(t_token *token, char **env);
 void	token_typer(t_token *token);
