@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 19:49:37 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/23 19:47:39 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:48:24 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,49 @@
 
 // Deterministic Finite Automaton
 // It will do the sintax analysis of the tokens
+// End state 0 is success and 1 is syntax error
 
 // !!!!!!!!
 // FIXME: This is a draft, it needs to be reviewed
 // !!!!!!!!
+
+int dfa_body(t_list_token *current, t_list_token *next, int state)
+{
+    //First start and state 1
+    if (state == 0)
+    {
+        if (current == NULL)
+            return (1);
+        if (current->content->type == CMD)
+            {
+                state = 3;
+                return (state);
+            }
+        if (current->content->type == REDIR || current->content->type == APPEND || current->content->type == HEREDOC)
+            {
+                state = 2;
+                return (state);
+            }
+        else
+            return (-1);
+    }
+    
+    // State 2
+    if (state == 2)
+        {
+            if(current->content->type == CMD)
+                {
+                    state = 3;
+                    return (state);
+                }
+            else
+                return (-1);
+        }
+}
+
 int dfa_main (t_list_token *token_list)
 {
-¡   t_list_token *head = token_list;
+    t_list_token *head = token_list;
     t_list_token *current = head;
     t_list_token *next = head->next;
     int state = 0;
@@ -30,48 +66,9 @@ int dfa_main (t_list_token *token_list)
         return (state);
     
     // Real DFA process REVIEW THIS
-    while (current->next)
+    while (current->next != NULL)
     {
-        if (current->content->type == CMD)
-        {
-            state = 0;
-            if (next->content->type == PIPE)
-            {
-                state = 1;
-                current->content->type = PIPE;
-                current->content->priority = 1;
-            }
-            else if (next->content->type == REDIR)
-            {
-                // state
-                current->content->type = REDIR;
-                current->content->priority = 2;
-            }
-            else if (next->content->type == APPEND)
-            {
-                state = 1;
-                current->content->type = APPEND;
-                current->content->priority = 2;
-            }
-            else if (next->content->type == HEREDOC)
-            {
-                // state
-                current->content->type = HEREDOC;
-                current->content->priority = 2;
-            }
-            else if (next->content->type == ENDLINE)
-            {
-                state = 0;
-                current->content->type = ENDLINE;
-                current->content->priority = 3;
-            }
-            else
-            {
-                state = 0;
-                current->content->type = CMD;
-                current->content->priority = 0;
-            }
-        }
+        dfa_body(current, next, &state);            
         current = current->next;
         next = current->next;
     }
