@@ -52,7 +52,47 @@ int dfa_body(t_list_token *current, t_list_token *next, int state)
             else
                 return (-1);
         }
+    // State 3
+    if (state == 3)
+    {
+        if (current->content->type == CMD)
+            {
+                state = 3;
+                return (state);
+            }
+        if (current->content->type == REDIR || current->content->type == APPEND ||
+            current->content->type == HEREDOC)
+            {
+                state = 2;
+                return (state);
+            }
+        if (current->content->type == PIPE)
+            {
+                state = 4;
+                return (state);
+            }
+    }
+
+    // State 4
+    if (state == 4)
+    {
+        if (current->content->type == CMD)
+            {
+                state = 3;
+                return (state);
+            }
+        if (current->content->type == REDIR || current->content->type == APPEND ||
+            current->content->type == HEREDOC)
+            {
+                state = 2;
+                return (state);
+            }
+        else
+            return (-1);
+    }
 }
+
+// Final of the DFA
 
 int dfa_main (t_list_token *token_list)
 {
