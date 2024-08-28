@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:02:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/23 18:55:55 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:51:52 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ void first_env(char **env)
         exit(1);
 }
 
-t_list_env env_parse(char **env, t_list_env env_list)
+t_list_env env_parse(char **env)
 {
+    t_list_env *env_list;
+
+    ft_calloc(1, sizeof(t_list_env));
     first_env(env);
     
     // Get the environment variables
@@ -47,4 +50,5 @@ t_list_env env_parse(char **env, t_list_env env_list)
         new->next = NULL;
         i++;
     }
+    return (env_list);
 }

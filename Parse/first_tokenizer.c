@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:21:19 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/23 12:40:05 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:03:47 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,20 +126,15 @@ char **token_split(t_token *token)
         }
     }
     tokens[j] = NULL; // Null-terminate the token array
-    return tokens;
+    return (tokens);
 }
 
 // Gives the split read to each token for typing
-void token_read_filler(t_token token, t_list_token *head)
+t_list_token *token_read_filler(t_token token, t_list_token *head)
 {
-    int i = 0;
+    int i;
     char **tokens = token_split(&token);
-    while (tokens[i]) 
-    {
-        token.read = tokens[i];
-        i++;
-    }
-
+    
     // Put the tokens in the array to the list for easier work of the DFA
     i = 0;
     while (tokens[i]) 
@@ -149,4 +144,5 @@ void token_read_filler(t_token token, t_list_token *head)
         head->next = NULL;
         i++;
     }
+    return (head);
 }
