@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/23 12:13:02 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:08:46 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ typedef struct s_node
 
 typedef struct s_list_env
 {
-	char			*content;
-	struct s_list	*next;
+	char				*content;
+	struct s_list_env	*next;
 }	t_list_env;
 
 char	**token_maker(t_token *token, char **env);

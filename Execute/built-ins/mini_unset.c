@@ -12,17 +12,39 @@
 
 #include "minishell.h"
 
-char **mini_unset(char **env, t_token *token)
+void	del_node(t_list_env *env)
 {
-    int i;
-    char    *unset_var;
-    char    **result;
-    
-    unset_var = get_env(token->argument[1]);
-    while(env[i])
-    {
-        if (ft_strcmp(token->argument[1], unset_var) == 0)
-            i++;
-        i++;
-    }
+	t_list_env	*node_delete;
+
+	if (env == NULL || env->next == NULL)
+		return ;
+	node_delete = env->next;
+	env->next = node_delete->next;
+	if (node_delete->content != NULL)
+	{
+		free(node_delete->content);
+		node_delete->content = NULL;
+	}
+	free (node_delete);
+}
+
+int	mini_unset(t_list_env *env, t_token *token)
+{
+	char		*unset_var;
+	t_list_env	*current;
+
+	current = env;
+	unset_var = ft_strjoin(token->argument[1], "=");
+	unset_var = ft_strjoin(unset_var, getenv (token->argument[1]));
+	while (current && current->next)
+	{
+		if (ft_strcmp (current->next->content, unset_var) == 0)
+		{
+			del_node(current);
+			continue ;
+		}
+		current = current->next;
+	}
+	free(unset_var);
+	return (0);
 }
