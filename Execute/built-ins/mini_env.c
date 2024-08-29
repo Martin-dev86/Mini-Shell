@@ -12,15 +12,15 @@
 
 #include "minishell.h"
 
-int	mini_env(t_list *env)
+int	mini_env(t_list_env *env)
 {
-	char	*current_env;
+	t_list_env	*current_env;
 
-	current_env = *env;
-	while (current_env->next != NULL)
+	current_env = env;
+	while (current_env)
 	{
-		printf("%s\n", env->content);
-		env->next 
+		printf("%s\n", current_env->content);
+		current_env = current_env->next;
 	}
 	return (0);
 }

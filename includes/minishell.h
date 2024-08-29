@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/23 12:18:48 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:47:18 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,16 @@
 # define RESET		"\x1b[0m"
 # define CLEAR		"\033[2J"
 
-char	*get_pwd(void);
-int		mini_pwd(t_son *son, t_token *token);
-int		execute(t_token *token, t_son *son, char **env);
-int		execute_builtins(t_token *token, t_son *son, char **env);
-void	print_ast(t_node *root);
-int		mini_echo(t_son *son, t_token *token);
-int		mini_redirect(t_token *token, t_son *son);
-int		mini_env(t_list *env);
+char		*get_pwd(void);
+int			mini_pwd(t_son *son, t_token *token);
+int			execute(t_token *token, t_son *son, t_list_env *env);
+int			execute_builtins(t_token *token, t_son *son, t_list_env *env);
+void		print_ast(t_node *root);
+int			mini_echo(t_son *son, t_token *token);
+int			mini_redirect(t_token *token, t_son *son);
+int			mini_env(t_list_env *env);
+int			mini_unset(t_list_env *env, t_token *token);
+int			mini_export(t_list_env *env, t_token *token);
+t_list_env	*env_parse(char **env);
 
 #endif
