@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/28 11:10:51 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/08/29 10:57:24 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ int main_parser(int argc, char **argv, char **env, t_token *token)
         exit (1);
     }
 
-    //parse the token list semantically
+    // parse the token list semantically
+    
+    // create the AST
+    
         
 }
