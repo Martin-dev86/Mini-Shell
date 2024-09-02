@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 18:44:12 by cagarci2          #+#    #+#             */
-/*   Updated: 2023/09/22 18:44:12 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/31 16:10:28 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@ int	ft_strlen(const char *c)
 	int	i;
 
 	i = 0;
-	while (*c)
-	{
-		c++;
+	while (c[i])
 		i++;
-	}
 	return (i);
 }

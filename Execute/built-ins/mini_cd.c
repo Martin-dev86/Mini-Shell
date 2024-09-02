@@ -12,3 +12,14 @@
 
 #include "minishell.h"
 
+int	mini_cd(t_token *token)
+{
+	if (!token->argument[1])
+		return (1);
+	if (chdir(token->argument[1]) == -1)
+	{
+		perror("cd");
+		return (1);
+	}
+	return (0);
+}
