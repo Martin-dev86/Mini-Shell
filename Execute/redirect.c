@@ -12,16 +12,17 @@
 
 #include "minishell.h"
 
-int mini_redirect(t_token *token, t_son *son)
+int	mini_redirect(t_token *token, t_son *son)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < token->len)
-	{	
+	while (i < token->len)
+	{
 		if (ft_strcmp(token->argument[i], ">") == 0)
 		{
-			son->fd_out = open(token->argument[i + 1], O_TRUNC | O_CREAT | O_RDWR, 0644);
+			son->fd_out = open(token->argument[i + 1], O_TRUNC | O_CREAT
+					| O_RDWR, 0644);
 			if (son->fd_out < 0)
 			{
 				perror("output");

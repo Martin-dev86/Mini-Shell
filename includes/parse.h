@@ -6,10 +6,19 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/28 13:08:46 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:57:54 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <memory.h>
+# include <stdint.h>
+# include <stddef.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <limits.h>
 typedef enum e_type
 {
 	NONE,
@@ -51,6 +60,8 @@ typedef struct s_node
 typedef struct s_list_env
 {
 	char				*content;
+	int					len;
+	size_t				variable_len;
 	struct s_list_env	*next;
 }	t_list_env;
 

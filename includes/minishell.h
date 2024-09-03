@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/03 01:00:47 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:06:44 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,10 @@ int			mini_env(t_list_env *env);
 int			mini_unset(t_list_env *env, t_token *token);
 int			mini_export(t_list_env *env, t_token *token);
 t_list_env	*env_parse(char **env);
-int         mini_cd(t_token *token);
+int			mini_cd(t_token *token, t_list_env *env);
+void		mini_sort(t_list_env *sorted_current, t_list_env *current);
+t_list_env	*mini_lstnew(void *content);
+t_list_env	*mini_lstlast(t_list_env *lst);
+void		mini_lstadd_back(t_list_env **lst, t_list_env *new);
+int			mini_strlen(const char *c);
 #endif
