@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/23 12:09:48 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:08:13 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,22 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	t_token	*token;
-	t_son	*son;
-	int		i;
+	t_token		*token;
+	t_son		*son;
+	int			i;
+	t_list_env	*result;
 
 	i = 0;
 	(void)argc;
 	(void)argv;
+	result = (t_list_env *)malloc(sizeof(t_list_env));
 	son = malloc(sizeof(t_son));
 	if (son == NULL)
 	{
 		perror ("malloc");
 		exit (1);
 	}
+	result = env_parse(env);
 	while (1)
 	{
 		token = calloc(1, sizeof(t_token));
@@ -102,7 +105,7 @@ int	main(int argc, char **argv, char **env)
 		token_typer(token);
 		//pwd_node = make_tree();
 		//print_ast(pwd_node);
-		execute(token, son, env);
+		execute(token, son, result);
 		add_history(token->read);
 	}
 	return (0);

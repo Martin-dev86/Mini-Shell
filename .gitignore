@@ -69,3 +69,5 @@ cmake-build-*/
 *.su
 *.idb
 *.pdb
+
+minishell
