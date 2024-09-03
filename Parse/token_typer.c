@@ -6,14 +6,14 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:50:05 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/23 19:45:01 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:14:42 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // I create a list of tokens for the DFA
-t_list_token token_list(t_token *token)
+t_list_token *token_list(t_token *token)
 {
     t_list_token *new;
     t_list_token *head;

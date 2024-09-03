@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 19:49:37 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/28 11:08:01 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:02:59 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // FIXME: This is a draft, it needs to be reviewed
 // !!!!!!!!
 
-int dfa_body(t_list_token *current, t_list_token *next, int state)
+int dfa_body(t_list_token *current, int state)
 {
     //First start and state 1
     if (state == 0)
@@ -98,9 +98,8 @@ int dfa_main (t_list_token *token_list)
 {
     t_list_token *head = token_list;
     t_list_token *current = head;
-    t_list_token *next = head->next;
+    
     int state = 0;
-
     // Start the DFA
     if (token_list == NULL)
         return (state);
@@ -108,9 +107,8 @@ int dfa_main (t_list_token *token_list)
     // Real DFA process REVIEW THIS
     while (current->next != NULL)
     {
-        dfa_body(current, next, &state);            
+        dfa_body(current, &state);            
         current = current->next;
-        next = current->next;
     }
     
     // Check the dfa final state
