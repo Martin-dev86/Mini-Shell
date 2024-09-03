@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 19:49:37 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/02 18:02:59 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:28:32 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 // Deterministic Finite Automaton
 // It will do the sintax analysis of the tokens
 // End state 0 is success and 1 is syntax error
-
-// !!!!!!!!
-// FIXME: This is a draft, it needs to be reviewed
-// !!!!!!!!
 
 int dfa_body(t_list_token *current, int state)
 {
@@ -71,6 +67,8 @@ int dfa_body(t_list_token *current, int state)
                 state = 4;
                 return (state);
             }
+        else
+            return (-1);
     }
 
     // State 4

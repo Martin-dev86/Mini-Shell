@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:50:05 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/02 18:14:42 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:30:05 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ void token_typer (t_token *token)
 	{	
 		if (ft_strcmp(token->argument[i], "|") == 0)
 			token->type = PIPE;
-		if (ft_strcmp(token->argument[i], ">") == 0)
+		else if (ft_strcmp(token->argument[i], ">") == 0)
 			token->type = REDIR;
-		if (ft_strcmp(token->argument[i], "<") == 0)
+		else if (ft_strcmp(token->argument[i], "<") == 0)
 			token->type = REDIR;
-		if (ft_strcmp(token->argument[i], ">>") == 0)
+		else if (ft_strcmp(token->argument[i], ">>") == 0)
 			token->type = APPEND;
-		if (ft_strcmp(token->argument[i], "<<") == 0)
+		else if (ft_strcmp(token->argument[i], "<<") == 0)
 			token->type = HEREDOC;
-		if (ft_strcmp(token->argument[i], "\n") == 0)
+		else if (ft_strcmp(token->argument[i], "\n") == 0) // Maybe this is not neeeded now
 			token->type = ENDLINE;
 		else
-			token->type = BUILTIN;
+			token->type = CMD;
 		i++;
 	}
 }

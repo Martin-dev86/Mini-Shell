@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/29 10:57:24 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:49:55 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ int main_parser(int argc, char **argv, char **env, t_token *token)
     
     // create the AST
     
-        
+    return (0);
 }
