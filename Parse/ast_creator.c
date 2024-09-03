@@ -6,34 +6,85 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:57:35 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/29 13:01:45 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:15:13 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Prototype to create all the nodes in a while
-// Then all the nodes are parsed to create the definitive AST
-t_node *node_creator(t_list_token *token_list)
-{
-    t_node *node;
+#include "minishell.h"
 
-    node = ft_calloc(1, sizeof(t_node));
-    node->operation = token_list->content;
-    node->left = NULL;
-    node->right = NULL;
+// Create a new AST node
+t_node *create_ast_node(t_token *operation, t_node *left, t_node *right)
+{
+    t_node *node = (t_node *)malloc(sizeof(t_node));
+    if (node == NULL) 
+    {
+        printf("Error: memory allocation failed\n");
+        exit(1);
+    }
+    node->operation = operation;
+    node->left = left;
+    node->right = right;
+    node->n_childs = (left ? 1 : 0) + (right ? 1 : 0);
     return (node);
 }
 
-//Main AST creator taht returns the root node
-t_node    *ast_creator(t_list_token *token_list)
+// Parse the factor and build the AST
+// A factor is either a command or an argument
+// !!!!!!!!!!!!!!!!!!!!!!!!!
+// ARG is not implemented yet
+t_node *parse_factor(t_list_token **current)
 {
-    t_node	*ast;
-    int i;
+    t_node *node = NULL;
+    if ((*current)->content->type == CMD || (*current)->content->type == ARG) 
+    {
+        node = create_ast_node((*current)->content, NULL, NULL);
+        *current = (*current)->next;
+    } 
+    else 
+    {
+        printf("Syntax error: expected a command or argument\n");
+        exit(1);
+    }
+    return (node);
+}
 
-    i = 0;
-    ast = ft_calloc(1, sizeof(t_node));
-    //while ()
+// Parse the term and build the AST
+// A term is a factor followed by zero or more redirections
+t_node *parse_term(t_list_token **current) 
+{
+    t_node *node = parse_factor(current);
+    while (*current && ((*current)->content->type == REDIR || (*current)->content->type == APPEND || (*current)->content->type == HEREDOC)) 
+    {
+        t_token *operation = (*current)->content;
+        *current = (*current)->next;
+        node = create_ast_node(operation, node, parse_factor(current));
+    }
+    return node;
+}
 
-    return (ast);
+// Parse the expression and build the AST
+// An expression is a term followed by zero or more pipes
+t_node *parse_expression(t_list_token **current) 
+{
+    t_node *node = parse_term(current);
+    while (*current && (*current)->content->type == PIPE) 
+    {
+        t_token *operation = (*current)->content;
+        *current = (*current)->next;
+        node = create_ast_node(operation, node, parse_term(current));
+    }
+    return node;
+}
+
+// Main AST creator that returns the root node
+t_node *ast_creator(t_list_token *token_list)
+{
+    t_node *ast;
+    t_list_token *current = token_list;
+    
+    ast = parse_expression(&current);
+
+    return ast;
 }

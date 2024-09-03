@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/03 10:49:55 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:06:16 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main_parser(int argc, char **argv, char **env, t_token *token)
 
     final_state = 0;
     ft_calloc(1, sizeof(t_list_env));
-    env_list = env_parse(env, *env_list);
+    env_list = env_parse(env);
     token_list = token_read_filler(token, token_list);
     dfa_main(token_list);
     
