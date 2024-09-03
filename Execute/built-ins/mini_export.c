@@ -12,6 +12,15 @@
 
 #include "minishell.h"
 
+int	mini_strlen(const char *c)
+{
+	int	i;
+
+	i = 0;
+	while (c[i] != '=')
+		i++;
+	return (i);
+}
 t_list_env	*mini_lstnew(void *content)
 {
 	t_list_env	*new;
@@ -50,30 +59,62 @@ void	mini_lstadd_back(t_list_env *lst, t_list_env *new)
 		}
 	}
 }
+t_list_env	*mini_sort(t_list_env *current)	
+{
+	t_list_env	*new_node;
+	t_list_env	*sorted_env;
+
+	sorted_env = NULL;
+	while (current)
+	{
+		new_node = mini_lstnew(ft_strdup(current->content));
+		mini_lstadd_back(sorted_env, new_node);
+		current = current->next;
+	}
+	return(sorted_env); 
+}
 
 int	mini_export(t_list_env *env, t_token *token)
 {
 	t_list_env	*promp;
 	t_list_env	*current;
+	t_list_env	*sorted_current;
 	char		*temp;
+	size_t		j;
+	int			swapped;
 	int			i;
 
 	i = 0;
-	while (token->read[i])
+	while (token->argument[i])
 		i++;
 	if (i == 1)
 	{
-		while (current)
+		current = env;
+		swapped = 1;
+		while (swapped)
 		{
-			if (ft_strcmp(current->content, current->next->content) < 0)
+			swapped = 0;
+			sorted_current = mini_sort(current);
+			while (current && current->next)
 			{
-				temp = current->next->content;
-				current->next->content = current->content;
-				current->content = temp;
+				j = mini_strlen(current->content);
+				if (ft_strncmp(current->content, current->next->content, j) > 0)
+				{
+					temp = current->content;
+					current->content = current->next->content;
+					current->next->content = temp;
+					swapped = 1;
+				}
+				current = current->next;
 			}
-			current = current->next;
 		}
-		i = mini_env(env);
+		current = sorted_current;
+	while(current && current->next)
+	{	
+		printf("declare -x %s\n", current->content);
+		current = current->next;
+	}
+		return (0);
 	}
 	promp = mini_lstnew(token->argument[1]);
 	mini_lstadd_back(env, promp);

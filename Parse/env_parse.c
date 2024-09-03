@@ -6,9 +6,16 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:02:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/29 10:29:57 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:15:54 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
+
+
+
+
 
 #include "minishell.h"
 
@@ -38,7 +45,7 @@ t_list_env	*env_parse(char **env)
 	t_list_env	*current;
 	int			i;
 
-	first_env(env);
+	//first_env(env);
 	head = NULL;
 	new = NULL;
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/28 18:47:35 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/03 01:01:25 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	execute_builtins(t_token *token, t_son *son, t_list_env *env)
 		mini_echo(son, token);
 	if (ft_strcmp(token->argument[0], "unset") == 0)
 		mini_unset(env, token);
+	if (ft_strcmp(token->argument[0], "cd") == 0)
+		mini_cd(token);
 	if (ft_strcmp(token->argument[0], "export") == 0)
 		mini_export(env, token);
 	if (ft_strcmp(token->argument[0], "env") == 0)

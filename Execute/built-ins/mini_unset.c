@@ -32,13 +32,14 @@ int	mini_unset(t_list_env *env, t_token *token)
 {
 	char		*unset_var;
 	t_list_env	*current;
+	size_t		len;
 
 	current = env;
 	unset_var = ft_strjoin(token->argument[1], "=");
-	unset_var = ft_strjoin(unset_var, getenv (token->argument[1]));
+	len = ft_strlen(unset_var);
 	while (current && current->next)
 	{
-		if (ft_strcmp (current->next->content, unset_var) == 0)
+		if (ft_strncmp (current->next->content, unset_var, len) == 0)
 		{
 			del_node(current);
 			continue ;
