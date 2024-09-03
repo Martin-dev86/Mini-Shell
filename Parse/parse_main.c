@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/03 12:06:16 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:02:55 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int main_parser(int argc, char **argv, char **env, t_token *token)
 {
     t_list_env *env_list;
     t_list_token *token_list;
+    t_node *ast;
     int final_state;
 
     final_state = 0;
@@ -31,9 +32,10 @@ int main_parser(int argc, char **argv, char **env, t_token *token)
         exit (1);
     }
 
-    // parse the token list semantically
-    
     // create the AST
+    ast = ast_creator(token_list);
     
+    // parse the AST and expand the variables
+
     return (0);
 }
