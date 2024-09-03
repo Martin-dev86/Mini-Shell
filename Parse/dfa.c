@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 19:49:37 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/03 10:28:32 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:14:26 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int dfa_main (t_list_token *token_list)
         dfa_body(current, &state);            
         current = current->next;
     }
-    
     // Check the dfa final state
     return (state);
 }
