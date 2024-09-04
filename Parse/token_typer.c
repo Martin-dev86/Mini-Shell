@@ -19,7 +19,7 @@ void token_list_typer (t_list_token *token_list)
 	t_list_token * head;
 
 	head = token_list;
-    while(token_list->next != NULL)
+    while(token_list)
 	{	
 		if (ft_strcmp(token_list->content->read, "|") == 0)
 			token_list->content->type = PIPE;
