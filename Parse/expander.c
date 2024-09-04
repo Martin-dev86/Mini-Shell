@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:21:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/04 15:20:23 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:51:11 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,19 @@ t_node *expand_tree(t_node *ast, t_list_env *env)
                 {
                     new->operation->type = CMD;
                     new->operation->read = ft_strdup(env->content);
-                    new->left = NULL;
-                    new->right = NULL;
-                    return (new);
                 }
                 env = env->next;
             }
         }
+        else
+            {
+                if (ast->operation->type == CMD)
+                {
+                    new->operation->type = CMD;
+                    new->operation->read = strcat("/bin/", ast->operation->read);
+                    // Fix this better
+                }
+            }
     }
     else if (ast->operation->type == REDIR || ast->operation->type == APPEND || ast->operation->type == HEREDOC)
     {
