@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:21:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/04 10:29:28 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:20:23 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@
 t_node *expand_tree(t_node *ast, t_list_env *env)
 {
     t_node *new;
-    int i;
     
-    i = 0;
     new = (t_node *)malloc(sizeof(t_node));
     if (!new)
         exit(1);
@@ -47,14 +45,15 @@ t_node *expand_tree(t_node *ast, t_list_env *env)
     {
         new->operation->type = ast->operation->type;
         new->operation->read = ft_strdup(ast->operation->read);
-        new->left = expand_tree(ast->left);
-        new->right = expand_tree(ast->right);
+        new->left = expand_tree(ast->left, env);
+        new->right = expand_tree(ast->right, env);
     }
+    return (new);
 }
 
 // This function will expand the tree
 // This returns the final tree to take to the executor
-t_node *final_tree (t_node ast)
+t_node *final_tree (t_node *ast, t_list_env *env)
 {
     t_node *new;
     t_node *head;
@@ -63,6 +62,6 @@ t_node *final_tree (t_node ast)
     head = new;
     if (!new)
         exit(1);
-    new = expand_tree(&ast);
+    new = expand_tree(ast, env);
     return (head);
 }

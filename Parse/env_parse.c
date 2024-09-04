@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:02:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/04 10:49:31 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:33:16 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	first_env(char **env)
 {
-	if (env == NULL)
+	// Only keep the first if
+	if (env == NULL || *env == NULL)
 		ft_exit ("NO ENV",128);
 	else if (!getenv("PATH"))
 		ft_exit("NO PATH", EXIT_FAILURE);
@@ -35,7 +36,7 @@ t_list_env	*env_parse(char **env)
 	t_list_env	*current;
 	int			i;
 
-	//first_env;
+	first_env(env);
 	head = NULL;
 	new = NULL;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/04 11:11:39 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:19:12 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,26 @@ typedef struct s_list_env
 typedef struct s_list_token
 {
 	t_token				*content;
-	struct t_list_token	*next;
+	struct s_list_token	*next;
 }	t_list_token;
 
+// Exit function
+void		    ft_exit(char *str, int code);
+
 // Tokenizer
-void	token_typer(t_token *token);
+void			token_typer(t_token *token);
+t_list_token	*token_read_filler(t_token token, t_list_token *head);
 
 // DFA
-int dfa_main (t_list_token *token_list);
+int 			dfa_main (t_list_token *token_list);
+
+// Expander
+t_node 			*expand_tree(t_node *ast, t_list_env *env);
 
 // AST creator
-t_node *ast_creator(t_list_token *token_list);
-t_node *final_tree (t_node ast);
+t_node 			*ast_creator(t_list_token *token_list);
+t_node 			*final_tree (t_node *ast, t_list_env *env);
 
-// Exit function
-void    ft_exit(char *str, int code);
+// Main parser
+int 			main_parser(char **env, t_token *token);
+

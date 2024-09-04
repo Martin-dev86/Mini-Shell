@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 19:49:37 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/03 16:14:26 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:16:20 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int dfa_body(t_list_token *current, int state)
         else
             return (-1);
     }
+    return (state);
 }
 
 // Final of the DFA
@@ -105,7 +106,7 @@ int dfa_main (t_list_token *token_list)
     // Real DFA process REVIEW THIS
     while (current->next != NULL)
     {
-        dfa_body(current, &state);            
+        dfa_body(current, state);            
         current = current->next;
     }
     // Check the dfa final state

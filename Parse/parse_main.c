@@ -6,13 +6,13 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/04 11:07:22 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:18:49 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main_parser(int argc, char **argv, char **env, t_token *token)
+int main_parser(char **env, t_token *token)
 {
     t_list_env *env_list;
     t_list_token *token_list;
@@ -20,10 +20,14 @@ int main_parser(int argc, char **argv, char **env, t_token *token)
     int final_state;
 
     final_state = 0;
-    ft_calloc(1, sizeof(t_list_env));
+
+    // Check the environment variables
+    // Should only be done once so maybe I have to take it out of here
+    env_list = ft_calloc(1, sizeof(t_list_env));
     env_list = env_parse(env);
     
-    token_list = token_read_filler(token, token_list);
+    token_list = ft_calloc(1, sizeof(t_list_token));
+    token_list = token_read_filler(*token, token_list);
     
     // Check for an empty token list / command
     if (token_list == NULL)
@@ -36,11 +40,13 @@ int main_parser(int argc, char **argv, char **env, t_token *token)
         ft_exit ("Syntax FAILURE",EXIT_FAILURE);
 
     // Create the AST
-    if (ast = ast_creator(token_list)  == NULL)
+    ast = ast_creator(token_list);
+    if ( ast == NULL)
         ft_exit("AST FAILURE",EXIT_FAILURE);
     
     // Parse the AST and expand the variables
-    if (ast = expand_tree(ast, env_list)  == NULL)
+    ast = final_tree(ast, env_list);
+    if ( ast== NULL)
         ft_exit("EXPAND FAILURE",EXIT_FAILURE);
         
     return (EXIT_SUCCESS);
