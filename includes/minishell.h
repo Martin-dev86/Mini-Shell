@@ -45,17 +45,6 @@
 # define RESET		"\x1b[0m"
 # define CLEAR		"\033[2J"
 
-<<<<<<< HEAD
-char	*get_pwd(void);
-int		mini_pwd(t_son *son, t_token *token);
-int		execute(t_token *token, t_son *son, char **env);
-int		execute_builtins(t_token *token, t_son *son, char **env);
-void	print_ast(t_node *root);
-int		mini_echo(t_son *son, t_token *token);
-int		mini_redirect(t_token *token, t_son *son);
-int		mini_env(t_list *env);
-int		mini_cd(t_list_env *env, t_token *token);
-=======
 char		*get_pwd(void);
 int			mini_pwd(t_son *son, t_token *token);
 int			execute(t_token *token, t_son *son, t_list_env *env);
@@ -73,5 +62,4 @@ t_list_env	*mini_lstnew(void *content);
 t_list_env	*mini_lstlast(t_list_env *lst);
 void		mini_lstadd_back(t_list_env **lst, t_list_env *new);
 int			mini_strlen(const char *c);
->>>>>>> origin/Master
 #endif
