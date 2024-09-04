@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:21:19 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/04 15:12:32 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:07:01 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,13 +149,15 @@ t_list_token *token_read_filler(t_token token, t_list_token *head)
         new_token->read = tokens[i];
         current->content = new_token;
         
-        if (tokens[i + 1]) {
+        if (tokens[i + 1]) 
+        {
             current->next = malloc(sizeof(t_list_token));
             if (!current->next)
                 return NULL; // Handle memory allocation failure
             current = current->next;
             current->next = NULL;
         }
+        
         i++;
     }
     return head;

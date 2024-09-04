@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/04 15:18:49 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:08:47 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,22 @@ int main_parser(char **env, t_token *token)
     
     token_list = ft_calloc(1, sizeof(t_list_token));
     token_list = token_read_filler(*token, token_list);
+    token_list_typer(token_list);
     
     // Check for an empty token list / command
     if (token_list == NULL)
         exit (EXIT_SUCCESS);
     
+    // The DFA is not doing his job correctly
     final_state = dfa_main(token_list);
     
-    // Check if the token list is syntactically correct
-    if (final_state <= 0 || final_state == 2 || final_state == 4)
-        ft_exit ("Syntax FAILURE",EXIT_FAILURE);
+    //Delete the line below, the dfa fails with state 0
+    printf("Final state: %d\n", final_state);
 
+    // Check if the token list is syntactically correct
+    if ( final_state <= 0 || final_state == 2 || final_state == 4)
+        ft_exit ("Syntax FAILURE",EXIT_FAILURE);
+        
     // Create the AST
     ast = ast_creator(token_list);
     if ( ast == NULL)

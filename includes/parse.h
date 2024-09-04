@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/04 15:19:12 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:09:10 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+
 typedef enum e_type
 {
 	NONE,
@@ -75,7 +76,7 @@ typedef struct s_list_token
 void		    ft_exit(char *str, int code);
 
 // Tokenizer
-void			token_typer(t_token *token);
+void			token_list_typer (t_list_token *token_list);
 t_list_token	*token_read_filler(t_token token, t_list_token *head);
 
 // DFA

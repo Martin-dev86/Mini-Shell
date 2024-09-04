@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 19:49:37 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/04 15:16:20 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:42:54 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,18 @@ int dfa_main (t_list_token *token_list)
     int state = 0;
     // Start the DFA
     if (token_list == NULL)
-        return (state);
+        return (0);
     
     // Real DFA process REVIEW THIS
     while (current->next != NULL)
     {
-        dfa_body(current, state);            
+        state = dfa_body(current, state);    
+        
+        //DELETE
+        printf("Token content: %s\n", current->content->read);
+        printf("Token type: %d\n", current->content->type);
+        printf("State: %d\n", state);   
+        //UNTIL HERE     
         current = current->next;
     }
     // Check the dfa final state

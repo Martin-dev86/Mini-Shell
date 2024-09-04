@@ -6,7 +6,7 @@
 #    By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/22 12:45:34 by cagarci2          #+#    #+#              #
-#    Updated: 2024/09/04 13:00:27 by jeandrad         ###   ########.fr        #
+#    Updated: 2024/09/04 18:05:20 by jeandrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,10 @@ READLINE = -lreadline -ltinfo
 
 LIBS	= $(LIBFT)/libft.a
 SRC_FILES =		$(shell find $(SRC_DIR) -name '*.c')
-OBJ_SRC		=	Execute/redirect.o Execute/execute.o Parse/ft_exit.o Parse/env_parse.o Parse/tokenizer.o Parse/dfa.o Parse/list.o \
-				Parse/ast_creator.o Parse/expander.o \
-				Execute/built-ins/mini_pwd.o Execute/built-ins/mini_unset.o Execute/built-ins/mini_export.o Execute/built-ins/mini_env.o \
-				Execute/built-ins/mini_echo.o Execute/built-ins/mini_cd.o Parse/token_typer.o Parse/parse_main.o main.o Print_tree.o
+OBJ_SRC		=	Execute/redirect.o Execute/execute.o Parse/ft_exit.o Parse/env_parse.o Parse/token_typer.o Parse/tokenizer.o\
+				Parse/parse_main.o Parse/dfa.o Parse/list.o Parse/ast_creator.o Parse/expander.o \
+				Execute/built-ins/mini_pwd.o Execute/built-ins/mini_unset.o Execute/built-ins/mini_export.o \
+				Execute/built-ins/mini_env.o Execute/built-ins/mini_echo.o Execute/built-ins/mini_cd.o  main.o Print_tree.o
 
 HEADER_DIR	=	includes
 HEADER_SRCS	=	minishell.h \
