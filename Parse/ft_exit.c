@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast_utils.c                                        :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 12:01:42 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/29 12:06:16 by jeandrad         ###   ########.fr       */
+/*   Created: 2024/09/04 10:33:12 by jeandrad          #+#    #+#             */
+/*   Updated: 2024/09/04 10:33:37 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Create a pipe node
-t_node *parse_pipe(t_list_token *token_list)
+void    ft_exit(char *str, int code)
 {
-    
+    ft_putstr_fd(str, 2);
+    exit (code);
 }

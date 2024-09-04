@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:57:35 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/03 12:15:13 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/04 11:02:25 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,11 @@ t_node *ast_creator(t_list_token *token_list)
 {
     t_node *ast;
     t_list_token *current = token_list;
-    
+
+    if (current != NULL)
+        ft_exit("Empty\n", 1);
+
     ast = parse_expression(&current);
 
-    return ast;
+    return (ast);
 }
