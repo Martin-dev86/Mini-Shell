@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/06 17:50:53 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:33:11 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int main_parser(char **env, t_token *token)
 
     // Check the environment variables
     // Should only be done once so maybe I have to take it out of here
-    env_list = ft_calloc(1, sizeof(t_list_env));
+    env_list = ft_calloc(0, sizeof(t_list_env));
     env_list = env_parse(env);
     
-    token_list = ft_calloc(1, sizeof(t_list_token));
+    token_list = ft_calloc(0, sizeof(t_list_token));
     token_list = token_read_filler(*token, token_list);
     token_list_typer(token_list);
     
@@ -46,17 +46,26 @@ int main_parser(char **env, t_token *token)
         
     // Create the AST IT FAILS
     //ast = ft_calloc(1, sizeof(t_node));
-    ast = ast_creator(token_list);
-    if ( ast == NULL)
+
+    
+    // Test to create the AST with an array of tokens
+    char **tokens = token_split(&token);
+    int num_tokens = sizeof(tokens) / sizeof(t_token);
+    // Create the AST
+    t_node *root = ast_creator(tokens, 0, num_tokens - 1);
+
+    if (root == NULL)
         ft_exit("AST FAILURE",EXIT_FAILURE);
+    //Until here
+
     
     // Print the AST to check if it was created correctly
-    print_ast(ast);
+    print_ast(root);
     
     // Parse the AST and expand the variables It FAILS HERE
-    ast = final_tree(ast, env_list);
+    root = final_tree(root, env_list);
     printf("Expander finished!\n");
-    if ( ast== NULL)
+    if ( root== NULL)
         ft_exit("EXPAND FAILURE",EXIT_FAILURE);
         
     return (EXIT_SUCCESS);

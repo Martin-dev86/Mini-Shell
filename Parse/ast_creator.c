@@ -6,89 +6,78 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:57:35 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/06 17:48:37 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:37:47 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-#include "minishell.h"
-
-// Create a new AST node
-t_node *create_ast_node(t_token *operation, t_node *left, t_node *right)
-{
+// Helper function to create a new AST node
+t_node *create_ast_node(t_token *operation) {
     t_node *node = (t_node *)malloc(sizeof(t_node));
-    if (node == NULL) 
-    {
-        printf("Error: memory allocation failed\n");
-        exit(1);
+    if (!node) {
+        perror("malloc failed");
+        exit(EXIT_FAILURE);
     }
     node->operation = operation;
-    printf("Node content: %s\n", operation->read);
-    node->left = left;
-    node->right = right;
-    node->n_childs = (left ? 1 : 0) + (right ? 1 : 0);
-    return (node);
+    node->left = NULL;
+    node->right = NULL;
+    node->n_childs = 0;
+    return node;
 }
 
-// Parse the factor and build the AST
-// A factor is either a command or an argument
-// !!!!!!!!!!!!!!!!!!!!!!!!!
-// ARG is not implemented yet
-t_node *parse_factor(t_list_token **current)
-{
-    t_node *node = NULL;
-    if ((*current)->content->type == CMD || (*current)->content->type == ARG) 
-    {
-        node = create_ast_node((*current)->content, NULL, NULL);
-        *current = (*current)->next;
-    } 
-    else 
-    {
-        printf("Syntax error: expected a command or argument\n");
-        exit(1);
+// Function to find the index of the highest-priority token in the token list
+int find_highest_priority_token(t_token **tokens, int start, int end) {
+    int i;
+    int highest_priority_index = start;
+    for (i = start; i <= end; i++) {
+        if (tokens[i]->priority < tokens[highest_priority_index]->priority) {
+            highest_priority_index = i;
+        }
     }
-    return (node);
+    return highest_priority_index;
 }
 
-// Parse the term and build the AST
-// A term is a factor followed by zero or more redirections
-t_node *parse_term(t_list_token **current) 
+// Recursive function to build the AST
+t_node *ast_creator(t_token *token, int start, int end) 
 {
-    t_node *node = parse_factor(current);
-    while (*current && ((*current)->content->type == REDIR || (*current)->content->type == APPEND || (*current)->content->type == HEREDOC)) 
-    {
-        t_token *operation = (*current)->content;
-        *current = (*current)->next;
-        node = create_ast_node(operation, node, parse_factor(current));
+    if (start > end) {
+        return NULL;
     }
-    return (node);
-}
-
-// Parse the expression and build the AST
-// An expression is a term followed by zero or more pipes
-t_node *parse_expression(t_list_token **current) 
-{
-    t_node *node = parse_term(current);
-    while (*current && (*current)->content->type == PIPE) 
-    {
-        t_token *operation = (*current)->content;
-        *current = (*current)->next;
-        node = create_ast_node(operation, node, parse_term(current));
+    // Find the token with the highest priority (pipes first, then redirections)
+    int highest_priority_index = find_highest_priority_token(tokens, start, end);
+    // Create a node for the highest-priority token
+    t_node *node = create_ast_node(tokens[highest_priority_index]);
+    // If the token is a pipe, its children are commands or other pipes
+    if (tokens[highest_priority_index]->type == PIPE) {
+        node->left = ast_creator(tokens, start, highest_priority_index - 1);
+        node->right = ast_creator(tokens, highest_priority_index + 1, end);
     }
-    return (node);
+    // If the token is a redirection, attach it to the appropriate command node
+    else if (tokens[highest_priority_index]->type == REDIR ||
+             tokens[highest_priority_index]->type == APPEND) {
+        // Redirection affects the right side (file), so left is the command, right is the file
+        node->left = ast_creator(tokens, start, highest_priority_index - 1);
+        node->right = ast_creator(tokens, highest_priority_index + 1, end);
+    }
+    // If it's a command or argument, there may be more tokens to process in a sequential order
+    else if (tokens[highest_priority_index]->type == CMD || tokens[highest_priority_index]->type == ARG) {
+        node->left = ast_creator(tokens, start, highest_priority_index - 1);
+        node->right = ast_creator(tokens, highest_priority_index + 1, end);
+    }
+    return node;
 }
 
-// Main AST creator that returns the root node
-t_node *ast_creator(t_list_token *token_list)
+t_node *final_ast_creator(t_list_token *tokens, int start, int end)
 {
-    t_node *ast;
-    t_list_token *current = token_list;
-
-    if (current == NULL)
-        ft_exit("Empty\n", 1);
-
-    ast = parse_expression(&current);
-
-    return (ast);
+    t_node *root;
+    
+    t_list_token *head = tokens;
+    while (tokens)
+    {
+        root = ft_calloc(0, sizeof(t_node));
+        root = ast_creator(tokens->content, start, end);
+        tokens = tokens->next;
+    }
+    tokens = head;
+    return (root);
 }
