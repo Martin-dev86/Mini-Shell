@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:57:35 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/04 11:02:25 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/06 17:48:37 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_node *create_ast_node(t_token *operation, t_node *left, t_node *right)
         exit(1);
     }
     node->operation = operation;
+    printf("Node content: %s\n", operation->read);
     node->left = left;
     node->right = right;
     node->n_childs = (left ? 1 : 0) + (right ? 1 : 0);
@@ -61,7 +62,7 @@ t_node *parse_term(t_list_token **current)
         *current = (*current)->next;
         node = create_ast_node(operation, node, parse_factor(current));
     }
-    return node;
+    return (node);
 }
 
 // Parse the expression and build the AST
@@ -75,7 +76,7 @@ t_node *parse_expression(t_list_token **current)
         *current = (*current)->next;
         node = create_ast_node(operation, node, parse_term(current));
     }
-    return node;
+    return (node);
 }
 
 // Main AST creator that returns the root node
@@ -84,7 +85,7 @@ t_node *ast_creator(t_list_token *token_list)
     t_node *ast;
     t_list_token *current = token_list;
 
-    if (current != NULL)
+    if (current == NULL)
         ft_exit("Empty\n", 1);
 
     ast = parse_expression(&current);

@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/04 18:08:47 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/06 17:50:53 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,25 @@ int main_parser(char **env, t_token *token)
     // The DFA is not doing his job correctly
     final_state = dfa_main(token_list);
     
-    //Delete the line below, the dfa fails with state 0
+    //Delete the line below, it's just to check the final state
     printf("Final state: %d\n", final_state);
 
     // Check if the token list is syntactically correct
     if ( final_state <= 0 || final_state == 2 || final_state == 4)
         ft_exit ("Syntax FAILURE",EXIT_FAILURE);
         
-    // Create the AST
+    // Create the AST IT FAILS
+    //ast = ft_calloc(1, sizeof(t_node));
     ast = ast_creator(token_list);
     if ( ast == NULL)
         ft_exit("AST FAILURE",EXIT_FAILURE);
     
-    // Parse the AST and expand the variables
+    // Print the AST to check if it was created correctly
+    print_ast(ast);
+    
+    // Parse the AST and expand the variables It FAILS HERE
     ast = final_tree(ast, env_list);
+    printf("Expander finished!\n");
     if ( ast== NULL)
         ft_exit("EXPAND FAILURE",EXIT_FAILURE);
         
