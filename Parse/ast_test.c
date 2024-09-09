@@ -97,9 +97,7 @@ t_list_token *find_highest_priority_token(t_list_token *start, t_list_token *end
 t_node *ast_creator(t_list_token *start, t_list_token *end)
 {
     if (start == NULL || start == end->next)
-    {
         return NULL;
-    }
     printf("ast_creator called with start: %s, end: %s\n",
            start ? start->content->read : "NULL",
            end ? end->content->read : "NULL");

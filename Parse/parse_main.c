@@ -6,11 +6,25 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/07 18:33:11 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:31:43 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+void print_tokens(t_list_token *head)
+{
+    t_list_token *current = head;
+    while (current != NULL)
+    {
+        printf("Token: %s, Type: %d, Priority: %d, Previous: %s, Next: %s\n",
+               current->content->read,
+               current->content->type,
+               current->content->priority,
+               current->prev ? current->prev->content->read : "NULL",
+               current->next ? current->next->content->read : "NULL");
+        current = current->next;
+    }
+}
 
 int main_parser(char **env, t_token *token)
 {
@@ -23,10 +37,10 @@ int main_parser(char **env, t_token *token)
 
     // Check the environment variables
     // Should only be done once so maybe I have to take it out of here
-    env_list = ft_calloc(0, sizeof(t_list_env));
+    env_list = ft_calloc(1, sizeof(t_list_env));
     env_list = env_parse(env);
     
-    token_list = ft_calloc(0, sizeof(t_list_token));
+    token_list = ft_calloc(1, sizeof(t_list_token));
     token_list = token_read_filler(*token, token_list);
     token_list_typer(token_list);
     
@@ -37,36 +51,40 @@ int main_parser(char **env, t_token *token)
     // The DFA is not doing his job correctly
     final_state = dfa_main(token_list);
     
-    //Delete the line below, it's just to check the final state
+    // Delete the line below, it's just to check the final state
     printf("Final state: %d\n", final_state);
 
     // Check if the token list is syntactically correct
-    if ( final_state <= 0 || final_state == 2 || final_state == 4)
-        ft_exit ("Syntax FAILURE",EXIT_FAILURE);
+    if (final_state <= 0 || final_state == 2 || final_state == 4)
+        ft_exit("Syntax FAILURE", EXIT_FAILURE);
         
-    // Create the AST IT FAILS
-    //ast = ft_calloc(1, sizeof(t_node));
+    // Print the token list to check if it was created correctly
+    printf("Printing token list:\n");
+    print_tokens(token_list);
 
-    
-    // Test to create the AST with an array of tokens
-    char **tokens = token_split(&token);
-    int num_tokens = sizeof(tokens) / sizeof(t_token);
     // Create the AST
-    t_node *root = ast_creator(tokens, 0, num_tokens - 1);
+    printf("Creating AST\n");
+    // Find the last token in the list
+    t_list_token *end = token_list;
+    while (end->next != NULL)
+        end = end->next;
+    printf("Start token: %s\n", token_list->content->read);
+    printf("End token: %s\n", end->content->read);
+    // Create the AST
+    ast = ast_creator(token_list, end);
+    printf("Created AST\n");
 
-    if (root == NULL)
-        ft_exit("AST FAILURE",EXIT_FAILURE);
-    //Until here
-
-    
+    if (ast == NULL)
+        ft_exit("AST FAILURE", EXIT_FAILURE);
     // Print the AST to check if it was created correctly
-    print_ast(root);
+    print_ast(ast);
     
-    // Parse the AST and expand the variables It FAILS HERE
-    root = final_tree(root, env_list);
+    // Parse the AST and expand the variables
+    printf("Expanding AST\n");
+    ast = final_tree(ast, env_list);
     printf("Expander finished!\n");
-    if ( root== NULL)
-        ft_exit("EXPAND FAILURE",EXIT_FAILURE);
+    if (ast == NULL)
+        ft_exit("EXPAND FAILURE", EXIT_FAILURE);
         
     return (EXIT_SUCCESS);
 }

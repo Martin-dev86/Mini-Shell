@@ -6,11 +6,38 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:34:56 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/06 12:53:15 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:27:09 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Function to set the prev pointers in the linked list
+void set_prev_pointers(t_list_token *head)
+{
+    t_list_token *current = head;
+    t_list_token *prev = NULL;
+
+    while (current != NULL)
+    {
+        current->prev = prev;
+        prev = current;
+        current = current->next;
+    }
+}
+
+void print_token_links(t_list_token *head)
+{
+    t_list_token *current = head;
+    while (current != NULL)
+    {
+        printf("Token: %s, Previous: %s, Next: %s\n",
+               current->content->read,
+               current->prev ? current->prev->content->read : "NULL",
+               current->next ? current->next->content->read : "NULL");
+        current = current->next;
+    }
+}
 
 //NEW PROBLEM with the quotes, SEG FAULT
 
@@ -186,5 +213,7 @@ t_list_token *token_read_filler(t_token token, t_list_token *head)
         
         i++;
     }
+    set_prev_pointers(head);
+    print_token_links(head);
     return (head);
 }

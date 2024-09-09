@@ -6,15 +6,20 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:57:35 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/09 11:15:21 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:44:23 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-// Helper function to create a new AST node
-t_node *create_ast_node(t_token *operation) {
+
+#include "minishell.h"
+
+// Function to create a new AST node
+t_node *create_ast_node(t_token *operation)
+{
     t_node *node = (t_node *)malloc(sizeof(t_node));
-    if (!node) {
+    if (!node)
+    {
         perror("malloc failed");
         exit(EXIT_FAILURE);
     }
@@ -22,62 +27,66 @@ t_node *create_ast_node(t_token *operation) {
     node->left = NULL;
     node->right = NULL;
     node->n_childs = 0;
+    printf("Created node: %s\n", operation->read); // Add printf statement
     return node;
 }
 
-// Function to find the index of the highest-priority token in the token list
-int find_highest_priority_token(t_token **tokens, int start, int end) {
-    int i;
-    int highest_priority_index = start;
-    for (i = start; i <= end; i++) {
-        if (tokens[i]->priority < tokens[highest_priority_index]->priority) {
-            highest_priority_index = i;
+// Function to find the highest-priority token in the token list
+t_list_token *find_highest_priority_token(t_list_token *start, t_list_token *end)
+{
+    t_list_token *current = start;
+    t_list_token *highest_priority_token = start;
+    while (current != end->next)
+    {
+        if (current->content->priority < highest_priority_token->content->priority)
+        {
+            highest_priority_token = current;
         }
+        current = current->next;
     }
-    return highest_priority_index;
+    return highest_priority_token;
 }
 
 // Recursive function to build the AST
-t_node *ast_creator(t_token *token, int start, int end) 
+t_node *ast_creator(t_list_token *start, t_list_token *end)
 {
-    if (start > end) {
+    if (start == NULL || start == end->next)
+    {
         return NULL;
     }
+    printf("ast_creator called with start: %s, end: %s\n",
+           start ? start->content->read : "NULL",
+           end ? end->content->read : "NULL");
+
     // Find the token with the highest priority (pipes first, then redirections)
-    int highest_priority_index = find_highest_priority_token(tokens, start, end);
+    t_list_token *highest_priority_token = find_highest_priority_token(start, end);
     // Create a node for the highest-priority token
-    t_node *node = create_ast_node(tokens[highest_priority_index]);
+    t_node *node = create_ast_node(highest_priority_token->content);
     // If the token is a pipe, its children are commands or other pipes
-    if (tokens[highest_priority_index]->type == PIPE) {
-        node->left = ast_creator(tokens, start, highest_priority_index - 1);
-        node->right = ast_creator(tokens, highest_priority_index + 1, end);
+    if (highest_priority_token->content->type == PIPE)
+    {
+        if (highest_priority_token->prev != NULL)
+            node->left = ast_creator(start, highest_priority_token->prev);
+        if (highest_priority_token->next != NULL)
+            node->right = ast_creator(highest_priority_token->next, end);
     }
     // If the token is a redirection, attach it to the appropriate command node
-    else if (tokens[highest_priority_index]->type == REDIR ||
-             tokens[highest_priority_index]->type == APPEND) {
+    else if (highest_priority_token->content->type == REDIR ||
+             highest_priority_token->content->type == APPEND)
+    {
         // Redirection affects the right side (file), so left is the command, right is the file
-        node->left = ast_creator(tokens, start, highest_priority_index - 1);
-        node->right = ast_creator(tokens, highest_priority_index + 1, end);
+        if (highest_priority_token->prev != NULL)
+            node->left = ast_creator(start, highest_priority_token->prev);
+        if (highest_priority_token->next != NULL)
+            node->right = ast_creator(highest_priority_token->next, end);
     }
     // If it's a command or argument, there may be more tokens to process in a sequential order
-    else if (tokens[highest_priority_index]->type == CMD || tokens[highest_priority_index]->type == ARG) {
-        node->left = ast_creator(tokens, start, highest_priority_index - 1);
-        node->right = ast_creator(tokens, highest_priority_index + 1, end);
+    else if (highest_priority_token->content->type == CMD || highest_priority_token->content->type == ARG)
+    {
+        if (highest_priority_token->prev != NULL)
+            node->left = ast_creator(start, highest_priority_token->prev);
+        if (highest_priority_token->next != NULL)
+            node->right = ast_creator(highest_priority_token->next, end);
     }
     return node;
-}
-
-t_node *final_ast_creator(t_list_token *tokens, int start, int end)
-{
-    t_node *root;
-    
-    t_list_token *head = tokens;
-    while (tokens)
-    {
-        root = ft_calloc(0, sizeof(t_node));
-        root = ast_creator(tokens->content, start, end);
-        tokens = tokens->next;
-    }
-    tokens = head;
-    return (root);
 }
