@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/07 18:00:37 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/09 10:48:11 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ typedef struct s_list_token
 	struct s_list_token	*next;
 }	t_list_token;
 
+// Helper functions
+int ft_token_lst_size(t_list_token *lst);
+
 // Exit function
 void		    ft_exit(char *str, int code);
 
@@ -86,7 +89,7 @@ int 			dfa_main (t_list_token *token_list);
 t_node 			*expand_tree(t_node *ast, t_list_env *env);
 
 // AST creator
-t_node			*ast_creator(t_token **tokens, int start, int end);
+t_node 			*ast_creator(t_token *tokens, int start, int end);
 t_node 			*final_tree (t_node *ast, t_list_env *env);
 
 // Main parser
