@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/09/04 11:11:14 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/04 22:49:45 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@
 
 char		*get_pwd(void);
 int			mini_pwd(t_son *son, t_token *token);
-int			execute(t_token *token, t_son *son, t_list_env *env);
-int			execute_builtins(t_token *token, t_son *son, t_list_env *env);
+int			execute(t_token *token, t_son *son, t_list_env *env, t_node *node);
+int			execute_builtins(t_token *token, t_son *son, t_list_env *env, t_node *node);
 void		print_ast(t_node *root);
 int			mini_echo(t_son *son, t_token *token);
 int			mini_redirect(t_token *token, t_son *son);
