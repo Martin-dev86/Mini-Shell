@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 19:49:37 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/06 10:43:27 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:58:03 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,14 @@ int dfa_main (t_list_token *token_list)
         state = dfa_body(current, state);    
         
         //DELETE
-        printf("Token content: %s\n", current->content->read);
-        printf("Token type: %d\n", current->content->type);
-        printf("State: %d\n", state);   
+        // printf("Token content: %s\n", current->content->read);
+        // printf("Token type: %d\n", current->content->type);
+        // printf("State: %d\n", state);   
         //UNTIL HERE     
         current = current->next;
     }
     current = head;
     // Final state 
-    printf("First content: %s\n", current->content->read);   
+    //printf("First content: %s\n", current->content->read);   
     return (state);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:14:52 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/11 16:51:25 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:53:10 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,6 @@ typedef struct s_son
 	pid_t	pid;
 	int		**fd;
 	int		code;
+	int 	fd_in;
+	int 	fd_out;
 }	t_son;

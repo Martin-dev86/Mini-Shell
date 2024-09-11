@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/10 18:31:36 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:53:44 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(int argc, char **argv, char **env)
 	son = malloc(sizeof(t_son));
 	if (son == NULL)
 		ft_exit("Failed to allocate memory for son", EXIT_FAILURE);
-	node = malloc(sizeof(t_node));
+	node = ft_calloc(0, sizeof(t_node));
 	if (son == NULL)
 		ft_exit("Failed to crate node", EXIT_FAILURE);
 	
@@ -99,7 +99,7 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		
 		// Call the main_parser function
-		main_parser(env, token);
+		node = main_parser(env, token);
 
 		// Main execution function
 		// while (token->argument[i])

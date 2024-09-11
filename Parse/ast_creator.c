@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:57:35 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/09 16:44:23 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:55:04 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_node *create_ast_node(t_token *operation)
     node->left = NULL;
     node->right = NULL;
     node->n_childs = 0;
-    printf("Created node: %s\n", operation->read); // Add printf statement
+    //printf("Created node: %s\n", operation->read); // Add printf statement
     return node;
 }
 
@@ -54,9 +54,9 @@ t_node *ast_creator(t_list_token *start, t_list_token *end)
     {
         return NULL;
     }
-    printf("ast_creator called with start: %s, end: %s\n",
-           start ? start->content->read : "NULL",
-           end ? end->content->read : "NULL");
+    // printf("ast_creator called with start: %s, end: %s\n",
+    //        start ? start->content->read : "NULL",
+    //        end ? end->content->read : "NULL");
 
     // Find the token with the highest priority (pipes first, then redirections)
     t_list_token *highest_priority_token = find_highest_priority_token(start, end);

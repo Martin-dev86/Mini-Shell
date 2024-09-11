@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:34:56 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/09 17:27:09 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:57:03 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,6 @@ t_list_token *token_read_filler(t_token token, t_list_token *head)
         i++;
     }
     set_prev_pointers(head);
-    print_token_links(head);
+    //print_token_links(head);
     return (head);
 }

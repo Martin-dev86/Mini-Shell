@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/10 18:17:26 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:58:16 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void print_tokens(t_list_token *head)
     }
 }
 
-int main_parser(char **env, t_token *token)
+t_node *main_parser(char **env, t_token *token)
 {
     t_list_env *env_list;
     t_list_token *token_list;
@@ -59,8 +59,8 @@ int main_parser(char **env, t_token *token)
         ft_exit("Syntax FAILURE", EXIT_FAILURE);
         
     // Print the token list to check if it was created correctly
-    printf("Printing token list:\n");
-    print_tokens(token_list);
+    //printf("Printing token list:\n");
+    //print_tokens(token_list);
 
     // Create the AST
     printf("Creating AST\n");
@@ -68,8 +68,8 @@ int main_parser(char **env, t_token *token)
     t_list_token *end = token_list;
     while (end->next != NULL)
         end = end->next;
-    printf("Start token: %s\n", token_list->content->read);
-    printf("End token: %s\n", end->content->read);
+    //printf("Start token: %s\n", token_list->content->read);
+    //printf("End token: %s\n", end->content->read);
     // Create the AST
     ast = ast_creator(token_list, end);
     printf("Created AST\n");
@@ -87,5 +87,5 @@ int main_parser(char **env, t_token *token)
     // if (ast == NULL)
     //     ft_exit("EXPAND FAILURE", EXIT_FAILURE);
         
-    return (EXIT_SUCCESS);
+    return (ast);
 }

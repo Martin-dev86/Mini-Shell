@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/09 12:25:37 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:48:24 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ t_node			*ast_creator(t_list_token *start, t_list_token *end);
 t_node 			*final_tree (t_node *ast, t_list_env *env);
 
 // Main parser
-int 			main_parser(char **env, t_token *token);
+t_node			*main_parser(char **env, t_token *token);
 
