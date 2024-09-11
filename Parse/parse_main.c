@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/11 18:58:16 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:06:57 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_node *main_parser(char **env, t_token *token)
     // Parse the AST and expand the variables
     printf("list: %s\n", env_list->content);
     // printf("Expanding AST\n");
-    // ast = final_tree(ast, env_list);
+    //ast = final_tree(ast, env_list);
     // printf("Expander finished!\n");
     // if (ast == NULL)
     //     ft_exit("EXPAND FAILURE", EXIT_FAILURE);

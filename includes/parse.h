@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/11 18:48:24 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:28:58 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int 			dfa_main (t_list_token *token_list);
 
 // Expander
 t_node 			*expand_tree(t_node *ast, t_list_env *env);
+t_node 			*final_tree(t_node *ast, t_list_env *env);
+
 
 // AST creator
 t_node			*ast_creator(t_list_token *start, t_list_token *end);
