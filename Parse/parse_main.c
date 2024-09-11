@@ -83,6 +83,8 @@ t_node *main_parser(char **env, t_token *token)
     printf("list: %s\n", env_list->content);
     // printf("Expanding AST\n");
     //ast = final_tree(ast, env_list);
+    ast->n_childs = count_pipe_tokens(t_node *ast):
+
     // printf("Expander finished!\n");
     // if (ast == NULL)
     //     ft_exit("EXPAND FAILURE", EXIT_FAILURE);

@@ -92,6 +92,8 @@ int 			dfa_main (t_list_token *token_list);
 t_node 			*expand_tree(t_node *ast, t_list_env *env);
 t_node 			*final_tree(t_node *ast, t_list_env *env);
 
+// Pipe counter
+int				count_pipe_tokens(t_node *root);
 
 // AST creator
 t_node			*ast_creator(t_list_token *start, t_list_token *end);
