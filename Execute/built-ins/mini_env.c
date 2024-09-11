@@ -14,22 +14,13 @@
 
 int	mini_env(t_list_env *env)
 {
-<<<<<<< HEAD
-	t_list	*current_env;
-=======
 	t_list_env	*current_env;
->>>>>>> origin/Master
 
 	current_env = env;
 	while (current_env)
 	{
-<<<<<<< HEAD
-		printf("%s\n", env->content);
-		current_env = env->next;
-=======
 		printf("%s\n", current_env->content);
 		current_env = current_env->next;
->>>>>>> origin/Master
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/30 14:08:13 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/10 18:31:36 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_token		*token;
 	t_son		*son;
+	t_node		*node;
 	int			i;
 	t_list_env	*result;
 
@@ -77,36 +78,39 @@ int	main(int argc, char **argv, char **env)
 	result = (t_list_env *)malloc(sizeof(t_list_env));
 	son = malloc(sizeof(t_son));
 	if (son == NULL)
-	{
-		perror ("malloc");
-		exit (1);
-	}
+		ft_exit("Failed to allocate memory for son", EXIT_FAILURE);
+	node = malloc(sizeof(t_node));
+	if (son == NULL)
+		ft_exit("Failed to crate node", EXIT_FAILURE);
+	
+	// First try the env_parse function
 	result = env_parse(env);
+	
 	while (1)
 	{
 		token = calloc(1, sizeof(t_token));
 		if (!token)
-		{
-			perror("Failed to allocate memory for token");
-			exit(EXIT_FAILURE);
-		}
+			ft_exit("Failed to allocate memory for token", EXIT_FAILURE);
 		token->argument = (char **)malloc((i + 1) * sizeof(char *));
 		if (!token->argument)
-		{
-			perror("Error al asignar memoria");
-			exit(EXIT_FAILURE);
-		}
+			ft_exit("Failed to allocate memory for token->argument", EXIT_FAILURE);
 		token->read = readline("Minishell>");
 		if (token->read == NULL || ft_strcmp(token->read, "exit") == 0)
 			break ;
-		while (token->argument[i])
-			i++;
-		token->argument = ft_split(token->read, ' ');
-		token_typer(token);
+		
+		// Call the main_parser function
+		main_parser(env, token);
+
+		// Main execution function
+		// while (token->argument[i])
+		// 	i++;
 		//pwd_node = make_tree();
 		//print_ast(pwd_node);
-		execute(token, son, result);
+		execute(token, son, result, node);
 		add_history(token->read);
+
+		//Free function
 	}
+	// Another free function
 	return (0);
 }

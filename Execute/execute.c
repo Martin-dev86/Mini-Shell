@@ -6,15 +6,19 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/03 22:41:48 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:58:54 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execute_builtins(t_token *token, t_son *son, t_list_env *env)
+int	execute_builtins(t_token *token, t_son *son, t_list_env *env, t_node *node)
 {
-	(void)*env;
+	if(node->left)
+	{	
+		node = node->left;
+		execute(token, son, env, node);
+	}
 	if (ft_strcmp(token->argument[0], "pwd") == 0)
 		mini_pwd(son, token);
 	if (ft_strcmp(token->argument[0], "echo") == 0)
@@ -24,6 +28,8 @@ int	execute_builtins(t_token *token, t_son *son, t_list_env *env)
 	if (ft_strcmp(token->argument[0], "cd") == 0)
 		mini_cd(token, env);
 	if (ft_strcmp(token->argument[0], "export") == 0)
+		mini_export(env, token);
+	if (ft_strcmp(token->argument[0], "cmd") == 0)
 		mini_export(env, token);
 	if (ft_strcmp(token->argument[0], "env") == 0)
 	{
@@ -36,11 +42,13 @@ int	execute_builtins(t_token *token, t_son *son, t_list_env *env)
 	return (0);
 }
 
-int	execute(t_token *token, t_son *son, t_list_env *env)
+int	execute(t_token *token, t_son *son, t_list_env *env, t_node *node)
 {
 	if (token->type == REDIR)
 		mini_redirect(token, son);
 	if (token->type == BUILTIN)
-		execute_builtins(token, son, env);
+		execute_builtins(token, son, env, node);
+	if (token->type == CMD)
+		execute_builtins(token, son, env, node);
 	return (0);
 }

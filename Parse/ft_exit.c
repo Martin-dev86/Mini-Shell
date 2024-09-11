@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.h                                          :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 13:14:52 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/11 16:51:25 by cagarci2         ###   ########.fr       */
+/*   Created: 2024/09/04 10:33:12 by jeandrad          #+#    #+#             */
+/*   Updated: 2024/09/04 10:33:37 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#define READ  0
-#define WRITE  1
-
-typedef struct s_son
+void    ft_exit(char *str, int code)
 {
-	pid_t	pid;
-	int		**fd;
-	int		code;
-}	t_son;
+    ft_putstr_fd(str, 2);
+    exit (code);
+}

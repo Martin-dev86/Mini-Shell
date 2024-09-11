@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/08/23 13:22:19 by cagarci2         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/03 18:06:44 by cagarci2         ###   ########.fr       */
->>>>>>> origin/Master
+/*   Updated: 2024/09/11 17:07:34 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -47,8 +46,8 @@
 
 char		*get_pwd(void);
 int			mini_pwd(t_son *son, t_token *token);
-int			execute(t_token *token, t_son *son, t_list_env *env);
-int			execute_builtins(t_token *token, t_son *son, t_list_env *env);
+int			execute(t_token *token, t_son *son, t_list_env *env, t_node *node);
+int			execute_builtins(t_token *token, t_son *son, t_list_env *env, t_node *node);
 void		print_ast(t_node *root);
 int			mini_echo(t_son *son, t_token *token);
 int			mini_redirect(t_token *token, t_son *son);
@@ -62,4 +61,5 @@ t_list_env	*mini_lstnew(void *content);
 t_list_env	*mini_lstlast(t_list_env *lst);
 void		mini_lstadd_back(t_list_env **lst, t_list_env *new);
 int			mini_strlen(const char *c);
+int         mini_pipe(t_token *token, t_list_env *env, t_son *son, int num_commands);
 #endif

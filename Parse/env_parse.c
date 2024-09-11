@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:02:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/08/29 16:15:28 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/10 18:33:31 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 
 void	first_env(char **env)
 {
-	if (env== NULL)
-		exit (128);
+	// Only keep the first if
+	if (env == NULL || *env == NULL)
+		ft_exit ("NO ENV",128);
 	else if (!getenv("PATH"))
-		exit(1);
+		ft_exit("NO PATH", EXIT_FAILURE);
 	else if (!getenv("USER"))
-		exit(1);
+		ft_exit("NO USER", EXIT_FAILURE);
 	else if (!getenv("HOME"))
-		exit(1);
+		ft_exit("NO HOME", EXIT_FAILURE);
 	else if (!getenv("PWD"))
-		exit(1);
+		ft_exit("NO PWD",EXIT_FAILURE);
 	else if (!getenv("OLDPWD"))
-	{
-		perror("OLDPWD");
-		exit(1);
-	}
+		ft_exit("NO OLDPWD",EXIT_FAILURE);
 }
 
 t_list_env	*env_parse(char **env)
@@ -46,7 +44,7 @@ t_list_env	*env_parse(char **env)
 	{
 		new = (t_list_env *)malloc(sizeof(t_list_env));
 		if (!new)
-			exit(1);
+			ft_exit("malloc failed", EXIT_FAILURE);
 		new->content = ft_strdup(env[i]);
 		new->next = NULL;
 		if (head == NULL)

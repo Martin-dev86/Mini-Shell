@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/03 17:57:54 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:25:37 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+
 typedef enum e_type
 {
 	NONE,
@@ -65,5 +66,35 @@ typedef struct s_list_env
 	struct s_list_env	*next;
 }	t_list_env;
 
-char	**token_maker(t_token *token, char **env);
-void	token_typer(t_token *token);
+typedef struct s_list_token
+{
+	t_token				*content;
+	struct s_list_token	*next;
+	struct s_list_token	*prev;
+}	t_list_token;
+
+// Helper functions
+int ft_token_lst_size(t_list_token *lst);
+void print_ast_2(t_node *node, int level);
+
+
+// Exit function
+void		    ft_exit(char *str, int code);
+
+// Tokenizer
+void			token_list_typer (t_list_token *token_list);
+t_list_token	*token_read_filler(t_token token, t_list_token *head);
+
+// DFA
+int 			dfa_main (t_list_token *token_list);
+
+// Expander
+t_node 			*expand_tree(t_node *ast, t_list_env *env);
+
+// AST creator
+t_node			*ast_creator(t_list_token *start, t_list_token *end);
+t_node 			*final_tree (t_node *ast, t_list_env *env);
+
+// Main parser
+int 			main_parser(char **env, t_token *token);
+
