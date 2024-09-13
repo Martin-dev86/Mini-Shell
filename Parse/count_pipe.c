@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   count_pipe.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/13 17:39:29 by jeandrad          #+#    #+#             */
+/*   Updated: 2024/09/13 17:39:47 by jeandrad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -20,9 +31,9 @@ int count_pipe_tokens(t_node *root)
 {
     // There must be at least one son process
     int counter = 1;
-    t_node *head = *root;
+    t_node *head = root;
 
     count_pipe_tokens_helper(root, &counter);
-    ast = head;
+    root = head;
     return (counter);
 }

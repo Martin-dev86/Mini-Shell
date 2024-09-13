@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/11 19:28:58 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:57:19 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_list_env
 	int					len;
 	size_t				variable_len;
 	struct s_list_env	*next;
+	char 				**path;
 }	t_list_env;
 
 typedef struct s_list_token

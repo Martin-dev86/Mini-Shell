@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/11 20:06:57 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:59:18 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,11 @@ t_node *main_parser(char **env, t_token *token)
     // Parse the AST and expand the variables
     printf("list: %s\n", env_list->content);
     // printf("Expanding AST\n");
+    ast->n_childs = count_pipe_tokens(ast);
+    printf("Number of pipes: %d\n", ast->n_childs);
     //ast = final_tree(ast, env_list);
-    ast->n_childs = count_pipe_tokens(t_node *ast):
+    printf("Final tree:\n");
+    print_ast(ast);
 
     // printf("Expander finished!\n");
     // if (ast == NULL)

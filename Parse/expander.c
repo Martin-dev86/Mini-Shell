@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:21:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/11 20:03:00 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:55:06 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ t_node *expand_string(t_node *ast, t_list_env *env)
 }
 
 // Helper function to print the tree
-void print_tree(t_node *ast)
-{
-    if (ast == NULL)
-        return;
+// void print_tree(t_node *ast)
+// {
+//     if (ast == NULL)
+//         return;
 
-    printf("Operation: %s, Type: %d\n", ast->operation->read, ast->operation->type);
-    print_tree(ast->left);
-    print_tree(ast->right);
-}
+//     printf("Operation: %s, Type: %d\n", ast->operation->read, ast->operation->type);
+//     print_tree(ast->left);
+//     print_tree(ast->right);
+// }
 
 // This function will expand the tree
 // This returns the final tree to take to the executor
@@ -68,11 +68,7 @@ t_node *final_tree(t_node *ast, t_list_env *env)
 
     t_node *new = (t_node *)ft_calloc(1, sizeof(t_node));
     if (!new)
-    {
-        perror("Failed to allocate memory");
-        exit(1);
-    }
-
+        ft_exit("Failed to allocate memory", EXIT_FAILURE);    
     t_node *head = new;
 
     // Traverse the tree and change types to BUILTIN where applicable
@@ -86,10 +82,7 @@ t_node *final_tree(t_node *ast, t_list_env *env)
         {
             new->left = (t_node *)ft_calloc(1, sizeof(t_node));
             if (!new->left)
-            {
-                perror("Failed to allocate memory");
-                exit(1);
-            }
+                ft_exit("Failed to allocate memory", EXIT_FAILURE);
             new = new->left;
             ast = ast->left;
         }
@@ -97,10 +90,7 @@ t_node *final_tree(t_node *ast, t_list_env *env)
         {
             new->right = (t_node *)ft_calloc(1, sizeof(t_node));
             if (!new->right)
-            {
-                perror("Failed to allocate memory");
-                exit(1);
-            }
+                ft_exit("Failed to allocate memory", EXIT_FAILURE);
             new = new->right;
             ast = ast->right;
         }
@@ -110,7 +100,7 @@ t_node *final_tree(t_node *ast, t_list_env *env)
     }
 
     // Print the expanded tree
-    print_tree(head);
+    //print_tree(head);
 
     return head;
 }
