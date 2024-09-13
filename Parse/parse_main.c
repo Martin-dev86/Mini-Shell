@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/13 17:59:18 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:48:36 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ t_node *main_parser(char **env, t_token *token)
     // Should only be done once so maybe I have to take it out of here
     env_list = ft_calloc(1, sizeof(t_list_env));
     env_list = env_parse(env);
+
+    // Delete the loop below is just to see the splited path
+    int i = 0;
+    while(env_list->path[i])
+    {
+        printf("Path: %s\n", env_list->path[i]);
+        i++;
+    }
     
     token_list = ft_calloc(1, sizeof(t_list_token));
     token_list = token_read_filler(*token, token_list);
@@ -80,13 +88,13 @@ t_node *main_parser(char **env, t_token *token)
     print_ast(ast);
     
     // Parse the AST and expand the variables
-    printf("list: %s\n", env_list->content);
+    //printf("list: %s\n", env_list->content);
     // printf("Expanding AST\n");
     ast->n_childs = count_pipe_tokens(ast);
     printf("Number of pipes: %d\n", ast->n_childs);
     //ast = final_tree(ast, env_list);
-    printf("Final tree:\n");
-    print_ast(ast);
+    //printf("Final tree:\n");
+    //print_ast(ast);
 
     // printf("Expander finished!\n");
     // if (ast == NULL)
