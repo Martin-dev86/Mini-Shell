@@ -3,16 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/09/13 20:06:33 by jeandrad         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/13 20:21:42 by cagarci2         ###   ########.fr       */
->>>>>>> Execute
+/*   Updated: 2024/09/13 20:27:09 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 # include <fcntl.h>
 # include <sys/wait.h>

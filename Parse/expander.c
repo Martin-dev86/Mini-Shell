@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:21:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/13 19:35:20 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:46:49 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ t_node *final_tree(t_node *ast, t_list_env *env)
             printf("Enters in else to break\n");
             break;
         }
-        printf("Operation 2: %s, Type: %d\n", new->operation->read, new->operation->type);
     }
     return head;
 }
