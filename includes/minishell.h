@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/13 20:07:20 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:26:06 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@
 
 char		*get_pwd(void);
 int			mini_pwd(t_son *son);
-int			execute(t_son *son, t_list_env *env, t_node *node, char **envp);
-int			execute_builtins(t_son *son, t_list_env *env, t_node *node, char **envp);
+int			execute(t_son *son, t_list_env *env, t_node *node);
+int			execute_builtins(t_son *son, t_list_env *env, t_node *node);
 void		print_ast(t_node *root);
 int			mini_echo(t_son *son, t_token *token);
 int			mini_redirect(t_token *token, t_son *son);
@@ -62,5 +62,5 @@ t_list_env	*mini_lstlast(t_list_env *lst);
 void		mini_lstadd_back(t_list_env **lst, t_list_env *new);
 int			mini_strlen(const char *c);
 int         mini_pipe(t_son *son, t_node *node);
-int         mini_cmd(t_list_env *env, t_son *son, t_node *node, char **envp);
+int         mini_cmd(t_list_env *env, t_son *son, t_node *node);
 #endif

@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/13 20:06:51 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:26:15 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	main(int argc, char **argv, char **env)
 		// 	i++;
 		//pwd_node = make_tree();
 		//print_ast(pwd_node);
-		execute(son, result, node, env);
+		execute(son, result, node);
 		add_history(token->read);
 
 		//Free function

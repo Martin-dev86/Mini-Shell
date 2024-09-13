@@ -41,21 +41,21 @@ char	**exe_args(t_node *node)
 	while (node)
 	{
 		array_cmd[i] = node->operation->read;
+		printf("Node content == %s \n", array_cmd[i]);
 		node = node->right;
 		i++;
 	}
 	return (array_cmd);
 }
 
-int	mini_cmd(t_list_env *env, t_son *son, t_node *node, char **envp)
+int	mini_cmd(t_list_env *env, t_son *son, t_node *node)
 {
-	//int		i;
+	int		i;
 	char	*path_cmd;
 	char	**array_cmd;
 
-	//i = 0;
-	//son->pid = fork();
-	array_cmd = ft_calloc(0, sizeof(char *));
+	i = 0;
+	son->pid = fork();
 	if (son->pid < 0)
 	{
 		perror("fork");
@@ -63,20 +63,23 @@ int	mini_cmd(t_list_env *env, t_son *son, t_node *node, char **envp)
 	}
 	if (son->pid == 0)
 	{
+		array_cmd = ft_calloc(0, sizeof(char *));
 		path_cmd = cmd_found(env->path, node);
 		if (node->right == NULL)
 		{
 			array_cmd = exe_args(node);
-			execve(path_cmd, array_cmd, envp);
+			execve(path_cmd, array_cmd, env->env);
 			free(array_cmd);
 		}
 		else
 		{
 			array_cmd = exe_args(node);
-			execve(path_cmd, array_cmd, envp);
+			while (array_cmd[i])
+				printf("Node content out == %s \n", array_cmd[i++]);
+			execve(path_cmd, array_cmd, env->env);
 			free(array_cmd);
 		}
-		//exit (0);
+		exit (0);
 	}
 	if (waitpid(son->pid, &son->code, 0) < 0)
 	{
