@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:02:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/13 18:39:43 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:07:56 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,27 @@ void	first_env(char **env)
 		ft_exit("NO PWD",EXIT_FAILURE);
 	else if (!getenv("OLDPWD"))
 		ft_exit("NO OLDPWD",EXIT_FAILURE);
+}
+
+char **get_env(char **env)
+{
+	int		i;
+	char	**new_env;
+
+	i = 0;
+	while (env[i])
+		i++;
+	new_env = ft_calloc(1,sizeof(char *) * (i + 1));
+	if (!new_env)
+		ft_exit("calloc failed", EXIT_FAILURE);
+	i = 0;
+	while (env[i])
+	{
+		new_env[i] = ft_strdup(env[i]);
+		i++;
+	}
+	new_env[i] = NULL;
+	return (new_env);
 }
 
 t_list_env	*env_parse(char **env)
@@ -60,5 +81,6 @@ t_list_env	*env_parse(char **env)
 		i++;
 	}
 	head->path = get_path(getenv("PATH"));
+	head->env = get_env(env);
 	return (head);
 }

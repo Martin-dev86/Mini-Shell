@@ -6,9 +6,11 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:21:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/13 17:55:06 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:35:20 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 #include "minishell.h"
 
@@ -48,24 +50,12 @@ t_node *expand_string(t_node *ast, t_list_env *env)
     return (ast);    
 }
 
-// Helper function to print the tree
-// void print_tree(t_node *ast)
-// {
-//     if (ast == NULL)
-//         return;
-
-//     printf("Operation: %s, Type: %d\n", ast->operation->read, ast->operation->type);
-//     print_tree(ast->left);
-//     print_tree(ast->right);
-// }
-
-// This function will expand the tree
-// This returns the final tree to take to the executor
 t_node *final_tree(t_node *ast, t_list_env *env)
 {
     if (ast == NULL)
         return NULL;
 
+    (void ) env;
     t_node *new = (t_node *)ft_calloc(1, sizeof(t_node));
     if (!new)
         ft_exit("Failed to allocate memory", EXIT_FAILURE);    
@@ -74,33 +64,45 @@ t_node *final_tree(t_node *ast, t_list_env *env)
     // Traverse the tree and change types to BUILTIN where applicable
     while (ast != NULL)
     {
+        printf("Operation: new\n");
         new->operation = ast->operation;
-        new = expand_string(ast, env); // This will change the type to BUILTIN if applicable
+        printf("ABCº\n");
+        //new = expand_string(ast, env); // This will change the type to BUILTIN if applicable
 
         printf("Operation: %s, Type: %d\n", new->operation->read, new->operation->type);
         if (ast->left != NULL)
         {
+            printf("Enters in right\n");
             new->left = (t_node *)ft_calloc(1, sizeof(t_node));
+            printf("A\n");
             if (!new->left)
                 ft_exit("Failed to allocate memory", EXIT_FAILURE);
+            printf("B\n");
             new = new->left;
+            printf("C\n");
             ast = ast->left;
+            printf("D\n");
         }
         else if (ast->right != NULL)
-        {
-            new->right = (t_node *)ft_calloc(1, sizeof(t_node));
+        {   
+            printf("Enters in left\n");
+            printf("Operation 1: %s, Type: %d\n", new->operation->read, new->operation->type);
+            new->right = (t_node *)ft_calloc(1, sizeof(t_node)); // Allocate at least 1 byte
+            printf("A2\n");
             if (!new->right)
                 ft_exit("Failed to allocate memory", EXIT_FAILURE);
+            printf("B2\n");
             new = new->right;
+            printf("C2\n");
             ast = ast->right;
+            printf("D2\n");
         }
         else
+        {
+            printf("Enters in else to break\n");
             break;
+        }
         printf("Operation 2: %s, Type: %d\n", new->operation->read, new->operation->type);
     }
-
-    // Print the expanded tree
-    //print_tree(head);
-
     return head;
 }
