@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:14:52 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/13 18:41:36 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:44:04 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ typedef struct s_son
 	int		fd_out;
 }	t_son;
 
-typedef struct s_exec_args
-{
-	t_token		*token;
-	t_son		*son;
-	t_list_env	*env;
-	t_node		*node;
-}	t_exec_args;
+// typedef struct s_exec_args
+// {
+// 	t_token		*token;
+// 	t_son		*son;
+// 	t_list_env	*env;
+// 	t_node		*node;
+// }	t_exec_args;

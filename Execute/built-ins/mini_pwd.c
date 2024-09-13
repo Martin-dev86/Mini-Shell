@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:00:29 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/13 18:50:31 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:45:03 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,15 @@ char	*get_pwd(void)
 	}
 }
 
-int	mini_pwd(t_son *son, t_token *token)
+int	mini_pwd(t_son *son)
 {
 	char	*result;
 
-	son->pid = fork();
-	if (son->pid < 0)
-	{
-		perror("fork");
-		return (1);
-	}
-	if (son->pid == 0)
-	{
-		result = get_pwd();
-		if (!result)
-		{
-			perror ("getpwd");
-			exit (1);
-		}
-		mini_redirect(token, son);
-		printf("%s\n", result);
-		free (result);
-		exit (0);
-	}
-	if (waitpid(son->pid, &son->code, 0) < 0)
-	{
-		perror("waitpid");
-		return (son->code);
-	}
+	result = get_pwd();
+	if (!result)
+		ft_exit("pwd error", son->code);
+	printf("%s\n", result);
+	free (result);
 	return (son->code);
 }
 

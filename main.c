@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/11 18:53:44 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:06:51 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	main(int argc, char **argv, char **env)
 		// 	i++;
 		//pwd_node = make_tree();
 		//print_ast(pwd_node);
-		execute(token, son, result, node);
+		execute(son, result, node, env);
 		add_history(token->read);
 
 		//Free function

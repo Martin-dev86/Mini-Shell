@@ -37,10 +37,12 @@ int create_pipes(t_son *son, int num_pipes)
     }
     return (0);
 }
-int mini_pipe(t_token *token, t_list_env *env, t_son *son, t_node *node)
+int mini_pipe(t_son *son, t_node *node)
 {
-    int i = 0;
+	int	i;
+	int	j;
 
+	i = 0;
 	if (create_pipes(son, node->n_childs - 1) == -1)
 	{
 		perror("Error creando pipes");
@@ -63,18 +65,18 @@ int mini_pipe(t_token *token, t_list_env *env, t_son *son, t_node *node)
 				if (dup2(son->fd[i][1], STDOUT_FILENO) == -1)
 					ft_exit("dup2 error", son->code);
 			}
-			int j = 0;
+			j = 0;
 			while (j < node->n_childs - 1)
 			{
 				close(son->fd[j][0]);
 				close(son->fd[j][1]);
 				j++;
 			}
-			if (execve(/* ruta del comando */, /* argumentos del comando */, env) == -1)
-		    {
-				perror("execve");
-				exit(EXIT_FAILURE);
-		    }
+			//if (execve(/* ruta del comando */, /* argumentos del comando */, env) == -1)
+		    // {
+			// 	perror("execve");
+			// 	exit(EXIT_FAILURE);
+		    // }
 		}
 
 		i++;
