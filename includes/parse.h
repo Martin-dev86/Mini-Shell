@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/13 17:57:19 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:40:30 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,12 @@ typedef struct s_list_token
 
 // Helper functions
 int ft_token_lst_size(t_list_token *lst);
-void print_ast_2(t_node *node, int level);
-
 
 // Exit function
 void		    ft_exit(char *str, int code);
+
+// Environment parser
+char 			**get_path(char *path);
 
 // Tokenizer
 void			token_list_typer (t_list_token *token_list);
