@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/10 17:58:54 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:52:00 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	execute_builtins(t_token *token, t_son *son, t_list_env *env, t_node *node)
 {
 	if(node->left)
-	{	
+	{
 		node = node->left;
 		execute(token, son, env, node);
 	}
@@ -50,5 +50,7 @@ int	execute(t_token *token, t_son *son, t_list_env *env, t_node *node)
 		execute_builtins(token, son, env, node);
 	if (token->type == CMD)
 		execute_builtins(token, son, env, node);
+	if (token->type == PIPE)
+		mini_pipe(token, env, son, node)
 	return (0);
 }

@@ -32,7 +32,7 @@ char	*cmd_found(char **array_path, char *cmd)
 int mini_cmd(t_list_env *env, t_token *token, t_son *son)
 {
 	int		i;
-    char    *path_cmd;
+    char	*path_cmd;
 
 	i = 0;
 	son->pid = fork();
@@ -43,8 +43,8 @@ int mini_cmd(t_list_env *env, t_token *token, t_son *son)
 	}
 	if (son->pid == 0)
 	{
-        path_cmd = cmd_found("array path", token->argument);
-        if(exceve(path_cmd, , env))
+		path_cmd = cmd_found("array path", token->argument);
+		if(exceve(path_cmd, , env));
 		exit (0);
 	}
 	if (waitpid(son->pid, &son->code, 0) < 0)
