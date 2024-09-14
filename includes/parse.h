@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/13 20:27:09 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:49:37 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_list_token
 }	t_list_token;
 
 // Helper functions
-int ft_token_lst_size(t_list_token *lst);
+int				ft_token_lst_size(t_list_token *lst);
 
 // Exit function
 void		    ft_exit(char *str, int code);

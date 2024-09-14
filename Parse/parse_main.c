@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/13 20:10:39 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:52:15 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ t_node *main_parser(char **env, t_token *token)
     env_list = ft_calloc(1, sizeof(t_list_env));
     env_list = env_parse(env);
 
-    // Delete the loop below is just to see things
-    int i = 0;
-    while(env_list->env[i])
-    {
-        printf("env array: %s\n", env_list->env[i]);
-        i++;
-    }
     token_list = ft_calloc(1, sizeof(t_list_token));
     token_list = token_read_filler(*token, token_list);
     token_list_typer(token_list);
