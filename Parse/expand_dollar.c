@@ -9,10 +9,10 @@ char *get_env_value(t_list_env *env_list, const char *var)
     while (current)
     {
         // Search if the variabe starts with the name and =
-        if (strncmp(current->env_var, var, var_len) == 0 && current->env_var[var_len] == '=')
+        if (strncmp(current->content, var, var_len) == 0 && current->content[var_len] == '=')
         {
             // returns the value after = 
-            return current->env_var + var_len + 1;
+            return current->content + var_len + 1;
         }
         current = current->next;
     }

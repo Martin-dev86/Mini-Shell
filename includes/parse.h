@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/14 14:49:37 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/16 19:55:05 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_list_token	*token_read_filler(t_token token, t_list_token *head);
 int 			dfa_main (t_list_token *token_list);
 
 // Expander
-void 			replace_env_vars(t_list_token *tokens, t_list_env *env_list)
+void 			replace_env_vars(t_list_token *tokens, t_list_env *env_list);
 t_node 			*expand_tree(t_node *ast, t_list_env *env);
 t_node 			*final_tree(t_node *ast, t_list_env *env);
 
