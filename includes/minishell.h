@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/13 20:26:06 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:33:11 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,23 @@
 # define RESET		"\x1b[0m"
 # define CLEAR		"\033[2J"
 
-char		*get_pwd(void);
-int			mini_pwd(t_son *son);
 int			execute(t_son *son, t_list_env *env, t_node *node);
 int			execute_builtins(t_son *son, t_list_env *env, t_node *node);
-void		print_ast(t_node *root);
-int			mini_echo(t_son *son, t_token *token);
+char		*get_pwd(void);
+int			mini_pwd(t_son *son);
+int			mini_echo(t_token *token);
 int			mini_redirect(t_token *token, t_son *son);
 int			mini_env(t_list_env *env);
 int			mini_unset(t_list_env *env, t_token *token);
 int			mini_export(t_list_env *env, t_token *token);
-t_list_env	*env_parse(char **env);
 int			mini_cd(t_token *token, t_list_env *env);
 void		mini_sort(t_list_env *sorted_current, t_list_env *current);
-t_list_env	*mini_lstnew(void *content);
-t_list_env	*mini_lstlast(t_list_env *lst);
 void		mini_lstadd_back(t_list_env **lst, t_list_env *new);
 int			mini_strlen(const char *c);
-int         mini_pipe(t_son *son, t_node *node);
+int         mini_pipe(t_son *son, t_node *node, t_list_env *env);
 int         mini_cmd(t_list_env *env, t_son *son, t_node *node);
+t_list_env	*mini_lstnew(void *content);
+t_list_env	*mini_lstlast(t_list_env *lst);
+t_list_env	*env_parse(char **env);
+void		print_ast(t_node *root);
 #endif

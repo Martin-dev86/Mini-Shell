@@ -3,15 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/13 20:26:53 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:13:58 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	executing(t_son *son, t_list_env *env, t_node *node)
+{
+	son->pid = fork();
+	if (son->pid < 0)
+	{
+		perror("fork");
+		return (1);
+	}
+	if (son->pid == 0)
+	{
+		mini_cmd(env, son, node);
+		exit (son->code);
+	}
+	if (waitpid(son->pid, &son->code, 0) < 0)
+	{
+		perror("waitpid");
+		return (son->code);
+	}
+	return (son->code);
+}
 int	execute_builtins(t_son *son, t_list_env *env, t_node *node)
 {
 	if (node->left)
@@ -22,7 +42,7 @@ int	execute_builtins(t_son *son, t_list_env *env, t_node *node)
 	if (ft_strcmp(node->operation->read, "pwd") == 0)
 		mini_pwd(son);
 	if (ft_strcmp(node->operation->read, "echo") == 0)
-		mini_echo(son, node->operation);
+		mini_echo(node->operation);
 	if (ft_strcmp(node->operation->read, "unset") == 0)
 		mini_unset(env, node->operation);
 	if (ft_strcmp(node->operation->read, "cd") == 0)
@@ -42,13 +62,15 @@ int	execute_builtins(t_son *son, t_list_env *env, t_node *node)
 
 int	execute(t_son *son, t_list_env *env, t_node *node)
 {
-	if (node->operation->type == REDIR)
+	if (node->n_childs <= 1)
+		executing(son, env, node);
+	else if (node->n_childs >= 2 && node->operation->type == PIPE)
+		mini_pipe(son, node, env);
+	else if (node->operation->type == REDIR)
 		mini_redirect(node->operation, son);
-	if (node->operation->type == BUILTIN)
+	else if (node->operation->type == BUILTIN)
 		execute_builtins(son, env, node);
-	if (node->operation->type == CMD)
+	else if (node->operation->type == CMD)
 		mini_cmd(env, son, node);
-	if (node->operation->type == PIPE)
-		mini_pipe(son, node);
 	return (0);
 }

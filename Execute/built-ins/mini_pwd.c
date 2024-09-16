@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:00:29 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/13 19:45:03 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:05:50 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,4 @@ int	mini_pwd(t_son *son)
 	return (son->code);
 }
 
-int	executing(t_son *son, void *(*f)(void))
-{
-	son->pid = fork();
-	if (son->pid < 0)
-	{
-		perror("fork");
-		return (1);
-	}
-	if (son->pid == 0)
-	{
-		f();
-		exit (0);
-	}
-	if (waitpid(son->pid, &son->code, 0) < 0)
-	{
-		perror("waitpid");
-		return (son->code);
-	}
-	return (son->code);
-}
+

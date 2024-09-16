@@ -37,12 +37,14 @@ int create_pipes(t_son *son, int num_pipes)
     }
     return (0);
 }
-int mini_pipe(t_son *son, t_node *node)
+int mini_pipe(t_son *son, t_node *node, t_list_env *env)
 {
 	int	i;
 	int	j;
+	int *pids;
 
 	i = 0;
+	pids = malloc(node->n_childs * sizeof(int));
 	if (create_pipes(son, node->n_childs - 1) == -1)
 	{
 		perror("Error creando pipes");
@@ -52,7 +54,7 @@ int mini_pipe(t_son *son, t_node *node)
 	{
 		son->pid = fork();
 		if (son->pid == -1)
-			ft_exit("fork error", son->code);
+		 	ft_exit("fork error", son->code);
 		if (son->pid == 0)
 		{
 			if (i > 0)
@@ -72,13 +74,10 @@ int mini_pipe(t_son *son, t_node *node)
 				close(son->fd[j][1]);
 				j++;
 			}
-			//if (execve(/* ruta del comando */, /* argumentos del comando */, env) == -1)
-		    // {
-			// 	perror("execve");
-			// 	exit(EXIT_FAILURE);
-		    // }
+			mini_cmd(env, son, node);
+			exit(son->code);
 		}
-
+		pids[i] = son->pid;
 		i++;
     }
     i = 0;
@@ -92,11 +91,12 @@ int mini_pipe(t_son *son, t_node *node)
     i = 0;
     while (i < node->n_childs)
     {
-      if (waitpid(son->pid, &son->code, 0) < 0)
+      if (waitpid(pids[i], &son->code, 0) < 0)
 	    {
 		perror("waitpid");
 		return (son->code);
 	    }
+		i++;
     }
     return (son->code);
 }
