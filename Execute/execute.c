@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/16 22:52:36 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/17 23:57:30 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	execute_builtins(t_son *son, t_list_env *env, t_node *node)
 	if (ft_strcmp(node->operation->read, "pwd") == 0)
 		mini_pwd(son);
 	if (ft_strcmp(node->operation->read, "echo") == 0)
-		mini_echo(node->operation);
+		mini_echo(node);
 	if (ft_strcmp(node->operation->read, "unset") == 0)
 		mini_unset(env, node->operation);
 	if (ft_strcmp(node->operation->read, "cd") == 0)

@@ -6,101 +6,38 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:21:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/16 23:49:55 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/17 22:46:57 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#include "minishell.h"
-
-// Assuming the definitions of t_node, t_list_env, CMD, BUILTIN, and ft_calloc are available
-
 // This function will expand the string
-t_node *expand_string(t_node *ast, t_list_env *env)
+void	exp_ast_helper(t_node *node, int depth)
 {
-    (void) env;
-    if (ast->operation->type == CMD)
-    {
-        if (ast->operation->read[0] == '$')
+	if (node == NULL)
+		return ;
+	else if (node->operation->type == CMD)
+	{
+        if (strcmp(node->operation->read,"pwd") == 0 || strcmp(node->operation->read,"echo") == 0 ||
+            strcmp(node->operation->read,"env") == 0 || strcmp(node->operation->read,"export") == 0 ||
+            strcmp(node->operation->read,"unset") == 0 || strcmp(node->operation->read,"cd") == 0)
         {
-            // This will expand the string
-            // This will return the string expanded
-            return (ast);
+                node->operation->type = BUILTIN;
+		        exp_ast_helper(node->left, depth + 2);
+		        exp_ast_helper(node->right, depth + 2);
         }
-        else if (strcmp(ast->operation->read, "pwd") == 0)
-            ast->operation->type = BUILTIN;
-        else if (strcmp(ast->operation->read, "echo") == 0)
-            ast->operation->type = BUILTIN;
-        else if (strcmp(ast->operation->read, "cd") == 0)
-            ast->operation->type = BUILTIN;
-        else if (strcmp(ast->operation->read, "export") == 0)
-            ast->operation->type = BUILTIN;
-        else if (strcmp(ast->operation->read, "unset") == 0)
-            ast->operation->type = BUILTIN;
-        else if (strcmp(ast->operation->read, "env") == 0)
-            ast->operation->type = BUILTIN;
-        else if (strcmp(ast->operation->read, "exit") == 0)
-            ast->operation->type = BUILTIN;
-        else
-            return (ast);
-    }
-    else
-        return (ast);
-    return (ast);    
+	}
+	else
+	{
+		exp_ast_helper(node->left, depth + 2);
+		exp_ast_helper(node->right, depth + 2);
+	}
 }
 
-t_node *final_tree(t_node *ast, t_list_env *env)
+t_node	*final_tree(t_node *root, t_list_env *env)
 {
-    if (ast == NULL)
-        return NULL;
-
-    (void ) env;
-    t_node *new = (t_node *)ft_calloc(1, sizeof(t_node));
-    if (!new)
-        ft_exit("Failed to allocate memory", EXIT_FAILURE);    
-    t_node *head = new;
-    // Traverse the tree and change types to BUILTIN where applicable
-    while (ast != NULL)
-    {
-        printf("Operation: new\n");
-        new->operation = ast->operation;
-        printf("ABCº\n");
-        new = expand_string(ast, env); // This will change the type to BUILTIN if applicable
-        printf("Operation: %s, Type: %d\n", new->operation->read, new->operation->type);
-        if (ast->left != NULL)
-        {
-            printf("Enters in right\n");
-            new->left = (t_node *)ft_calloc(1, sizeof(t_node));
-            printf("A\n");
-            if (!new->left)
-                ft_exit("Failed to allocate memory", EXIT_FAILURE);
-            printf("B\n");
-            new = new->left;
-            printf("C\n");
-            ast = ast->left;
-            printf("D\n");
-        }
-        else if (ast->right != NULL)
-        {   
-            printf("Enters in left\n");
-            printf("Operation 1: %s, Type: %d\n", new->operation->read, new->operation->type);
-            new->right = (t_node *)ft_calloc(1, sizeof(t_node)); // Allocate at least 1 byte
-            printf("A2\n");
-            if (!new->right)
-                ft_exit("Failed to allocate memory", EXIT_FAILURE);
-            printf("B2\n");
-            new = new->right;
-            printf("C2\n");
-            ast = ast->right;
-            printf("D2\n");
-        }
-        else
-        {
-            printf("Enters in else to break\n");
-            break;
-        }
-        printf("Operation 2: %s, Type: %d\n", new->operation->read, new->operation->type);
-    }
-    return head;
+    (void) env;
+	exp_ast_helper(root, 0);
+    return (root);
 }

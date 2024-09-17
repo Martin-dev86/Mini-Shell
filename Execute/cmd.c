@@ -53,7 +53,6 @@ char	**exe_args(t_node *node)
 	while (node)
 	{
 		array_cmd[i] = ft_strdup(node->operation->read);
-		printf("Node content == %s \n", array_cmd[i]);
 		node = node->right;
 		i++;
 	}
@@ -63,11 +62,8 @@ char	**exe_args(t_node *node)
 
 int	mini_cmd(t_list_env *env, t_son *son, t_node *node)
 {
-	int		i;
 	char	*path_cmd;
 	char	**array_cmd;
-	
-	i = 0;
 
 	path_cmd = cmd_found(env->path, node);
 	if (!path_cmd)
@@ -75,24 +71,12 @@ int	mini_cmd(t_list_env *env, t_son *son, t_node *node)
 		ft_exit("Command not found\n", son->code);
 		exit(EXIT_FAILURE);
 	}
-	if (node->right == NULL)
+	array_cmd = exe_args(node);
+	printf("Executing command: %s\n", path_cmd);
+	if (execve(path_cmd, array_cmd, env->env) == -1)
 	{
-		array_cmd = exe_args(node);
-		if (execve(path_cmd, array_cmd, env->env) == -1)
-		{
-			perror("execve");
-			exit(EXIT_FAILURE);
-		}
-		free(array_cmd);
-		exit(EXIT_SUCCESS);
-	}
-	else
-	{
-		array_cmd = exe_args(node);
-		while (array_cmd[i])
-			printf("Node content out == %s \n", array_cmd[i++]);
-		execve(path_cmd, array_cmd, env->env);
-		free(array_cmd);
+		perror("execve");
+		exit(EXIT_FAILURE);
 	}
 	return (son->code);
 }

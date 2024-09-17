@@ -6,21 +6,19 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:20:09 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/16 16:32:30 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/18 00:00:05 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int mini_echo(t_token *token)
+int mini_echo(t_node *node)
 {
 	char	*result;
-	int		i;
 
-	i = 0;
-	while(++i < token->len)
+	while(node->right)
 	{
-		result = token->argument[i];
+		result = node->operation->read;
 		if (!result)
 		{
 			perror ("echo");
@@ -28,6 +26,7 @@ int mini_echo(t_token *token)
 		}
 			printf("%s", result);
 		free (result);
+		node = node->right;
 	}
 	return (0);
 }

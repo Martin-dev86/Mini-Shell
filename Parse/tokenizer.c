@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:34:56 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/11 18:57:03 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/17 22:47:37 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,19 @@ void print_token_links(t_list_token *head)
     }
 }
 
-//NEW PROBLEM with the quotes, SEG FAULT
-
+// Function to handle quotes and capture everything inside them
 char *quote_catcher(char *str, int *i, int quote)
 {
-    char *result = NULL;
+    char *result = strdup("");  // Start with an empty string
     while (str[*i] && str[*i] != quote)
     {
         char temp[2] = {str[*i], '\0'};
-        result = ft_strjoin(result, temp);
+        char *new_result = ft_strjoin(result, temp);
+        free(result);
+        result = new_result;
         (*i)++;
     }
-    // If the closing quote is not found, return the partial result
+    // If the closing quote is found, skip it
     if (str[*i] == quote)
     {
         (*i)++; // Skip the closing quote

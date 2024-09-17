@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/16 22:26:25 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/17 23:54:31 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			execute(t_son *son, t_list_env *env, t_node *node);
 int			execute_builtins(t_son *son, t_list_env *env, t_node *node);
 char		*get_pwd(void);
 int			mini_pwd(t_son *son);
-int			mini_echo(t_token *token);
+int			mini_echo(t_node *node);
 int			mini_redirect(t_token *token, t_son *son);
 int			mini_env(t_list_env *env);
 int			mini_unset(t_list_env *env, t_token *token);
