@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/13 20:29:58 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/16 23:23:51 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_node *main_parser(char **env, t_token *token)
     // printf("Expanding AST\n");
     ast->n_childs = count_pipe_tokens(ast);
     printf("Number of pipes: %d\n", ast->n_childs);
-    //ast = final_tree(ast, env_list);
+    ast = final_tree(ast, env_list);
     printf("Expander finished!\n");
     printf("Final tree:\n");
     print_ast(ast);

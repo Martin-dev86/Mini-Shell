@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/16 16:33:11 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/16 22:26:25 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			mini_redirect(t_token *token, t_son *son);
 int			mini_env(t_list_env *env);
 int			mini_unset(t_list_env *env, t_token *token);
 int			mini_export(t_list_env *env, t_token *token);
-int			mini_cd(t_token *token, t_list_env *env);
+int			mini_cd(t_node *node, t_list_env *env);
 void		mini_sort(t_list_env *sorted_current, t_list_env *current);
 void		mini_lstadd_back(t_list_env **lst, t_list_env *new);
 int			mini_strlen(const char *c);

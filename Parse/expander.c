@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:21:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/13 19:35:20 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/16 23:49:55 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,13 @@ t_node *final_tree(t_node *ast, t_list_env *env)
     if (!new)
         ft_exit("Failed to allocate memory", EXIT_FAILURE);    
     t_node *head = new;
-
     // Traverse the tree and change types to BUILTIN where applicable
     while (ast != NULL)
     {
         printf("Operation: new\n");
         new->operation = ast->operation;
         printf("ABCº\n");
-        //new = expand_string(ast, env); // This will change the type to BUILTIN if applicable
-
+        new = expand_string(ast, env); // This will change the type to BUILTIN if applicable
         printf("Operation: %s, Type: %d\n", new->operation->read, new->operation->type);
         if (ast->left != NULL)
         {

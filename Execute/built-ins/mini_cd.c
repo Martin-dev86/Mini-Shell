@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	mini_cd(t_token *token, t_list_env *env)
+int	mini_cd(t_node *node, t_list_env *env)
 {
 	t_list_env	*current;
 	char		*temp;
@@ -21,7 +21,7 @@ int	mini_cd(t_token *token, t_list_env *env)
 	i = 0;
 	env->len = 0;
 	current = env;
-	while (token->argument[env->len])
+	while (node->operation->argument[env->len])
 		env->len++;
 	if (env->len == 1)
 	{
@@ -61,9 +61,9 @@ int	mini_cd(t_token *token, t_list_env *env)
 			chdir(temp);
 		current = current->next;
 	}
-	if (!token->argument[1])
+	if (!node->operation->argument[1])
 		return (1);
-	if (chdir(token->argument[1]) == -1)
+	if (chdir(node->operation->argument[1]) == -1)
 	{
 		perror("cd");
 		return (1);

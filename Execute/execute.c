@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/16 17:13:58 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/16 22:52:36 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	execute_builtins(t_son *son, t_list_env *env, t_node *node)
 	if (ft_strcmp(node->operation->read, "unset") == 0)
 		mini_unset(env, node->operation);
 	if (ft_strcmp(node->operation->read, "cd") == 0)
-		mini_cd(node->operation, env);
+		mini_cd(node, env);
 	if (ft_strcmp(node->operation->read, "export") == 0)
 		mini_export(env, node->operation);
 	if (ft_strcmp(node->operation->read, "env") == 0)
@@ -62,15 +62,13 @@ int	execute_builtins(t_son *son, t_list_env *env, t_node *node)
 
 int	execute(t_son *son, t_list_env *env, t_node *node)
 {
-	if (node->n_childs <= 1)
+	if (node->operation->type == BUILTIN)
+		execute_builtins(son, env, node);
+	else if (node->operation->type == REDIR)
+		mini_redirect(node->operation, son);
+	else if (node->n_childs <= 1 && node->operation->type == CMD)
 		executing(son, env, node);
 	else if (node->n_childs >= 2 && node->operation->type == PIPE)
 		mini_pipe(son, node, env);
-	else if (node->operation->type == REDIR)
-		mini_redirect(node->operation, son);
-	else if (node->operation->type == BUILTIN)
-		execute_builtins(son, env, node);
-	else if (node->operation->type == CMD)
-		mini_cmd(env, son, node);
 	return (0);
 }
