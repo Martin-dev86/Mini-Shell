@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/13 20:29:58 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:52:15 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ t_node *main_parser(char **env, t_token *token)
 
     token_list = ft_calloc(1, sizeof(t_list_token));
     token_list = token_read_filler(*token, token_list);
-    token_list_typer(token_list);
-    
+
     // Check for an empty token list / command
     if (token_list == NULL)
         exit (EXIT_SUCCESS);
+    
+    token_list_typer(token_list);
+    replace_env_vars(token_list, env_list);
     
     // The DFA is not doing his job correctly
     final_state = dfa_main(token_list);

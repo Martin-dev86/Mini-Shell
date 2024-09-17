@@ -9,7 +9,6 @@
 /*   Updated: 2024/09/11 18:57:03 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
 // Function to set the prev pointers in the linked list
@@ -39,18 +38,19 @@ void print_token_links(t_list_token *head)
     }
 }
 
-//NEW PROBLEM with the quotes, SEG FAULT
-
+// Function to handle quotes and capture everything inside them
 char *quote_catcher(char *str, int *i, int quote)
 {
-    char *result = NULL;
+    char *result = strdup("");  // Start with an empty string
     while (str[*i] && str[*i] != quote)
     {
         char temp[2] = {str[*i], '\0'};
-        result = ft_strjoin(result, temp);
+        char *new_result = ft_strjoin(result, temp);
+        free(result);
+        result = new_result;
         (*i)++;
     }
-    // If the closing quote is not found, return the partial result
+    // If the closing quote is found, skip it
     if (str[*i] == quote)
     {
         (*i)++; // Skip the closing quote

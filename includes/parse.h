@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
 /*   Updated: 2024/09/13 20:26:39 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 # include <fcntl.h>
 # include <sys/wait.h>
@@ -76,7 +77,7 @@ typedef struct s_list_token
 }	t_list_token;
 
 // Helper functions
-int ft_token_lst_size(t_list_token *lst);
+int				ft_token_lst_size(t_list_token *lst);
 
 // Exit function
 void		    ft_exit(char *str, int code);
@@ -92,6 +93,7 @@ t_list_token	*token_read_filler(t_token token, t_list_token *head);
 int 			dfa_main (t_list_token *token_list);
 
 // Expander
+void 			replace_env_vars(t_list_token *tokens, t_list_env *env_list);
 t_node 			*expand_tree(t_node *ast, t_list_env *env);
 t_node 			*final_tree(t_node *ast, t_list_env *env);
 
