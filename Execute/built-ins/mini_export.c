@@ -74,16 +74,14 @@ void	swap_list(t_list_env *current, t_list_env *sorted_current)
 	}
 }
 
-int	mini_export(t_list_env *env, t_token *token)
+int	mini_export(t_list_env *env, t_node *node)
 {
 	t_list_env	*new_node;
 	t_list_env	*promp;
 	t_list_env	*current;
 	t_list_env	*sorted_current;
 
-	while (token->argument[env->len])
-		env->len++;
-	if (env->len == 1)
+	if (node->right == NULL)
 	{
 		sorted_current = NULL;
 		current = env;
@@ -98,7 +96,7 @@ int	mini_export(t_list_env *env, t_token *token)
 		print_sorted(current);
 		return (0);
 	}
-	promp = mini_lstnew(token->argument[1]);
+	promp = mini_lstnew(node->right->operation->read);
 	mini_lstadd_back(&env, promp);
 	return (0);
 }

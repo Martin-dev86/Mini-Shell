@@ -39,10 +39,10 @@ int create_pipes(t_son *son, int num_pipes)
 }
 int mini_pipe(t_son *son, t_node *node, t_list_env *env)
 {
-	int	i;
-	int	j;
-	int *pids;
-	t_node *current_node;
+	int		i;
+	int		j;
+	int		*pids;
+	t_node	*current_node;
 
 	i = 0;
 	current_node = node;
@@ -57,7 +57,7 @@ int mini_pipe(t_son *son, t_node *node, t_list_env *env)
 		printf("Forking process %d\n", i);
 		son->pid = fork();
 		if (son->pid == -1)
-		 	ft_exit("fork error", son->code);
+			ft_exit("fork error", son->code);
 		if (son->pid == 0)
 		{
 			printf("In child process %d\n", i);
@@ -84,25 +84,25 @@ int mini_pipe(t_son *son, t_node *node, t_list_env *env)
 		pids[i] = son->pid;
 		current_node = current_node->right;
 		i++;
-    }
-    i = 0;
-    while (i < node->n_childs - 1)
-    {
+	}
+	i = 0;
+	while (i < node->n_childs - 1)
+	{
 		close(son->fd[i][0]);
 		close(son->fd[i][1]);
 		i++;
-    }
+	}
 
-    i = 0;
-    while (i < node->n_childs)
-    {
-	printf("Waiting for child %d\n", i);
-      if (waitpid(pids[i], &son->code, 0) < 0)
-	    {
-		perror("waitpid");
-		return (son->code);
-	    }
+	i = 0;
+	while (i < node->n_childs)
+	{
+		printf("Waiting for child %d\n", i);
+		if (waitpid(pids[i], &son->code, 0) < 0)
+		{
+			perror("waitpid");
+			return(son->code);
+		}
 		i++;
-    }
-    return (son->code);
+	}
+	return (son->code);
 }

@@ -21,9 +21,7 @@ int	mini_cd(t_node *node, t_list_env *env)
 	i = 0;
 	env->len = 0;
 	current = env;
-	while (node->operation->argument[env->len])
-		env->len++;
-	if (env->len == 1)
+	if (node->right == NULL)
 	{
 		while (current && current->next)
 		{
@@ -61,9 +59,9 @@ int	mini_cd(t_node *node, t_list_env *env)
 			chdir(temp);
 		current = current->next;
 	}
-	if (!node->operation->argument[1])
+	if (!node->right)
 		return (1);
-	if (chdir(node->operation->argument[1]) == -1)
+	if (chdir(node->right->operation->read) == -1)
 	{
 		perror("cd");
 		return (1);

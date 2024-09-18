@@ -12,51 +12,31 @@
 
 #include "minishell.h"
 
-int	mini_redirect(t_token *token, t_son *son)
+int	mini_redirect(t_node *node, t_son *son, t_list_env *env)
 {
-	int	i;
-
-	i = 0;
-	while (i < token->len)
+	(void)env;
+	if (ft_strcmp(node->operation->read, ">") == 0)
 	{
-		if (ft_strcmp(token->argument[i], ">") == 0)
+		son->fd_out = open(node->left->operation->read, O_TRUNC | O_CREAT
+				| O_RDWR, 0644);
+		if (son->fd_out < 0)
 		{
-			son->fd_out = open(token->argument[i + 1], O_TRUNC | O_CREAT
-					| O_RDWR, 0644);
-			if (son->fd_out < 0)
-			{
-				perror("output");
-				exit (1);
-			}
-			dup2(son->fd_out, STDOUT_FILENO);
-			close(son->fd_out);
+			perror("output");
+			exit (1);
 		}
-		else if (ft_strcmp(token->argument[i], "<") == 0)
+		dup2(son->fd_out, STDOUT_FILENO);
+		close(son->fd_out);
+	}
+	else if (ft_strcmp(node->operation->read, "<") == 0)
+	{
+		son->fd_in = open(node->left->operation->read, O_RDONLY);
+		if (son->fd_in < 0)
 		{
-			son->fd_in = open(token->argument[i - 1], O_RDONLY);
-			if (son->fd_in < 0)
-			{
-				perror("input");
-				exit (1);
-			}
-			dup2(son->fd_in, STDIN_FILENO);
-			close(son->fd_in);
+			perror("input");
+			exit (1);
 		}
-		i++;
+		dup2(son->fd_in, STDIN_FILENO);
+		close(son->fd_in);
 	}
 	return (0);
 }
-// int		count;
-// 	char	buffer[1024];
-// if(son->fd_in != STDIN_FILENO)
-// 		{
-// 			while ((count = read(STDIN_FILENO, buffer, sizeof(buffer) - 1)) > 0)
-//             {	
-// 				buffer[count] = '\0';
-// 				printf("%s", buffer);
-// 			}
-//         	if (count < 0)
-//         	{
-//             	perror("read");
-//             	return (1);
-//         	}

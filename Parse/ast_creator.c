@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_creator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:57:35 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/11 20:08:04 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/18 20:32:53 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_node *ast_creator(t_list_token *start, t_list_token *end)
         if (highest_priority_token->next != NULL)
             node->right = ast_creator(highest_priority_token->next, end);
     }
-    // If the token is a redirection, attach it to the appropriate command node
     else if (highest_priority_token->content->type == REDIR ||
              highest_priority_token->content->type == APPEND)
     {
@@ -77,8 +76,9 @@ t_node *ast_creator(t_list_token *start, t_list_token *end)
             node->left = ast_creator(start, highest_priority_token->prev);
         if (highest_priority_token->next != NULL)
             node->right = ast_creator(highest_priority_token->next, end);
+        printf("\n\n%s\n\n", highest_priority_token->prev->content->read);
+        printf("\n\n%s\n\n", highest_priority_token->next->content->read);
     }
-    // If it's a command or argument, there may be more tokens to process in a sequential order
     else if (highest_priority_token->content->type == CMD || highest_priority_token->content->type == ARG)
     {
         if (highest_priority_token->prev != NULL)
@@ -86,5 +86,7 @@ t_node *ast_creator(t_list_token *start, t_list_token *end)
         if (highest_priority_token->next != NULL)
             node->right = ast_creator(highest_priority_token->next, end);
     }
+    // If the token is a redirection, attach it to the appropriate command node
+    // If it's a command or argument, there may be more tokens to process in a sequential order
     return node;
 }

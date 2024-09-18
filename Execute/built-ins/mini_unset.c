@@ -28,14 +28,15 @@ void	del_node(t_list_env *env)
 	free (node_delete);
 }
 
-int	mini_unset(t_list_env *env, t_token *token)
+int	mini_unset(t_list_env *env, t_node *node)
 {
 	char		*unset_var;
 	t_list_env	*current;
 	size_t		len;
 
 	current = env;
-	unset_var = ft_strjoin(token->argument[1], "=");
+	unset_var = ft_strjoin(node->right->operation->read, "=");
+	printf("\n\n UNSET VAR == %s\n\n", unset_var);
 	len = ft_strlen(unset_var);
 	while (current && current->next)
 	{

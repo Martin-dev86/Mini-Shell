@@ -29,22 +29,22 @@ void token_list_typer (t_list_token *token_list)
 		else if (ft_strcmp(token_list->content->read, ">") == 0)
 		{
 			token_list->content->type = REDIR;
-			token_list->content->priority = 2;
+			token_list->content->priority = 4;
 		}
 		else if (ft_strcmp(token_list->content->read, "<") == 0)
 		{
 			token_list->content->type = REDIR;
-			token_list->content->priority = 2;
+			token_list->content->priority = 4;
 		}
 		else if (ft_strcmp(token_list->content->read, ">>") == 0)
 		{
 			token_list->content->type = APPEND;
-			token_list->content->priority = 2;
+			token_list->content->priority = 4;
 		}
 		else if (ft_strcmp(token_list->content->read, "<<") == 0)
 		{
 			token_list->content->type = HEREDOC;
-			token_list->content->priority = 2;
+			token_list->content->priority = 4;
 		}
 		else if (ft_strcmp(token_list->content->read, "\n") == 0)
 		{
@@ -54,7 +54,7 @@ void token_list_typer (t_list_token *token_list)
 		else
 		{
 			token_list->content->type = CMD;
-			token_list->content->priority = 4;
+			token_list->content->priority = 2;
 		}
 		token_list = token_list->next;
 	}
