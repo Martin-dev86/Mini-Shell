@@ -28,12 +28,12 @@ void token_list_typer (t_list_token *token_list)
 		}
 		else if (ft_strcmp(token_list->content->read, ">") == 0)
 		{
-			token_list->content->type = REDIR;
+			token_list->content->type = REDIR_R;
 			token_list->content->priority = 4;
 		}
 		else if (ft_strcmp(token_list->content->read, "<") == 0)
 		{
-			token_list->content->type = REDIR;
+			token_list->content->type = REDIR_L;
 			token_list->content->priority = 4;
 		}
 		else if (ft_strcmp(token_list->content->read, ">>") == 0)

@@ -68,8 +68,9 @@ t_node *ast_creator(t_list_token *start, t_list_token *end)
         if (highest_priority_token->next != NULL)
             node->right = ast_creator(highest_priority_token->next, end);
     }
-    else if (highest_priority_token->content->type == REDIR ||
-             highest_priority_token->content->type == APPEND)
+    else if (highest_priority_token->content->type == REDIR_R ||
+                highest_priority_token->content->type == REDIR_L ||
+                highest_priority_token->content->type == APPEND)
     {
         // Redirection affects the right side (file), so left is the command, right is the file
         if (highest_priority_token->prev != NULL)
