@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/18 18:40:58 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:49:06 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 # include <fcntl.h>
 # include <sys/wait.h>
@@ -20,6 +19,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include <ctype.h>
+# include <stdbool.h>
 
 typedef enum e_type
 {
@@ -84,6 +85,8 @@ void		    ft_exit(char *str, int code);
 
 // Environment parser
 char 			**get_path(char *path);
+char 			*replace_variables(const char *input, t_list_env *env_list);
+
 
 // Tokenizer
 void			token_list_typer (t_list_token *token_list);

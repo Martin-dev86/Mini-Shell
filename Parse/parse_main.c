@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/18 18:33:45 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:55:01 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_node *main_parser(char **env, t_token *token)
     env_list = ft_calloc(1, sizeof(t_list_env));
     env_list = env_parse(env);
 
+    token->read = replace_variables(token->read, env_list);
+    printf("Token read: %s\n", token->read);
     token_list = ft_calloc(1, sizeof(t_list_token));
     token_list = token_read_filler(*token, token_list);
 
@@ -48,9 +50,8 @@ t_node *main_parser(char **env, t_token *token)
         exit (EXIT_SUCCESS);
     
     token_list_typer(token_list);
-    replace_env_vars(token_list, env_list);
     
-    // The DFA is not doing his job correctly
+    // The DFA is doing his job correctly
     final_state = dfa_main(token_list);
     
     // Delete the line below, it's just to check the final state
@@ -78,21 +79,14 @@ t_node *main_parser(char **env, t_token *token)
 
     if (ast == NULL)
         ft_exit("AST FAILURE", EXIT_FAILURE);
-    // Print the AST to check if it was created correctly
-    print_ast(ast);
-    
-    // Parse the AST and expand the variables
-    //printf("\n", env_list->content);
+        //printf("\n", env_list->content);
     // printf("Expanding AST\n");
     ast->n_childs = count_pipe_tokens(ast);
     printf("Number of pipes: %d\n", ast->n_childs);
     ast = final_tree(ast, env_list);
-    printf("Expander finished!\n");
     printf("Final tree:\n");
     print_ast(ast);
-
     // if (ast == NULL)
     //     ft_exit("EXPAND FAILURE", EXIT_FAILURE);
-        
     return (ast);
 }

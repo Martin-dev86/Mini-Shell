@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 19:49:37 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/11 18:58:03 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:28:42 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int dfa_body(t_list_token *current, int state)
                 state = 3;
                 return (state);
             }
-        if (current->content->type == REDIR || current->content->type == APPEND || current->content->type == HEREDOC)
+        if (current->content->type == REDIR_L || current->content->type == REDIR_R ||
+                current->content->type == APPEND || current->content->type == HEREDOC)
             {
                 state = 2;
                 return (state);
@@ -56,8 +57,8 @@ int dfa_body(t_list_token *current, int state)
                 state = 3;
                 return (state);
             }
-        if (current->content->type == REDIR || current->content->type == APPEND ||
-            current->content->type == HEREDOC)
+        if (current->content->type == REDIR_L || current->content->type == REDIR_R ||
+            current->content->type == APPEND || current->content->type == HEREDOC)
             {
                 state = 2;
                 return (state);
@@ -79,8 +80,8 @@ int dfa_body(t_list_token *current, int state)
                 state = 3;
                 return (state);
             }
-        if (current->content->type == REDIR || current->content->type == APPEND ||
-            current->content->type == HEREDOC)
+        if (current->content->type == REDIR_L || current->content->type == REDIR_R ||
+            current->content->type == APPEND || current->content->type == HEREDOC)
             {
                 state = 2;
                 return (state);

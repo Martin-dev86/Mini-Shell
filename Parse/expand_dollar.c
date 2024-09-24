@@ -1,74 +1,85 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_dollar.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/24 12:40:30 by jeandrad          #+#    #+#             */
+/*   Updated: 2024/09/24 16:51:08 by jeandrad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-// Function to obtain the value of a env variable in the env_list
-char *get_env_value(t_list_env *env_list, const char *var)
+char *get_env_value(const char *key, t_list_env *env_list)
 {
-    t_list_env *current = env_list;
-    size_t var_len = strlen(var);
-
-    while (current)
-    {
-        // Search if the variabe starts with the name and =
-        if (strncmp(current->content, var, var_len) == 0 && current->content[var_len] == '=')
-        {
-            // returns the value after = 
-            return current->content + var_len + 1;
+    size_t key_len = strlen(key);
+    while (env_list) {
+        if (strncmp(env_list->content, key, key_len) == 0 && env_list->content[key_len] == '=') {
+            return env_list->content + key_len + 1; // Skip past "key="
         }
-        current = current->next;
+        env_list = env_list->next;
     }
-    return NULL; // if there are not any values with that name in the list
+    return "";
 }
 
-// Function to realize the sustitution of env variables in the token_list 
-void replace_env_vars(t_list_token *tokens, t_list_env *env_list)
+char *replace_variables(const char *input, t_list_env *env_list) 
 {
-    t_list_token *current = tokens;
+    bool in_single_quote = false;
+    bool in_double_quote = false;
+    size_t len = strlen(input);
+    char *result = malloc(len * 50); // Allocate more space for potential expansions
+    if (!result) return NULL;
+    size_t res_index = 0;
 
-    while (current)
-    {
-        char *read = current->content->read;
-
-        // Verify if the token has an $
-        char *dollar_sign = strchr(read, '$');
-        if (dollar_sign)
-        {
-            // Extracts the name of the varible after the $
-            int var_len = 0;
-            char *var_start = dollar_sign + 1;
-
-            while (var_start[var_len] && var_start[var_len] != ' ' && var_start[var_len] != '\0')
-                var_len++;
-
-            char *var_name = strndup(var_start, var_len);
-
-            // Search the value of the variable in the env_list
-            char *env_value = get_env_value(env_list, var_name);
-            free(var_name);
-
-            if (env_value)
-            {
-                // Does the substitution
-                size_t new_len = strlen(read) - (var_len + 1) + strlen(env_value); // New length
-                char *new_token = malloc(new_len + 1);
-
-                if (new_token)
-                {
-                    // Copies the part before the $
-                    size_t prefix_len = dollar_sign - read;
-                    strncpy(new_token, read, prefix_len);
-
-                    // Add the env variable value
-                    strcpy(new_token + prefix_len, env_value);
-
-                    // Add the part after the variable
-                    strcpy(new_token + prefix_len + strlen(env_value), var_start + var_len);
-
-                    // replaces the token value before $ expansion with the new value after $ expansion
-                    free(current->content->read);
-                    current->content->read = new_token;
-                }
-            }
+    for (size_t i = 0; i < len; i++) {
+        if (input[i] == '\'' && !in_double_quote) {
+            in_single_quote = !in_single_quote;
+            result[res_index++] = input[i];
+        } else if (input[i] == '"' && !in_single_quote) {
+            in_double_quote = !in_double_quote;
+            result[res_index++] = input[i];
+        } else if (input[i] == '$' && !in_single_quote) {
+            size_t var_start = ++i;
+            while (i < len && (isalnum(input[i]) || input[i] == '_')) i++;
+            char var_name[256];
+            strncpy(var_name, &input[var_start], i - var_start);
+            var_name[i - var_start] = '\0';
+            char *var_value = get_env_value(var_name, env_list);
+            strcpy(&result[res_index], var_value);
+            res_index += strlen(var_value);
+            i--; // Adjust for the increment in the loop
+        } else {
+            result[res_index++] = input[i];
         }
-        current = current->next;
     }
+
+    result[res_index] = '\0';
+
+    if (in_single_quote || in_double_quote) {
+        free(result);
+        return NULL; // Unmatched quotes
+    }
+
+    return result;
 }
+
+// Example usage
+// int main() {
+//     t_list_env env1 = {"USER=jeandrad", 12, 4, NULL, NULL, NULL};
+//     t_list_env env2 = {"HOME=/home/jeandrad", 18, 4, &env1, NULL, NULL};
+//     t_list_env env3 = {"SHELL=/bin/bash", 15, 5, &env2, NULL, NULL};
+
+//     char *input = "Hello $USER, your home is \"$HOME\" and shell is '$SHELL'";
+//     char *output = replace_variables(input, &env3);
+
+//     if (output) {
+//         printf("%s\n", output);
+//         free(output);
+//     } else {
+//         printf("Error: Unmatched quotes\n");
+//     }
+
+//     return 0;
+// }

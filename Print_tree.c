@@ -23,7 +23,7 @@ void	print_ast_helper(t_node *node, int depth, char *side)
 		print_ast_helper(node->left, depth + 2, "left:  ");
 		print_ast_helper(node->right, depth + 2, "right: ");
 	}
-	else if (node->operation->type == REDIR)
+	else if (node->operation->type == REDIR_L || node->operation->type == REDIR_R)
 	{
 		printf(RED"%*s%s"RESET""YELLOW"REDIRECTION: "RESET" %s\n", depth * 2, \
             "", side, node->operation->read);
