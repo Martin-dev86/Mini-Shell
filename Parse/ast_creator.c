@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:57:35 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/24 12:47:31 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:48:31 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,7 @@ t_list_token *find_highest_priority_token(t_list_token *start, t_list_token *end
 t_node *ast_creator(t_list_token *start, t_list_token *end)
 {
     if (start == NULL || start == end->next)
-    {
         return NULL;
-    }
-    // printf("ast_creator called with start: %s, end: %s\n",
-    //        start ? start->content->read : "NULL",
-    //        end ? end->content->read : "NULL");
-
     // Find the token with the highest priority (pipes first, then redirections)
     t_list_token *highest_priority_token = find_highest_priority_token(start, end);
     // Create a node for the highest-priority token
@@ -78,6 +72,13 @@ t_node *ast_creator(t_list_token *start, t_list_token *end)
             node->left = ast_creator(start, highest_priority_token->prev);
         if (highest_priority_token->next != NULL)
             node->right = ast_creator(highest_priority_token->next, end);
+        if (highest_priority_token->prev->content->type == CMD || highest_priority_token->content->type == ARG)
+        {
+            if (highest_priority_token->prev != NULL)
+                node->right = ast_creator(start, highest_priority_token->prev);
+            if (highest_priority_token->next != NULL)
+                node->left = ast_creator(highest_priority_token->next, end);
+        }
     }
     // If it's a command or argument, there may be more tokens to process in a sequential order
     else if (highest_priority_token->content->type == CMD || highest_priority_token->content->type == ARG)

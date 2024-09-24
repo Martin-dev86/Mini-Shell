@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:34:56 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/24 12:51:09 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:02:46 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char **token_split(t_token *token)
         { // ASCII code for "
             i++;
             tokens[j] = quote_catcher(str, &i, 34);
-            printf("Token: %s\n", tokens[j]);
+            //printf("Token: %s\n", tokens[j]);
             if (tokens[j] == NULL)
                 return NULL; // Handle memory allocation failure
             j++;

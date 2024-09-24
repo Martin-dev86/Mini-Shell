@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/24 12:55:01 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:02:17 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ t_node *main_parser(char **env, t_token *token)
     env_list = env_parse(env);
 
     token->read = replace_variables(token->read, env_list);
-    printf("Token read: %s\n", token->read);
     token_list = ft_calloc(1, sizeof(t_list_token));
     token_list = token_read_filler(*token, token_list);
 
@@ -62,25 +61,24 @@ t_node *main_parser(char **env, t_token *token)
         ft_exit("Syntax FAILURE", EXIT_FAILURE);
         
     // Print the token list to check if it was created correctly
-    //printf("Printing token list:\n");
+    printf("Printing token list:\n");
     //print_tokens(token_list);
 
     // Create the AST
-    //printf("Creating AST\n");
     // Find the last token in the list
     t_list_token *end = token_list;
     while (end->next != NULL)
         end = end->next;
-    //printf("Start token: %s\n", token_list->content->read);
-    //printf("End token: %s\n", end->content->read);
+    printf("Start token: %s\n", token_list->content->read);
+    printf("End token: %s\n", end->content->read);
     // Create the AST
     ast = ast_creator(token_list, end);
-    //printf("Created AST\n");
+    printf("Created AST\n");
 
     if (ast == NULL)
         ft_exit("AST FAILURE", EXIT_FAILURE);
         //printf("\n", env_list->content);
-    // printf("Expanding AST\n");
+     printf("Expanding AST\n");
     ast->n_childs = count_pipe_tokens(ast);
     printf("Number of pipes: %d\n", ast->n_childs);
     ast = final_tree(ast, env_list);

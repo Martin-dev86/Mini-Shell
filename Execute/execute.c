@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/09/24 12:22:25 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:46:52 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	execute_builtins(t_son *son, t_list_env *env, t_node *node)
 
 int	execute(t_son *son, t_list_env *env, t_node *node)
 {
-	if (node->operation->type == REDIR_L)
+	if (node->operation->type == REDIR_R)
 		mini_redirect(node, son, env);
 	else if (node->operation->type == BUILTIN)
 		execute_builtins(son, env, node);
