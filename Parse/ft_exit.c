@@ -6,14 +6,14 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:33:12 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/04 10:33:37 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:29:27 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    ft_exit(char *str, int code)
+void	ft_exit(char *str, int code)
 {
-    ft_putstr_fd(str, 2);
-    exit (code);
+	ft_putstr_fd(str, 2);
+	exit(code);
 }

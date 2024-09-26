@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 16:21:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/17 22:46:57 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:28:51 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@ void	exp_ast_helper(t_node *node, int depth)
 		return ;
 	else if (node->operation->type == CMD)
 	{
-        if (strcmp(node->operation->read,"pwd") == 0 || strcmp(node->operation->read,"echo") == 0 ||
-            strcmp(node->operation->read,"env") == 0 || strcmp(node->operation->read,"export") == 0 ||
-            strcmp(node->operation->read,"unset") == 0 || strcmp(node->operation->read,"cd") == 0)
-        {
-                node->operation->type = BUILTIN;
-		        exp_ast_helper(node->left, depth + 2);
-		        exp_ast_helper(node->right, depth + 2);
-        }
+		if (strcmp(node->operation->read, "pwd") == 0
+			|| strcmp(node->operation->read, "echo") == 0
+			|| strcmp(node->operation->read, "env") == 0
+			|| strcmp(node->operation->read, "export") == 0
+			|| strcmp(node->operation->read, "unset") == 0
+			|| strcmp(node->operation->read, "cd") == 0)
+		{
+			node->operation->type = BUILTIN;
+			exp_ast_helper(node->left, depth + 2);
+			exp_ast_helper(node->right, depth + 2);
+		}
 	}
 	else
 	{
@@ -37,7 +40,7 @@ void	exp_ast_helper(t_node *node, int depth)
 
 t_node	*final_tree(t_node *root, t_list_env *env)
 {
-    (void) env;
+	(void)env;
 	exp_ast_helper(root, 0);
-    return (root);
+	return (root);
 }

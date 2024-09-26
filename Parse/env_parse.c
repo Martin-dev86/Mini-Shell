@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:02:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/16 15:30:40 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:27:37 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	first_env(char **env)
 {
 	// Only keep the first if
 	if (env == NULL || *env == NULL)
-		ft_exit ("NO ENV",128);
+		ft_exit ("NO ENV", 128);
 	else if (!getenv("PATH"))
 		ft_exit("NO PATH", EXIT_FAILURE);
 	else if (!getenv("USER"))
@@ -24,12 +24,12 @@ void	first_env(char **env)
 	else if (!getenv("HOME"))
 		ft_exit("NO HOME", EXIT_FAILURE);
 	else if (!getenv("PWD"))
-		ft_exit("NO PWD",EXIT_FAILURE);
+		ft_exit("NO PWD", EXIT_FAILURE);
 	else if (!getenv("OLDPWD"))
-		ft_exit("NO OLDPWD",EXIT_FAILURE);
+		ft_exit("NO OLDPWD", EXIT_FAILURE);
 }
 
-char **get_env(char **env)
+char	**get_env(char **env)
 {
 	int		i;
 	char	**new_env;

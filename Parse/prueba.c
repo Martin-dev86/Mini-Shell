@@ -114,60 +114,62 @@ void add_token_to_list(t_list_token **list, t_list_token *new_token)
     }
 }
 
-// Función para asignar tipos y prioridades a los tokens
-void token_list_typer(t_list_token *token_list)
-{
+// This function will determine the type of token_list
+void token_list_typer (t_list_token *token_list) {    
     t_list_token *head = token_list;
-
-    while (token_list)
-    {
-        if (ft_strcmp(token_list->content->read, "|") == 0)
-        {
+    int i = 0;
+    printf("Entering token_list_typer\n");
+    while(token_list){
+        printf("i: %d\n", i++);    
+        if (ft_strcmp(token_list->content->read, "|") == 0) {
             token_list->content->type = PIPE;
             token_list->content->priority = 1;
-        }
-        else if (ft_strcmp(token_list->content->read, ">") == 0)
-        {
+        } else if (ft_strcmp(token_list->content->read, ">") == 0) {
             token_list->content->type = REDIR_R;
-            token_list->content->priority = 2;
-        }
-        else if (ft_strcmp(token_list->content->read, "<") == 0)
-        {
-            token_list->content->type = REDIR_L;
-            token_list->content->priority = 2;
-        }
-        else if (ft_strcmp(token_list->content->read, ">>") == 0)
-        {
-            token_list->content->type = APPEND;
-            token_list->content->priority = 4;
-        }
-        else if (ft_strcmp(token_list->content->read, "<<") == 0)
-        {
-            token_list->content->type = HEREDOC;
-            token_list->content->priority = 4;
-        }
-        else if (ft_strcmp(token_list->content->read, "\n") == 0)
-        {
-            token_list->content->type = ENDLINE;
             token_list->content->priority = 3;
-        }
-        else
-        {
+            token_list = token_list->next;
             token_list->content->type = CMD;
             token_list->content->priority = 3;
+        } else if (ft_strcmp(token_list->content->read, "<") == 0) {
+            token_list->content->type = REDIR_L;
+            token_list->content->priority = 3;
+            token_list = token_list->next;
+            token_list->content->type = CMD;
+            token_list->content->priority = 3;
+        } else if (ft_strcmp(token_list->content->read, ">>") == 0) {
+            token_list->content->type = APPEND;
+            token_list->content->priority = 4;
+            token_list = token_list->next;
+            token_list->content->type = CMD;
+            token_list->content->priority = 4;
+        } else if (ft_strcmp(token_list->content->read, "<<") == 0) {
+            token_list->content->type = HEREDOC;
+            token_list->content->priority = 4;
+            token_list = token_list->next;
+            token_list->content->type = CMD;
+            token_list->content->priority = 4;
+        } else if (ft_strcmp(token_list->content->read, "\n") == 0) {
+            token_list->content->type = ENDLINE;
+            token_list->content->priority = 2;
+        } else {
+            token_list->content->type = CMD;
+            token_list->content->priority = 2;
         }
-        token_list = token_list->next;
+        if (token_list)
+            token_list = token_list->next;
     }
+    printf("Exiting token_list_typer\n");
     token_list = head;
 }
 
-// Función para crear un nuevo nodo AST
+// Function to create a new AST node
 t_node *create_ast_node(t_token *operation)
 {
     t_node *node = (t_node *)malloc(sizeof(t_node));
     if (!node)
     {
-        ft_exit("Memory allocation failed for AST node", 1);
+        perror("malloc failed");
+        exit(EXIT_FAILURE);
     }
     node->operation = operation;
     node->left = NULL;
@@ -176,78 +178,63 @@ t_node *create_ast_node(t_token *operation)
     return node;
 }
 
-// Función para insertar nodos en el AST según las reglas descritas
-t_node *insert_redirection_node(t_node *root, t_token *token, t_list_token *prev, t_list_token *next)
+// Function to find the highest-priority token in the token list
+t_list_token *find_highest_priority_token(t_list_token *start, t_list_token *end)
 {
-    t_node *new_node = create_ast_node(token);
-    
-    if (token->type == REDIR_R || token->type == APPEND) {
-        // Asignar el comando anterior como hijo izquierdo y el archivo como hijo derecho
-        new_node->left = create_ast_node(prev->content);
-        new_node->right = create_ast_node(next->content);
-    } else if (token->type == REDIR_L || token->type == HEREDOC) {
-        // Asignar el archivo como hijo izquierdo y el comando como hijo derecho
-        new_node->left = create_ast_node(next->content);
-        new_node->right = create_ast_node(prev->content);
-    }
-    new_node->n_childs = 2;
-
-    return new_node;
-}
-
-// Función para crear el AST desde una lista de tokens
-t_node *ast_creator(t_list_token *start, t_list_token *end) {
     t_list_token *current = start;
-    t_node *root = NULL;
-    t_node *last_pipe_node = NULL;
-    t_node *new_node = NULL;
-
-    while (current && current != end) {
-        if (current->content->type == PIPE) {
-            // Crear nodo de pipe
-            new_node = create_ast_node(current->content);
-            // Asignar subárbol izquierdo al último root construido
-            if (root) {
-                new_node->left = root;
-            }
-            root = new_node;
-            last_pipe_node = root; // Recordar el nodo de pipe más reciente
-        } else if (current->content->type == REDIR_R || current->content->type == REDIR_L || current->content->type == APPEND || current->content->type == HEREDOC) {
-            // Si es una redirección, asociarla con el nodo anterior y siguiente
-            if (current->prev && current->next) {
-                new_node = insert_redirection_node(NULL, current->content, current->prev, current->next);
-                if (last_pipe_node) {
-                    // Colocar la redirección a la derecha del último pipe
-                    last_pipe_node->right = new_node;
-                } else {
-                    // Si no hay pipe, es la raíz
-                    root = new_node;
-                }
-            }
-            // Saltar nodos usados para la redirección
-            current = current->next->next; 
-            continue;
-        } else {
-            // Nodo de comando o argumento
-            new_node = create_ast_node(current->content);
-            if (!root) {
-                root = new_node;
-            } else if (last_pipe_node) {
-                // Si hay un pipe activo, asignar el nuevo nodo a la derecha del último pipe
-                last_pipe_node->right = new_node;
-                last_pipe_node = NULL; // Resetear el pipe después de usarlo
-            } else {
-                // Generalmente los comandos irán al subárbol izquierdo del root actual
-                new_node->left = root;
-                root = new_node;
-            }
+    t_list_token *highest_priority_token = start;
+    while (current != end->next)
+    {
+        if (current->content->priority < highest_priority_token->content->priority)
+        {
+            highest_priority_token = current;
         }
         current = current->next;
     }
-
-    return root;
+    return highest_priority_token;
 }
 
+// Recursive function to build the AST
+t_node *ast_creator(t_list_token *start, t_list_token *end)
+{
+    if (start == NULL || start == end->next)
+        return NULL;
+    // Find the token with the highest priority (pipes first, then redirections)
+    t_list_token *highest_priority_token = find_highest_priority_token(start, end);
+    // Create a node for the highest-priority token
+    t_node *node = create_ast_node(highest_priority_token->content);
+    // If the token is a pipe, its children are commands or other pipes
+    if (highest_priority_token->content->type == PIPE)
+    {
+        if (highest_priority_token->prev != NULL)
+            node->left = ast_creator(start, highest_priority_token->prev);
+        if (highest_priority_token->next != NULL)
+            node->right = ast_creator(highest_priority_token->next, end);
+    }
+    // If the token is a redirection, attach it to the appropriate command node
+    else if (highest_priority_token->content->type == REDIR_L ||
+                highest_priority_token->content->type == REDIR_R ||
+                    highest_priority_token->content->type == APPEND)
+    {
+        // Redirection affects the right side (file), so left is the command, right is the file
+        if (highest_priority_token->prev != NULL)
+        {
+            node->left = ast_creator(start, highest_priority_token->prev);
+            node->left->right = node; // Attach the redirection to the command
+        }
+        if (highest_priority_token->next != NULL)
+            node->right = create_ast_node(highest_priority_token->next->content);
+    }
+    // If it's a command or argument, there may be more tokens to process in a sequential order
+    else if (highest_priority_token->content->type == CMD || highest_priority_token->content->type == ARG)
+    {
+        if (highest_priority_token->prev != NULL)
+            node->left = ast_creator(start, highest_priority_token->prev);
+        if (highest_priority_token->next != NULL)
+            node->right = ast_creator(highest_priority_token->next, end);
+    }
+    return node;
+}
 // Función de impresión del AST
 void print_ast_helper(t_node *node, int depth, char *side)
 {

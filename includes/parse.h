@@ -6,21 +6,21 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/24 15:49:06 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:24:01 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <memory.h>
-# include <stdint.h>
-# include <stddef.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
-# include <ctype.h>
-# include <stdbool.h>
+#include <fcntl.h>
+#include <sys/wait.h>
+#include <memory.h>
+#include <stdint.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <limits.h>
+#include <ctype.h>
+#include <stdbool.h>
 
 typedef enum e_type
 {
@@ -66,7 +66,7 @@ typedef struct s_list_env
 	int					len;
 	size_t				variable_len;
 	struct s_list_env	*next;
-	char 				**path;
+	char				**path;
 	char				**env;
 }	t_list_env;
 
@@ -81,32 +81,30 @@ typedef struct s_list_token
 int				ft_token_lst_size(t_list_token *lst);
 
 // Exit function
-void		    ft_exit(char *str, int code);
+void			ft_exit(char *str, int code);
 
 // Environment parser
-char 			**get_path(char *path);
-char 			*replace_variables(const char *input, t_list_env *env_list);
-
+char			**get_path(char *path);
+char			*replace_variables(const char *input, t_list_env *env_list);
 
 // Tokenizer
-void			token_list_typer (t_list_token *token_list);
+void			token_list_typer(t_list_token *token_list);
 t_list_token	*token_read_filler(t_token token, t_list_token *head);
 
 // DFA
-int 			dfa_main (t_list_token *token_list);
+int				dfa_main(t_list_token *token_list);
 
 // Expander
-void 			replace_env_vars(t_list_token *tokens, t_list_env *env_list);
-t_node 			*expand_tree(t_node *ast, t_list_env *env);
-t_node 			*final_tree(t_node *ast, t_list_env *env);
+void			replace_env_vars(t_list_token *tokens, t_list_env *env_list);
+t_node			*expand_tree(t_node *ast, t_list_env *env);
+t_node			*final_tree(t_node *ast, t_list_env *env);
 
 // Pipe counter
 int				count_pipe_tokens(t_node *root);
 
 // AST creator
 t_node			*ast_creator(t_list_token *start, t_list_token *end);
-t_node 			*final_tree (t_node *ast, t_list_env *env);
+t_node			*final_tree(t_node *ast, t_list_env *env);
 
 // Main parser
 t_node			*main_parser(char **env, t_token *token);
-
