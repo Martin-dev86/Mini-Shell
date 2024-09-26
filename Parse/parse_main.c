@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/26 12:30:22 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:15:41 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_node	*main_parser(char **env, t_token *token)
 	env_list = ft_calloc(1, sizeof(t_list_env));
 	env_list = env_parse(env);
 	token->read = replace_variables(token->read, env_list);
+	printf("After replacement %s\n", token->read);
 	token_list = ft_calloc(1, sizeof(t_list_token));
 	token_list = token_read_filler(*token, token_list);
 	// Check for an empty token list / command
@@ -56,15 +57,15 @@ t_node	*main_parser(char **env, t_token *token)
 	if (final_state <= 0 || final_state == 2 || final_state == 4)
 		ft_exit("Syntax FAILURE", EXIT_FAILURE);
 	// Print the token list to check if it was created correctly
-	printf("Printing token list:\n");
+	//printf("Printing token list:\n");
 	// print_tokens(token_list);
 	// Create the AST
 	// Find the last token in the list
 	end = token_list;
 	while (end->next != NULL)
 		end = end->next;
-	printf("Start token: %s\n", token_list->content->read);
-	printf("End token: %s\n", end->content->read);
+	//printf("Start token: %s\n", token_list->content->read);
+	//printf("End token: %s\n", end->content->read);
 	// Create the AST
 	ast = ast_creator(token_list, end);
 	printf("Created AST\n");

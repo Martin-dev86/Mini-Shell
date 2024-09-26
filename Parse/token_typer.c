@@ -16,14 +16,14 @@
 void	token_list_typer(t_list_token *token_list)
 {
 	t_list_token	*head;
-	int				i;
+	//int				i;
 
 	head = token_list;
-	i = 0;
-	printf("Entering token_list_typer\n");
+	//i = 0;
+	//printf("Entering token_list_typer\n");
 	while (token_list)
 	{
-		printf("i: %d\n", i++);
+		//printf("i: %d\n", i++);
 		if (ft_strcmp(token_list->content->read, "|") == 0)
 		{
 			token_list->content->type = PIPE;
@@ -74,6 +74,6 @@ void	token_list_typer(t_list_token *token_list)
 		if (token_list)
 			token_list = token_list->next;
 	}
-	printf("Exiting token_list_typer\n");
+	//printf("Exiting token_list_typer\n");
 	token_list = head;
 }
