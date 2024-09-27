@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:57:35 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/26 12:21:51 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/27 20:30:13 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,21 +77,26 @@ t_node	*ast_creator(t_list_token *start, t_list_token *end)
 		//	right is the file
 		if (highest_priority_token->prev != NULL)
 		{
+			printf("Creating left node\n");
 			node->left = ast_creator(start, highest_priority_token->prev);
-			node->left->right = node; // Attach the redirection to the command
+			//node->left->right = node; // Attach the redirection to the command
 		}
 		if (highest_priority_token->next != NULL)
+		{
+			printf("Creating right node\n");
 			node->right = create_ast_node(highest_priority_token->next->content);
+		}
 	}
 	// If it's a command or argument,
 	//	there may be more tokens to process in a sequential order
 	else if (highest_priority_token->content->type == CMD
 		|| highest_priority_token->content->type == ARG)
 	{
-		if (highest_priority_token->prev != NULL)
-			node->left = ast_creator(start, highest_priority_token->prev);
+		if (highest_priority_token->prev != NULL )
+			node->right = ast_creator(start, highest_priority_token->prev);
+
 		if (highest_priority_token->next != NULL)
-			node->right = ast_creator(highest_priority_token->next, end);
+			node->left = ast_creator(highest_priority_token->next, end);
 	}
 	return (node);
 }

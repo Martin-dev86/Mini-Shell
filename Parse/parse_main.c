@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/26 15:15:41 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/27 20:03:02 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_node	*main_parser(char **env, t_token *token)
 	//printf("Start token: %s\n", token_list->content->read);
 	//printf("End token: %s\n", end->content->read);
 	// Create the AST
+	printf("Creating AST\n");
 	ast = ast_creator(token_list, end);
 	printf("Created AST\n");
 	if (ast == NULL)

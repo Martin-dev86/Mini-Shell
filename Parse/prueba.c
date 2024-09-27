@@ -127,31 +127,20 @@ void token_list_typer (t_list_token *token_list) {
         } else if (ft_strcmp(token_list->content->read, ">") == 0) {
             token_list->content->type = REDIR_R;
             token_list->content->priority = 3;
-            token_list = token_list->next;
-            token_list->content->type = CMD;
-            token_list->content->priority = 3;
         } else if (ft_strcmp(token_list->content->read, "<") == 0) {
             token_list->content->type = REDIR_L;
-            token_list->content->priority = 3;
-            token_list = token_list->next;
-            token_list->content->type = CMD;
             token_list->content->priority = 3;
         } else if (ft_strcmp(token_list->content->read, ">>") == 0) {
             token_list->content->type = APPEND;
             token_list->content->priority = 4;
-            token_list = token_list->next;
-            token_list->content->type = CMD;
-            token_list->content->priority = 4;
         } else if (ft_strcmp(token_list->content->read, "<<") == 0) {
             token_list->content->type = HEREDOC;
-            token_list->content->priority = 4;
-            token_list = token_list->next;
-            token_list->content->type = CMD;
             token_list->content->priority = 4;
         } else if (ft_strcmp(token_list->content->read, "\n") == 0) {
             token_list->content->type = ENDLINE;
             token_list->content->priority = 2;
-        } else {
+        } else 
+        {
             token_list->content->type = CMD;
             token_list->content->priority = 2;
         }

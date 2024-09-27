@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:34:56 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/26 18:24:32 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:54:59 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ void	print_token_links(t_list_token *head)
 }
 
 // Function to handle quotes and capture everything inside them
-char	*quote_catcher(char *str, int *i, int quote) {
+char	*quote_catcher(char *str, int *i, int quote)
+{
 	char temp[2] = {str[*i], '\0'};
 	char *new_result;
 	char *result = strdup(""); // Start with an empty string
 
-	printf("Entering quote_catcher with str: %s, i: %d, quote: %c\n", str, *i, quote);
+	//printf("Entering quote_catcher with str: %s, i: %d, quote: %c\n", str, *i, quote);
 
 	while (str[*i] && str[*i] != quote)
 	{
@@ -214,8 +215,8 @@ char	**token_split(t_token *token)
 		{
 			start = i;
 			while (str[i] && str[i] != 34 && str[i] != 39 && str[i] != '|'
-					&& str[i] != '>' && str[i] != '<' && str[i] != '$'
-					&& str[i] != '\n' && str[i] != ' ')
+				&& str[i] != '>' && str[i] != '<' && str[i] != '$'
+				&& str[i] != '\n' && str[i] != ' ')
 				i++;
 			tokens[j] = strndup(str + start, i - start);
 			printf("Token: %s\n", tokens[j]);
