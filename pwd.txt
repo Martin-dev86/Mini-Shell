@@ -1,0 +1,22 @@
+CURRENT NODE == >
+
+NODE == ls
+
+
+
+PATH == /usr/bin/ls
+
+Executing command: /usr/bin/ls
+Execute
+Library
+Makefile
+Makefile copy
+Parse
+Print_tree.c
+Print_tree.o
+README.md
+includes
+main.c
+main.o
+minishell
+pwd.txt

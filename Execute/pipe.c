@@ -45,7 +45,6 @@ int mini_pipe(t_son *son, t_node *node, t_list_env *env)
 	t_node	*current_node;
 
 	i = 0;
-	current_node = node;
 	pids = malloc(node->n_childs * sizeof(int));
 	if (create_pipes(son, node->n_childs - 1) == -1)
 	{
@@ -54,6 +53,10 @@ int mini_pipe(t_son *son, t_node *node, t_list_env *env)
 	}
 	while (i < node->n_childs)
 	{
+		if (i == 0)
+			current_node = node->left;
+		else
+			current_node = node->right;
 		printf("Forking process %d\n", i);
 		son->pid = fork();
 		if (son->pid == -1)
@@ -82,7 +85,6 @@ int mini_pipe(t_son *son, t_node *node, t_list_env *env)
 			exit(son->code);
 		}
 		pids[i] = son->pid;
-		current_node = current_node->right;
 		i++;
 	}
 	i = 0;

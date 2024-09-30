@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:34:56 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/26 18:54:59 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/30 22:59:53 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ t_list_token	*token_read_filler(t_token token, t_list_token *head)
 			return NULL; // Handle memory allocation failure
 		new_token->read = tokens[i];
 		current->content = new_token;
-		printf("Token content: %s\n", new_token->read);
+		//printf("Token content: %s\n", new_token->read);
 		if (tokens[i + 1])
 		{
 			current->next = ft_calloc(1, sizeof(t_list_token));
@@ -262,6 +262,6 @@ t_list_token	*token_read_filler(t_token token, t_list_token *head)
 		i++;
 	}
 	set_prev_pointers(head);
-	print_token_links(head);
+	//print_token_links(head);
 	return (head);
 }

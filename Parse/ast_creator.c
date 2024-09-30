@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_creator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:57:35 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/27 20:30:13 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/09/30 23:00:29 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ t_node	*ast_creator(t_list_token *start, t_list_token *end)
 		//	right is the file
 		if (highest_priority_token->prev != NULL)
 		{
-			printf("Creating left node\n");
+			//printf("Creating left node\n");
 			node->left = ast_creator(start, highest_priority_token->prev);
 			//node->left->right = node; // Attach the redirection to the command
 		}
 		if (highest_priority_token->next != NULL)
 		{
-			printf("Creating right node\n");
+			//printf("Creating right node\n");
 			node->right = create_ast_node(highest_priority_token->next->content);
 		}
 	}
