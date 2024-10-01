@@ -66,7 +66,6 @@ int	mini_cmd(t_list_env *env, t_son *son, t_node *node)
 	char	**array_cmd;
 
 	path_cmd = cmd_found(env->path, node);
-	printf("\n\nPATH == %s\n\n", path_cmd);
 	if (!path_cmd)
 	{
 		ft_exit("Command not found\n", son->code);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+         #
+#    By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/22 12:45:34 by cagarci2          #+#    #+#              #
-#    Updated: 2024/09/18 19:07:22 by cagarci2         ###   ########.fr        #
+#    Updated: 2024/10/01 22:18:56 by cagarci2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SRC_FILES =		$(shell find $(SRC_DIR) -name '*.c')
 OBJ_SRC		=	Execute/redirect.o Execute/execute.o Parse/ft_exit.o Parse/token_lst_size.o Parse/get_path.o Parse/env_parse.o\
 				Parse/token_typer.o Parse/count_pipe.o Parse/tokenizer.o Parse/expand_dollar.o\
 				Execute/pipe.o Execute/cmd.o\
-				Parse/parse_main.o Parse/dfa.o Parse/list.o Parse/ast_creator.o Parse/expander.o \
+				Parse/parse_main.o Parse/dfa.o Parse/list.o Parse/ast_creator.o Parse/expander.o Execute/signal.o \
 				Execute/built-ins/mini_pwd.o Execute/built-ins/mini_unset.o Execute/built-ins/mini_export.o \
 				Execute/built-ins/mini_env.o Execute/built-ins/mini_echo.o Execute/built-ins/mini_cd.o  main.o Print_tree.o
 

@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:34:56 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/30 22:59:53 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/01 22:52:24 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char	**token_split(t_token *token)
 		{
 			i++;
 			tokens[j] = quote_catcher(str, &i, 34);
-			printf("Token: %s\n", tokens[j]);
+			//printf("Token: %s\n", tokens[j]);
 			if (tokens[j] == NULL)
 				return NULL; // Handle memory allocation failure
 			j++;
@@ -139,7 +139,7 @@ char	**token_split(t_token *token)
 		{
 			i++;
 			tokens[j] = quote_catcher(str, &i, 39);
-			printf("Token: %s\n", tokens[j]);
+			//printf("Token: %s\n", tokens[j]);
 			if (tokens[j] == NULL)
 				return NULL; // Handle memory allocation failure
 			j++;
@@ -147,7 +147,7 @@ char	**token_split(t_token *token)
 		else if (str[i] == '|')
 		{
 			tokens[j] = strdup("|");
-			printf("Token: %s\n", tokens[j]);
+			//printf("Token: %s\n", tokens[j]);
 			if (tokens[j] == NULL)
 				return (NULL); // Handle memory allocation failure
 			j++;
@@ -156,7 +156,7 @@ char	**token_split(t_token *token)
 		else if (str[i] == '>' && str[i + 1] == '>')
 		{
 			tokens[j] = strdup(">>");
-			printf("Token: %s\n", tokens[j]);
+			//printf("Token: %s\n", tokens[j]);
 			if (tokens[j] == NULL)
 				return NULL; // Handle memory allocation failure
 			j++;
@@ -165,7 +165,7 @@ char	**token_split(t_token *token)
 		else if (str[i] == '>')
 		{
 			tokens[j] = strdup(">");
-			printf("Token: %s\n", tokens[j]);
+			//printf("Token: %s\n", tokens[j]);
 			if (tokens[j] == NULL)
 				return (NULL); // Handle memory allocation failure
 			j++;
@@ -174,7 +174,7 @@ char	**token_split(t_token *token)
 		else if (str[i] == '<')
 		{
 			tokens[j] = strdup("<");
-			printf("Token: %s\n", tokens[j]);
+			//printf("Token: %s\n", tokens[j]);
 			if (tokens[j] == NULL)
 				return NULL; // Handle memory allocation failure
 			j++;
@@ -183,7 +183,7 @@ char	**token_split(t_token *token)
 		else if (str[i] == '$')
 		{
 			tokens[j] = strdup("$");
-			printf("Token: %s\n", tokens[j]);
+			//printf("Token: %s\n", tokens[j]);
 			if (tokens[j] == NULL)
 				return (NULL); // Handle memory allocation failure
 			j++;
@@ -192,7 +192,7 @@ char	**token_split(t_token *token)
 		else if (str[i] == '<' && str[i + 1] == '<')
 		{
 			tokens[j] = strdup("<<");
-			printf("Token: %s\n", tokens[j]);
+			//printf("Token: %s\n", tokens[j]);
 			if (tokens[j] == NULL)
 				return NULL; // Handle memory allocation failure
 			j++;
@@ -201,7 +201,7 @@ char	**token_split(t_token *token)
 		else if(str[i] == '\n')
 		{
 			tokens[j] = strdup("\n");
-			printf("Token: %s\n", tokens[j]);
+			//printf("Token: %s\n", tokens[j]);
 			if (tokens[j] == NULL)
 				return NULL; // Handle memory allocation failure
 			j++;
@@ -219,7 +219,7 @@ char	**token_split(t_token *token)
 				&& str[i] != '\n' && str[i] != ' ')
 				i++;
 			tokens[j] = strndup(str + start, i - start);
-			printf("Token: %s\n", tokens[j]);
+			//printf("Token: %s\n", tokens[j]);
 			if (tokens[j] == NULL)
 				return (NULL); // Handle memory allocation failure
 			j++;

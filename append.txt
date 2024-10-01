@@ -1,0 +1,22 @@
+/mnt/c/Users/marti/Desktop/cursus42/Mini-Shell/Mini-Shell
+
+
+
+
+PATH == /usr/bin/ls
+
+Execute
+Library
+Makefile
+Makefile copy
+Parse
+Print_tree.c
+Print_tree.o
+README.md
+append.txt
+includes
+main.c
+main.o
+minishell
+prueba.txt
+pwd.txt

@@ -111,7 +111,6 @@ int mini_pipe(t_son *son, t_node *node, t_list_env *env)
 	i = 0;
 	while (i < n_child)
 	{
-		printf("Waiting for child %d\n", i);
 		if (waitpid(pids[i], &son->code, 0) < 0)
 		{
 			perror("waitpid");

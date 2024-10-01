@@ -48,6 +48,6 @@ void	print_ast_helper(t_node *node, int depth, char *side)
 
 void	print_ast(t_node *root)
 {
-	printf(GREEN"ARBOL\n");
+	printf(GREEN"\n\nARBOL\n");
 	print_ast_helper(root, 0, "root: ");
 }

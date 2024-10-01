@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/01 20:17:32 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:57:00 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	execute_builtins(t_son *son, t_list_env *env, t_node *node)
 
 int	execute(t_son *son, t_list_env *env, t_node *node)
 {
-	if (node->operation->type == REDIR_R || node->operation->type == REDIR_L)
+	if (node->operation->type == REDIR_R || node->operation->type == REDIR_L
+		|| node->operation->type == APPEND)
 		mini_redirect(node, son, env);
 	else if (node->operation->type == BUILTIN)
 		execute_builtins(son, env, node);
