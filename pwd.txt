@@ -1,22 +1,7 @@
+REDIR RIGHT == pwd
+
 CURRENT NODE == >
 
-NODE == ls
+NODE == pwd
 
-
-
-PATH == /usr/bin/ls
-
-Executing command: /usr/bin/ls
-Execute
-Library
-Makefile
-Makefile copy
-Parse
-Print_tree.c
-Print_tree.o
-README.md
-includes
-main.c
-main.o
-minishell
-pwd.txt
+/home/cagarci2/Desktop/MiniShell

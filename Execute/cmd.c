@@ -73,7 +73,7 @@ int	mini_cmd(t_list_env *env, t_son *son, t_node *node)
 		exit(EXIT_FAILURE);
 	}
 	array_cmd = exe_args(node);
-	printf("Executing command: %s\n", path_cmd);
+	ft_putstr_fd(node->operation->read, 2);
 	if (execve(path_cmd, array_cmd, env->env) == -1)
 	{
 		perror("execve");
