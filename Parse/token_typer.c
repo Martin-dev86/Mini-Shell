@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:50:05 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/01 19:31:59 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/01 20:11:50 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	token_list_typer(t_list_token *token_list)
 		else if (ft_strcmp(token_list->content->read, "<") == 0)
 		{
 			token_list->content->type = REDIR_L;
-			token_list->content->priority = 1;
+			token_list->content->priority = 2;
 			token_list = token_list->next;
 			token_list->content->type = CMD;
 			token_list->content->priority = 3;

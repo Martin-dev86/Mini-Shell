@@ -33,7 +33,7 @@ int	mini_redirect(t_node *node, t_son *son, t_list_env *env)
 		dup2(son->fd_out, STDOUT_FILENO);
 		close(son->fd_out);
 	}
-	else if (node->operation->type == REDIR_L)
+	else
 	{
 		printf("\n\nHOLAAAA\n\n");
 		current_node = node->left;

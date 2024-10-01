@@ -64,13 +64,11 @@ int mini_pipe(t_son *son, t_node *node, t_list_env *env)
 		}
 		else
 			current_node = node->right;
-		printf("Forking process %d\n", i);
 		son->pid = fork();
 		if (son->pid == -1)
 			ft_exit("fork error", son->code);
 		if (son->pid == 0)
 		{
-			printf("In child process %d\n", i);
 			if (i > 0)
 			{
 				if (dup2(son->fd[i - 1][0], STDIN_FILENO) == -1)
