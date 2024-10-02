@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/01 21:57:00 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:23:57 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,20 @@ int	execute_builtins(t_son *son, t_list_env *env, t_node *node)
 		mini_export(env, node);
 	if (ft_strcmp(node->operation->read, "env") == 0)
 		mini_env(env);
+	if (ft_strcmp(node->operation->read, "exit") == 0)
+		mini_exit(node, env, son, 0);
 	return (0);
 }
 
 int	execute(t_son *son, t_list_env *env, t_node *node)
 {
-	if (node->operation->type == REDIR_R || node->operation->type == REDIR_L
+	if (ft_strncmp(node->operation->read, "exit", 4) == 0)
+	{
+		printf("entra en exit\n");
+		mini_exit(node, env, son, 0);
+	}
+	else if (node->operation->type == REDIR_R
+		|| node->operation->type == REDIR_L
 		|| node->operation->type == APPEND)
 		mini_redirect(node, son, env);
 	else if (node->operation->type == BUILTIN)

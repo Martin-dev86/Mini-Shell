@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/01 22:34:55 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:56:54 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 int			execute(t_son *son, t_list_env *env, t_node *node);
 int			execute_builtins(t_son *son, t_list_env *env, t_node *node);
 char		*get_pwd(void);
+void		mini_exit(t_node *node, t_list_env *env, t_son *son, int status);
 int			mini_pwd(t_son *son);
 int			mini_echo(t_node *node);
 int			mini_redirect(t_node *node, t_son *son, t_list_env *env);
@@ -58,13 +59,23 @@ int			mini_cd(t_node *node, t_list_env *env);
 void		mini_sort(t_list_env *sorted_current, t_list_env *current);
 void		mini_lstadd_back(t_list_env **lst, t_list_env *new);
 int			mini_strlen(const char *c);
-int         mini_pipe(t_son *son, t_node *node, t_list_env *env);
-int         mini_cmd(t_list_env *env, t_son *son, t_node *node);
+int			mini_pipe(t_son *son, t_node *node, t_list_env *env);
+int			mini_cmd(t_list_env *env, t_son *son, t_node *node);
 t_list_env	*mini_lstnew(void *content);
 t_list_env	*mini_lstlast(t_list_env *lst);
 t_list_env	*env_parse(char **env);
 void		print_ast(t_node *root);
-void        sigquit_handler(int signo);
-void        sigint_handler(int signo);
+void		sigquit_handler(int signo);
+void		sigint_handler(int signo);
+
+// Free functions
+void		ft_free(t_list_env *env, t_node *node,
+				t_list_token *token, t_son *son);
+void		ft_free_token(t_token *token);
+void		ft_free_son(t_son *son);
+void		ft_free_token_list(t_list_token *token);
+void		ft_free_env_list(t_list_env *env);
+void		t_free_node(t_node *node);
+
 
 #endif
