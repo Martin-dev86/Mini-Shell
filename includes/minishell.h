@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/01 22:34:55 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/02 23:33:28 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # define RESET		"\x1b[0m"
 # define CLEAR		"\033[2J"
 
+extern int prompt_active;
+
 int			execute(t_son *son, t_list_env *env, t_node *node);
 int			execute_builtins(t_son *son, t_list_env *env, t_node *node);
 char		*get_pwd(void);
@@ -66,5 +68,6 @@ t_list_env	*env_parse(char **env);
 void		print_ast(t_node *root);
 void        sigquit_handler(int signo);
 void        sigint_handler(int signo);
+void        setup_signals(void);
 
 #endif
