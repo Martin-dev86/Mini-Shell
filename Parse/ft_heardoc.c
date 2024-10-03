@@ -1,59 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_heardoc.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/03 19:00:52 by jeandrad          #+#    #+#             */
+/*   Updated: 2024/10/03 20:46:16 by jeandrad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void ft_heardoc(const char *delimiter)
+void	handle_heredoc(t_node *node)
 {
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t read;
+    char	*line;
+    size_t	len;
+    ssize_t	read;
+    int		temp_fd;
+    char	*temp_filename;
 
-    while ((read = getline(&line, &len, stdin)) != -1)
+    if (node == NULL)
+        return ;
+    handle_heredoc(node->left);
+    handle_heredoc(node->right);
+    if (node->operation->type == HEREDOC)
     {
-        if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0 
-            && line[ft_strlen(delimiter)] == '\n')
+        line = NULL;
+        len = 0;
+        temp_filename = strdup("/tmp/heredocXXXXXX");
+        if (!temp_filename)
         {
-            break;
-        }
-        // Process the line (e.g., store it, print it, etc.)
-        printf("Read: %s", line);
-    }
-
-    free(line);
-}
-
-void process_heardoc(char *str)
-{
-    char *heardoc_pos;
-    while ((heardoc_pos = ft_strstr(str, "<<")) != NULL)
-    {
-        // Move past the "<<"
-        heardoc_pos += 2;
-
-        // Skip any whitespace
-        while (*heardoc_pos == ' ')
-        {
-            heardoc_pos++;
+            perror("strdup");
+            exit(EXIT_FAILURE);
         }
 
-        // Find the end of the delimiter
-        char *delimiter_end = heardoc_pos;
-        while (*delimiter_end != ' ' && *delimiter_end != '\0')
+        // Create a unique temporary file
+        temp_fd = open(temp_filename, O_CREAT | O_RDWR | O_EXCL, 0600);
+        if (temp_fd == -1)
         {
-            delimiter_end++;
+            perror("open");
+            free(temp_filename);
+            exit(EXIT_FAILURE);
         }
 
-        // Extract the delimiter
-        size_t delimiter_len = delimiter_end - heardoc_pos;
-        char *delimiter = (char *)malloc(delimiter_len + 1);
-        ft_strncpy(delimiter, heardoc_pos, delimiter_len);
-        delimiter[delimiter_len] = '\0';
-
-        // Execute the here-doc function
-        ft_heardoc(delimiter);
-
-        // Remove the "<< delimiter" part from the command string
-        ft_memmove(heardoc_pos - 2, delimiter_end, ft_strlen(delimiter_end) + 1);
-
-        // Free the allocated memory for the delimiter
-        free(delimiter);
+        printf("Enter heredoc (end with '%s'):\n", node->operation->read);
+        while ((line = readline("> ")) != NULL)
+        {
+            if (strcmp(line, node->operation->read) == 0)
+                break ;
+            write(temp_fd, line, strlen(line));
+            write(temp_fd, "\n", 1);
+            free(line);
+        }
+        free(line);
+        close(temp_fd);
+        node->fd = open(temp_filename, O_RDONLY);
+    	unlink(temp_filename);
+        free(temp_filename);
     }
 }
