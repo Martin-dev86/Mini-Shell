@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/03 00:07:31 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:37:32 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		if (token->read[0] == '\0')
 			continue ;
-		if (token->read == NULL || ft_strcmp(token->read, "exit") == 0)
+		if (token->read == NULL)
 			break ;
 		node = main_parser(env, token);
 		prompt_active = 1;
 		execute(son, result, node);
 		add_history(token->read);
 	}
-	ft_free(result, node, NULL, son);
-	return (0);
+	//ft_free(result, node, NULL, son);
+	return (son->code);
 }

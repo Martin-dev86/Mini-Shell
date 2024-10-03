@@ -111,11 +111,11 @@ int mini_pipe(t_son *son, t_node *node, t_list_env *env)
 	i = 0;
 	while (i < n_child)
 	{
-		if (waitpid(pids[i], &son->code, 0) < 0)
-		{
-			perror("waitpid");
-			return(son->code);
-		}
+		waitpid(son->pid, &son->code, 0);
+		if (WIFEXITED(son->code))
+			son->code = WEXITSTATUS(son->code);
+		else if (WIFSIGNALED(son->code))
+			son->code = 128 + WTERMSIG(son->code);
 		i++;
 	}
 

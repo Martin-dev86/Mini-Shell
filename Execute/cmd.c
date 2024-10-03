@@ -24,11 +24,11 @@ char	*cmd_found(char **array_path, t_node *node)
 	{
 		command = ft_strjoin(ft_strjoin(array_path[i], "/"), cmd);
 		if (access(command, X_OK) == 0)
-			break ;
+			return (command);
 		free(command);
 		i++;
 	}
-	return (command);
+	return (NULL);
 }
 
 int count_nodes(t_node *node)
@@ -67,15 +67,12 @@ int	mini_cmd(t_list_env *env, t_son *son, t_node *node)
 
 	path_cmd = cmd_found(env->path, node);
 	if (!path_cmd)
-	{
-		ft_exit("Command not found\n", son->code);
-		exit(EXIT_FAILURE);
-	}
+		ft_exit("Command not found\n", 127);
 	array_cmd = exe_args(node);
 	if (execve(path_cmd, array_cmd, env->env) == -1)
 	{
 		perror("execve");
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	return (son->code);
 }

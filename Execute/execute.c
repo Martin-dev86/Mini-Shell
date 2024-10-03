@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/02 23:56:37 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:59:04 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int	executing(t_son *son, t_list_env *env, t_node *node)
 		mini_cmd(env, son, node);
 		exit (son->code);
 	}
-	if (waitpid(son->pid, &son->code, 0) < 0)
-	{
-		perror("waitpid");
-		return (son->code);
-	}
+	waitpid(son->pid, &son->code, 0);
+	if (WIFEXITED(son->code))
+		son->code = WEXITSTATUS(son->code);
+	else if (WIFSIGNALED(son->code))
+		son->code = 128 + WTERMSIG(son->code);
 	return (son->code);
 }
 
