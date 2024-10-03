@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/30 23:03:55 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/03 23:12:45 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_tokens(t_list_token *head)
 	}
 }
 
-t_node	*main_parser(char **env, t_token *token)
+t_node	*main_parser(char **env, t_token *token, t_son *son)
 {
 	t_list_env		*env_list;
 	t_list_token	*token_list;
@@ -41,7 +41,7 @@ t_node	*main_parser(char **env, t_token *token)
 	// Should only be done once so maybe I have to take it out of here
 	env_list = ft_calloc(1, sizeof(t_list_env));
 	env_list = env_parse(env);
-	token->read = replace_variables(token->read, env_list);
+	token->read = replace_variables(token->read, env_list, son);
 	//printf("After replacement %s\n", token->read);
 	token_list = ft_calloc(1, sizeof(t_list_token));
 	token_list = token_read_filler(*token, token_list);

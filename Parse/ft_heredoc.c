@@ -1,42 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_heardoc.c                                       :+:      :+:    :+:   */
+/*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:00:52 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/03 20:46:16 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/03 23:04:51 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_heredoc(t_node *node)
+void	handle_heredoc(t_node *node, t_son *son)
 {
     char	*line;
-    size_t	len;
-    ssize_t	read;
     int		temp_fd;
     char	*temp_filename;
 
     if (node == NULL)
         return ;
-    handle_heredoc(node->left);
-    handle_heredoc(node->right);
+    handle_heredoc(node->left, son);
+    handle_heredoc(node->right, son);
     if (node->operation->type == HEREDOC)
     {
         line = NULL;
-        len = 0;
+        //len = 0;
         temp_filename = strdup("/tmp/heredocXXXXXX");
         if (!temp_filename)
         {
             perror("strdup");
             exit(EXIT_FAILURE);
         }
-
-        // Create a unique temporary file
-        temp_fd = open(temp_filename, O_CREAT | O_RDWR | O_EXCL, 0600);
+        temp_fd = mkstemp(temp_filename);
         if (temp_fd == -1)
         {
             perror("open");
@@ -44,19 +40,28 @@ void	handle_heredoc(t_node *node)
             exit(EXIT_FAILURE);
         }
 
-        printf("Enter heredoc (end with '%s'):\n", node->operation->read);
+        printf("Enter heredoc (end with '%s'):\n", node->right->operation->read);
         while ((line = readline("> ")) != NULL)
         {
-            if (strcmp(line, node->operation->read) == 0)
+            if (strcmp(line, node->right->operation->read) == 0)
                 break ;
             write(temp_fd, line, strlen(line));
             write(temp_fd, "\n", 1);
             free(line);
         }
-        free(line);
+        if (line == NULL)
+            printf("Warning: heredoc ended with EOF (not '%s')\n", node->right->operation->read);
         close(temp_fd);
-        node->fd = open(temp_filename, O_RDONLY);
-    	unlink(temp_filename);
+        son->fd_heredoc = open(temp_filename, O_RDONLY);
+        if (son->fd_heredoc == -1)
+        {
+            perror("open");
+            unlink(temp_filename);
+            free(temp_filename);
+            exit(EXIT_FAILURE);
+        }
+
+        unlink(temp_filename);
         free(temp_filename);
     }
 }

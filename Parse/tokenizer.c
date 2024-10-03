@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:34:56 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/01 22:52:24 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:55:59 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,15 @@ char	**token_split(t_token *token)
 			j++;
 			i += 2;
 		}
+		else if (str[i] == '<' && str[i + 1] == '<')
+		{
+			tokens[j] = strdup("<<");
+			//printf("Token: %s\n", tokens[j]);
+			if (tokens[j] == NULL)
+				return NULL; // Handle memory allocation failure
+			j++;
+			i += 2;
+		}
 		else if (str[i] == '>')
 		{
 			tokens[j] = strdup(">");
@@ -188,15 +197,6 @@ char	**token_split(t_token *token)
 				return (NULL); // Handle memory allocation failure
 			j++;
 			i++;
-		}
-		else if (str[i] == '<' && str[i + 1] == '<')
-		{
-			tokens[j] = strdup("<<");
-			//printf("Token: %s\n", tokens[j]);
-			if (tokens[j] == NULL)
-				return NULL; // Handle memory allocation failure
-			j++;
-			i += 2;
 		}
 		else if(str[i] == '\n')
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/03 17:59:04 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:47:21 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	execute(t_son *son, t_list_env *env, t_node *node)
 		printf("entra en exit\n");
 		mini_exit(node, env, son, 0);
 	}
+	else if (node->operation->type == HEREDOC)
+		handle_heredoc(node, son);
 	else if (node->operation->type == REDIR_R
 		|| node->operation->type == REDIR_L
 		|| node->operation->type == APPEND)

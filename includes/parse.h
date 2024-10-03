@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/02 22:39:51 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/03 23:13:12 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void			ft_exit(char *str, int code);
 
 // Environment parser
 char			**get_path(char *path);
-char			*replace_variables(const char *input, t_list_env *env_list);
+char			*replace_variables(const char *input, t_list_env *env_list, t_son *son);
 
 // Tokenizer
 void			token_list_typer(t_list_token *token_list);
@@ -108,4 +108,4 @@ t_node			*ast_creator(t_list_token *start, t_list_token *end);
 t_node			*final_tree(t_node *ast, t_list_env *env);
 
 // Main parser
-t_node			*main_parser(char **env, t_token *token);
+t_node			*main_parser(char **env, t_token *token, t_son *son);

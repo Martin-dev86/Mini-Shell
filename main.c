@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/03 17:37:32 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/04 00:19:35 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -24,6 +23,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+	ft_baby_yoda_banner();
 	setup_signals();
 	rl_catch_signals = 0;
 	result = (t_list_env *)malloc(sizeof(t_list_env));
@@ -41,16 +41,16 @@ int	main(int argc, char **argv, char **env)
 		if (!token)
 			ft_exit("Failed to allocate memory for token", EXIT_FAILURE);
 		token->read = readline("Minishell>");
+		add_history(token->read);
 		if (token->read == NULL)
 			break ;
 		if (token->read[0] == '\0')
 			continue ;
 		if (token->read == NULL)
 			break ;
-		node = main_parser(env, token);
+		node = main_parser(env, token, son);
 		prompt_active = 1;
 		execute(son, result, node);
-		add_history(token->read);
 	}
 	//ft_free(result, node, NULL, son);
 	return (son->code);

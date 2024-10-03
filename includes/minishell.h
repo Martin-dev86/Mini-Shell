@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 18:38:01 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/02 23:33:28 by cagarci2         ###   ########.fr       */
-/*                                                                            */
+/*																		    */
+/*														:::      ::::::::   */
+/*   minishell.h										:+:      :+:    :+:   */
+/*												    +:+ +:+		 +:+     */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/08/12 18:38:01 by cagarci2		  #+#    #+#		     */
+/*   Updated: 2024/10/04 00:20:18 by cagarci2		 ###   ########.fr       */
+/*																		    */
 /* ************************************************************************** */
 
 
@@ -67,8 +67,10 @@ t_list_env	*mini_lstnew(void *content);
 t_list_env	*mini_lstlast(t_list_env *lst);
 t_list_env	*env_parse(char **env);
 void		print_ast(t_node *root);
-void        sigquit_handler(int signo);
-void        sigint_handler(int signo);
-void        setup_signals(void);
+void		sigquit_handler(int signo);
+void		sigint_handler(int signo);
+void		setup_signals(void);
+void		handle_heredoc(t_node *node, t_son *son);
+void		ft_baby_yoda_banner(void);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_creator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:57:35 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/01 19:35:43 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:53:31 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ t_node	*ast_creator(t_list_token *start, t_list_token *end)
 	// If the token is a redirection, attach it to the appropriate command node
 	else if (highest_priority_token->content->type == REDIR_L
 		|| highest_priority_token->content->type == REDIR_R
-		|| highest_priority_token->content->type == APPEND)
+		|| highest_priority_token->content->type == APPEND
+		|| highest_priority_token->content->type == HEREDOC)
 	{
 		// Redirection affects the right side (file), so left is the command,
 		//	right is the file
@@ -84,7 +85,11 @@ t_node	*ast_creator(t_list_token *start, t_list_token *end)
 		if (highest_priority_token->next != NULL)
 		{
 			//printf("Creating right node\n");
-			node->right = create_ast_node(highest_priority_token->next->content);
+			if (highest_priority_token->content->type == HEREDOC)
+				node->right = create_ast_node(highest_priority_token->next->content);
+			else
+				node->right = create_ast_node(highest_priority_token->next->content);
+			
 		}
 	}
 	// If it's a command or argument,

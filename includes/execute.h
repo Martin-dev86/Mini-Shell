@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:14:52 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/02 22:51:12 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/03 22:45:24 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ typedef struct s_son
 	int		code;
 	int		fd_in;
 	int		fd_out;
+	int		fd_heredoc;
 }	t_son;
 

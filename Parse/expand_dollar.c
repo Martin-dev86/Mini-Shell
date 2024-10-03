@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 12:40:30 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/26 15:13:28 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/03 23:20:36 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char *get_env_value(const char *key, t_list_env *env_list)
     return "";
 }
 
-char *replace_variables(const char *input, t_list_env *env_list) 
+char *replace_variables(const char *input, t_list_env *env_list, t_son *son) 
 {
     bool in_single_quote = false;
     bool in_double_quote = false;
@@ -51,7 +51,17 @@ char *replace_variables(const char *input, t_list_env *env_list)
         } else if (input[i] == '"' && !in_single_quote) {
             in_double_quote = !in_double_quote;
             result[res_index++] = input[i];
-        } else if (input[i] == '$' && !in_single_quote) {
+        } 
+        else if (input[i] == '$' && input[i + 1] == '?') {
+              char *exit_status = ft_itoa(son->code); // Convierte el código de salida a cadena
+            if (exit_status) {
+                strcpy(&result[res_index], exit_status);
+                res_index += strlen(exit_status);
+                free(exit_status); // Libera la memoria después de usarla
+            }
+            i++; // Salta el '?'
+        }
+        else if (input[i] == '$' && !in_single_quote) {
             size_t var_start = ++i;
             while (i < len && (isalnum(input[i]) || input[i] == '_')) i++;
             char var_name[256];
