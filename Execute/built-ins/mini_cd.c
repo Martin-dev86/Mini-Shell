@@ -12,50 +12,50 @@
 
 #include "minishell.h"
 
-int	mini_cd(t_node *node, t_list_env *env)
+int	mini_cd(t_node *node, t_list_shellenv *shellenv)
 {
 	t_list_env	*current;
 	char		*temp;
 	int			i;
 
 	i = 0;
-	env->len = 0;
-	current = env;
+	shellenv->env->len = 0;
+	current = shellenv->env;
 	if (node->right == NULL)
 	{
 		while (current && current->next)
 		{
-			env->variable_len = mini_strlen(current->content);
-			env->len = env->variable_len;
-			if (ft_strncmp(current->content, "USER=", env->variable_len) == 0)
+			shellenv->env->variable_len = mini_strlen(current->content);
+			shellenv->env->len = shellenv->env->variable_len;
+			if (ft_strncmp(current->content, "USER=", shellenv->env->variable_len) == 0)
 			{
-				while (current->content[env->len])
+				while (current->content[shellenv->env->len])
 				{
-					temp[i] = current->content[env->len];
+					temp[i] = current->content[shellenv->env->len];
 					i++;
-					env->len++;
+					shellenv->env->len++;
 				}
 				temp = ft_strjoin("/home/", temp);
 			}
 			current = current->next;
 		}
-		current = env;
+		current = shellenv->env;
 		while (current && current->next)
 		{
-			env->variable_len = mini_strlen(current->content);
-			env->len = env->variable_len;
-			if (ft_strncmp(current->content, "PWD=", env->variable_len) == 0)
+			shellenv->env->variable_len = mini_strlen(current->content);
+			shellenv->env->len = shellenv->env->variable_len;
+			if (ft_strncmp(current->content, "PWD=", shellenv->env->variable_len) == 0)
 				chdir(temp);
 			current = current->next;
 		}
 	}
-	current = env;
+	current = shellenv->env;
 	while (current && current->next)
 	{
-		env->variable_len = mini_strlen(current->content);
-		if (ft_strncmp(current->content, "PWD=", env->variable_len) == 0)
+		shellenv->env->variable_len = mini_strlen(current->content);
+		if (ft_strncmp(current->content, "PWD=", shellenv->env->variable_len) == 0)
 			temp = current->content;
-		if (ft_strncmp(current->content, "OLDPWD=", env->variable_len) == 0)
+		if (ft_strncmp(current->content, "OLDPWD=", shellenv->env->variable_len) == 0)
 			chdir(temp);
 		current = current->next;
 	}

@@ -23,7 +23,7 @@ int	mini_apendd(t_node *node, t_son *son)
 	}
 	return (0);
 }
-int	mini_redirect(t_node *node, t_son *son, t_list_env *env)
+int	mini_redirect(t_node *node, t_son *son, t_list_shellenv *shellenv)
 {
 	t_node	*current_node;
 	int temp_stdout;
@@ -32,7 +32,7 @@ int	mini_redirect(t_node *node, t_son *son, t_list_env *env)
 	temp_stdout = dup(STDOUT_FILENO);
     temp_stdin = dup(STDIN_FILENO);
 	if (node->operation->type == APPEND)
-	{	
+	{
 		mini_apendd(node, son);
 		current_node = node->left;
 		dup2(son->fd_out, STDOUT_FILENO);
@@ -63,7 +63,7 @@ int	mini_redirect(t_node *node, t_son *son, t_list_env *env)
 		dup2(son->fd_in, STDIN_FILENO);
 		close(son->fd_in);
 	}
-	execute(son, env, current_node);
+	execute(son, shellenv, current_node);
 	dup2(temp_stdout, STDOUT_FILENO);
     dup2(temp_stdin, STDIN_FILENO);
     close(temp_stdout);

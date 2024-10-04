@@ -23,32 +23,32 @@ int	mini_strlen(const char *c)
 	return (i);
 }
 
-void	print_sorted(t_list_env *current)
+void	print_sorted(t_list_env *env)
 {
 	int	i;
 	int	k;
 
 	i = 0;
-	while (current && current->next)
+	while (env && env->next)
 	{
 		printf("declare -x ");
-		i = mini_strlen(current->content);
+		i = mini_strlen(env->content);
 		k = 0;
 		while (i >= 0)
 		{
-			printf("%c", current->content[k]);
+			printf("%c", env->content[k]);
 			i--;
 			k++;
 		}
 		printf("\"");
-		while (current->content[k])
-			printf("%c", current->content[k++]);
+		while (env->content[k])
+			printf("%c", env->content[k++]);
 		printf("\"\n");
-		current = current->next;
+		env = env->next;
 	}
 }
 
-void	swap_list(t_list_env *current, t_list_env *sorted_current)
+void	swap_list(t_list_env *env, t_list_env *sorted_env)
 {
 	int			swapped;
 	char		*temp;
@@ -58,45 +58,45 @@ void	swap_list(t_list_env *current, t_list_env *sorted_current)
 	while (swapped)
 	{
 		swapped = 0;
-		current = sorted_current;
-		while (current && current->next)
+		env = sorted_env;
+		while (env && env->next)
 		{
-			j = mini_strlen(current->content);
-			if (ft_strncmp(current->content, current->next->content, j) > 0)
+			j = mini_strlen(env->content);
+			if (ft_strncmp(env->content, env->next->content, j) > 0)
 			{
-				temp = current->content;
-				current->content = current->next->content;
-				current->next->content = temp;
+				temp = env->content;
+				env->content = env->next->content;
+				env->next->content = temp;
 				swapped = 1;
 			}
-			current = current->next;
+			env = env->next;
 		}
 	}
 }
 
-int	mini_export(t_list_env *env, t_node *node)
+int	mini_export(t_list_shellenv *shellenv, t_node *node)
 {
 	t_list_env	*new_node;
 	t_list_env	*promp;
-	t_list_env	*current;
 	t_list_env	*sorted_current;
+	t_list_env	*env;
 
 	if (node->right == NULL)
 	{
 		sorted_current = NULL;
-		current = env;
-		while (current)
+		env = shellenv->env;
+		while (env)
 		{
-			new_node = mini_lstnew(ft_strdup(current->content));
+			new_node = mini_lstnew(ft_strdup(env->content));
 			mini_lstadd_back(&sorted_current, new_node);
-			current = current->next;
+			env = env->next;
 		}
-		swap_list(current, sorted_current);
-		current = sorted_current;
-		print_sorted(current);
+		swap_list(shellenv->env, sorted_current);
+		env = sorted_current;
+		print_sorted(env);
 		return (0);
 	}
 	promp = mini_lstnew(node->right->operation->read);
-	mini_lstadd_back(&env, promp);
+	mini_lstadd_back(&(shellenv->env), promp);
 	return (0);
 }

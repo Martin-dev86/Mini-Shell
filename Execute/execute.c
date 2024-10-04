@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/03 22:47:21 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:43:00 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	executing(t_son *son, t_list_env *env, t_node *node)
+int	executing(t_son *son, t_list_shellenv *shellenv, t_node *node)
 {
 	son->pid = fork();
 	if (son->pid < 0)
@@ -22,7 +22,7 @@ int	executing(t_son *son, t_list_env *env, t_node *node)
 	}
 	if (son->pid == 0)
 	{
-		mini_cmd(env, son, node);
+		mini_cmd(shellenv, son, node);
 		exit (son->code);
 	}
 	waitpid(son->pid, &son->code, 0);
@@ -33,48 +33,48 @@ int	executing(t_son *son, t_list_env *env, t_node *node)
 	return (son->code);
 }
 
-int	execute_builtins(t_son *son, t_list_env *env, t_node *node)
+int	execute_builtins(t_son *son, t_list_shellenv *shellenv, t_node *node)
 {
 	if (node->left)
 	{
 		node = node->left;
-		execute(son, env, node);
+		execute(son, shellenv, node);
 	}
 	if (ft_strcmp(node->operation->read, "pwd") == 0)
 		mini_pwd(son);
 	if (ft_strcmp(node->operation->read, "echo") == 0)
 		mini_echo(node);
 	if (ft_strcmp(node->operation->read, "unset") == 0)
-		mini_unset(env, node);
+		mini_unset(shellenv, node);
 	if (ft_strcmp(node->operation->read, "cd") == 0)
-		mini_cd(node, env);
+		mini_cd(node, shellenv);
 	if (ft_strcmp(node->operation->read, "export") == 0)
-		mini_export(env, node);
+		mini_export(shellenv, node);
 	if (ft_strcmp(node->operation->read, "env") == 0)
-		mini_env(env);
+		mini_env(shellenv);
 	if (ft_strcmp(node->operation->read, "exit") == 0)
-		mini_exit(node, env, son, 0);
+		mini_exit(node, shellenv, son, 0);
 	return (0);
 }
 
-int	execute(t_son *son, t_list_env *env, t_node *node)
+int	execute(t_son *son, t_list_shellenv *shellenv, t_node *node)
 {
 	if (ft_strncmp(node->operation->read, "exit", 4) == 0)
 	{
 		printf("entra en exit\n");
-		mini_exit(node, env, son, 0);
+		mini_exit(node, shellenv, son, 0);
 	}
 	else if (node->operation->type == HEREDOC)
 		handle_heredoc(node, son);
 	else if (node->operation->type == REDIR_R
 		|| node->operation->type == REDIR_L
 		|| node->operation->type == APPEND)
-		mini_redirect(node, son, env);
+		mini_redirect(node, son, shellenv);
 	else if (node->operation->type == BUILTIN)
-		execute_builtins(son, env, node);
+		execute_builtins(son, shellenv, node);
 	else if (node->n_childs <= 1 && node->operation->type == CMD)
-		executing(son, env, node);
+		executing(son, shellenv, node);
 	else if (node->n_childs >= 2 && node->operation->type == PIPE)
-		mini_pipe(son, node, env);
+		mini_pipe(son, node, shellenv);
 	return (0);
 }

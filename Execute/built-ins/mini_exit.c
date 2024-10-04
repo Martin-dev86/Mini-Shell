@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mini_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:53:57 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/03 17:38:51 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:26:54 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	mini_exit(t_node *node, t_list_env *env, t_son *son, int status)
+void	mini_exit(t_node *node, t_list_shellenv *shellenv, t_son *son, int status)
 {
     int		exit_status;
 
@@ -28,7 +28,7 @@ void	mini_exit(t_node *node, t_list_env *env, t_son *son, int status)
 		exit_status = son->code;
 	rl_clear_history();
 	(void) node;
-	(void) env;
+	(void) shellenv;
 	(void) son;
 	//t_free_node(node);
 	//ft_free_env_list(env);

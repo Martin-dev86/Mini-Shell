@@ -12,11 +12,11 @@
 
 #include "minishell.h"
 
-int	mini_env(t_list_env *env)
+int	mini_env(t_list_shellenv *shellenv)
 {
 	t_list_env	*current_env;
 
-	current_env = env;
+	current_env = shellenv->env;
 	while (current_env)
 	{
 		printf("%s\n", current_env->content);

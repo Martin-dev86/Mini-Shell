@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/03 23:12:45 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:45:45 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ void	print_tokens(t_list_token *head)
 	}
 }
 
-t_node	*main_parser(char **env, t_token *token, t_son *son)
+t_node	*main_parser(t_list_shellenv *shellenv, t_token *token, t_son *son)
 {
-	t_list_env		*env_list;
 	t_list_token	*token_list;
 	t_node			*ast;
 	int				final_state;
@@ -39,9 +38,7 @@ t_node	*main_parser(char **env, t_token *token, t_son *son)
 	final_state = 0;
 	// Check the environment variables
 	// Should only be done once so maybe I have to take it out of here
-	env_list = ft_calloc(1, sizeof(t_list_env));
-	env_list = env_parse(env);
-	token->read = replace_variables(token->read, env_list, son);
+	token->read = replace_variables(token->read, shellenv, son);
 	//printf("After replacement %s\n", token->read);
 	token_list = ft_calloc(1, sizeof(t_list_token));
 	token_list = token_read_filler(*token, token_list);
@@ -76,7 +73,7 @@ t_node	*main_parser(char **env, t_token *token, t_son *son)
 	//printf("Expanding AST\n");
 	ast->n_childs = count_pipe_tokens(ast);
 	//printf("Number of pipes: %d\n", ast->n_childs);
-	ast = final_tree(ast, env_list);
+	ast = final_tree(ast, shellenv);
 	//printf("Final tree:\n");
 	print_ast(ast);
 	// if (ast == NULL)

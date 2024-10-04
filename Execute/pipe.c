@@ -37,7 +37,7 @@ int create_pipes(t_son *son, int num_pipes)
     }
     return (0);
 }
-int mini_pipe(t_son *son, t_node *node, t_list_env *env)
+int mini_pipe(t_son *son, t_node *node, t_list_shellenv *shellenv)
 {
 	int		flag;
 	int		i;
@@ -87,9 +87,9 @@ int mini_pipe(t_son *son, t_node *node, t_list_env *env)
 				j++;
 			}
 			if (current_node->operation->type != CMD)
-				execute(son, env, current_node);
+				execute(son, shellenv, current_node);
 			else
-				mini_cmd(env, son, current_node);
+				mini_cmd(shellenv, son, current_node);
 			exit(son->code);
 		}
 		pids[i] = son->pid;
