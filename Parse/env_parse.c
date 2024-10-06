@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:02:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/04 18:56:40 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/04 23:04:29 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**get_env(char **env)
 	i = 0;
 	while (env[i])
 		i++;
-	new_env = ft_calloc(1,sizeof(char *) * (i + 1));
+	new_env = ft_calloc(i + 1, sizeof(char *));
 	if (!new_env)
 		ft_exit("calloc failed", EXIT_FAILURE);
 	i = 0;

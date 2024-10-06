@@ -74,6 +74,49 @@ void	swap_list(t_list_env *env, t_list_env *sorted_env)
 	}
 }
 
+void found_equal(t_list_shellenv *shellenv, t_node *node)
+{
+    char *unset_var;
+    t_list_env *current;
+    t_list_env *prev = NULL;
+    t_list_env *last_match = NULL;
+    t_list_env *prev_last_match = NULL;
+    size_t len;
+
+    char *equals_pos = ft_strchr(node->right->operation->read, '=');
+    unset_var = (equals_pos != NULL) ? 
+                 ft_substr(node->right->operation->read, 0, equals_pos - node->right->operation->read) : 
+                 ft_strdup(node->right->operation->read);
+    char *final_unset_var = ft_strjoin(unset_var, "=");
+    free(unset_var); 
+
+    len = ft_strlen(final_unset_var);
+    current = shellenv->env;
+
+    while (current)
+    {
+        if (ft_strncmp(current->content, final_unset_var, len) == 0)
+        {
+            last_match = current;
+            prev_last_match = prev;
+        }
+        prev = current;
+        current = current->next;
+    }
+
+    if (last_match)
+    {
+        if (prev_last_match)
+            prev_last_match->next = last_match->next;
+        else
+            shellenv->env = last_match->next;
+
+        free(last_match->content);
+        free(last_match);
+    }
+
+    free(final_unset_var);
+}
 int	mini_export(t_list_shellenv *shellenv, t_node *node)
 {
 	t_list_env	*new_node;
@@ -96,7 +139,8 @@ int	mini_export(t_list_shellenv *shellenv, t_node *node)
 		print_sorted(env);
 		return (0);
 	}
-	promp = mini_lstnew(node->right->operation->read);
+	found_equal(shellenv, node);
+	promp = mini_lstnew(ft_strdup(node->right->operation->read));
 	mini_lstadd_back(&(shellenv->env), promp);
 	return (0);
 }

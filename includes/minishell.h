@@ -72,5 +72,5 @@ void		sigint_handler(int signo);
 void		setup_signals(void);
 void		handle_heredoc(t_node *node, t_son *son);
 void		ft_baby_yoda_banner(void);
-
+void        del_node(t_list_env *env);
 #endif

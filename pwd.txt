@@ -1,7 +1,0 @@
-REDIR RIGHT == pwd
-
-CURRENT NODE == >
-
-NODE == pwd
-
-/home/cagarci2/Desktop/MiniShell
