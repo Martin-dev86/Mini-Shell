@@ -43,49 +43,50 @@ t_list_token	*find_highest_priority_token(t_list_token *start,
     {
         if (current->content->priority < \
         highest_priority_token->content->priority)
-        {
             highest_priority_token = current;
-        }
         current = current->next;
     }
     return (highest_priority_token);
 }
 
-// Function to handle different token types
-void	handle_token_type(t_node *node, t_list_token *highest_priority_token, t_list_token *start, t_list_token *end)
-{
+// Function to handle pipe token type
+void handle_pipe(t_node *node, t_list_token *highest_priority_token, t_list_token *start, t_list_token *end) {
+    if (highest_priority_token->prev != NULL)
+        node->left = ast_creator(start, highest_priority_token->prev);
+    if (highest_priority_token->next != NULL)
+        node->right = ast_creator(highest_priority_token->next, end);
+}
+
+// Function to handle redirection and command token types
+void handle_redir_cmd(t_node *node, t_list_token *highest_priority_token, t_list_token *start, t_list_token *end) {
+    if (highest_priority_token->prev != NULL)
+        node->left = ast_creator(start, highest_priority_token->prev);
+
+    if (highest_priority_token->next != NULL) {
+        if (highest_priority_token->content->type == HEREDOC)
+            node->right = create_ast_node(highest_priority_token->next->content);
+        else
+            node->right = create_ast_node(highest_priority_token->next->content);
+    }
+}
+
+// Modified function to handle different token types
+void handle_token_type(t_node *node, t_list_token *highest_priority_token, t_list_token *start, t_list_token *end) {
     if (highest_priority_token->content->type == PIPE)
-    {
-        if (highest_priority_token->prev != NULL)
-            node->left = ast_creator(start, highest_priority_token->prev);
-        if (highest_priority_token->next != NULL)
-            node->right = ast_creator(highest_priority_token->next, end);
-    }
-    else if (highest_priority_token->content->type == REDIR_L
-        || highest_priority_token->content->type == REDIR_R
-        || highest_priority_token->content->type == APPEND
-        || highest_priority_token->content->type == HEREDOC)
-    {
-        if (highest_priority_token->prev != NULL)
-            node->left = ast_creator(start, highest_priority_token->prev);
-        if (highest_priority_token->next != NULL)
-        {
-            if (highest_priority_token->content->type == HEREDOC)
-                node->right = create_ast_node(highest_priority_token->next->content);
-            else
-                node->right = create_ast_node(highest_priority_token->next->content);
-        }
-    }
-    else if (highest_priority_token->content->type == CMD
-        || highest_priority_token->content->type == ARG)
-    {
+        handle_pipe(node, highest_priority_token, start, end);
+    else if (highest_priority_token->content->type == REDIR_L ||
+               highest_priority_token->content->type == REDIR_R ||
+               highest_priority_token->content->type == APPEND ||
+               highest_priority_token->content->type == HEREDOC)
+        handle_redir_cmd(node, highest_priority_token, start, end);
+    else if (highest_priority_token->content->type == CMD ||
+               highest_priority_token->content->type == ARG) {
         if (highest_priority_token->next != NULL)
             node->right = ast_creator(highest_priority_token->next, end);
         if (highest_priority_token->prev != NULL)
             node->left = ast_creator(start, highest_priority_token->prev);
     }
 }
-
 // Recursive function to build the AST
 t_node	*ast_creator(t_list_token *start, t_list_token *end)
 {

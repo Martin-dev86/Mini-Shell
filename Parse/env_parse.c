@@ -50,36 +50,45 @@ char	**get_env(char **env)
 	return (new_env);
 }
 
-t_list_env	*env_parse(char **env)
-{
-	t_list_env	*head;
-	t_list_env	*new;
-	t_list_env	*current;
-	int			i;
+#include "minishell.h"
 
-	head = NULL;
-	new = NULL;
-	i = 0;
-	while (env[i])
-	{
-		new = (t_list_env *)malloc(sizeof(t_list_env));
-		if (!new)
-			ft_exit("malloc failed", EXIT_FAILURE);
-		new->content = ft_strdup(env[i]);
-		new->next = NULL;
-		if (head == NULL)
-		{
-			head = new;
-			current = head;
-		}
-		else
-		{
-			current->next = new;
-			current = new;
-		}
-		i++;
-	}
-	head->path = get_path(getenv("PATH"));
-	head->env = get_env(env);
-	return (head);
+// Function to create the linked list from the environment variables
+t_list_env *create_env_list(char **env)
+{
+    t_list_env *head = NULL;
+    t_list_env *new = NULL;
+    t_list_env *current = NULL;
+    int i = 0;
+
+    while (env[i])
+    {
+		new = (t_list_env *)calloc(1, sizeof(t_list_env));
+        if (!new)
+            ft_exit("malloc failed", EXIT_FAILURE);
+        new->content = ft_strdup(env[i]);
+        new->next = NULL;
+
+        if (head == NULL)
+        {
+            head = new;
+            current = head;
+        }
+        else
+        {
+            current->next = new;
+            current = new;
+        }
+        i++;
+    }
+    return head;
+}
+
+t_list_env *env_parse(char **env)
+{
+    t_list_env *head;
+
+    head = create_env_list(env); // Call the new function to create the linked list
+    head->path = get_path(getenv("PATH"));
+    head->env = get_env(env);
+    return head;
 }

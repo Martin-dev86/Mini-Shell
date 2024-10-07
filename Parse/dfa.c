@@ -12,117 +12,99 @@
 
 #include "minishell.h"
 
-// Deterministic Finite Automaton
-// It will do the sintax analysis of the tokens
-// End state 0 is success and 1 is syntax error
+#include "minishell.h"
 
-int	dfa_body(t_list_token *current, int state)
+// Function to handle states 0 to 2
+int dfa_body_part1(t_list_token *current, int state)
 {
-	// First start and state 1
-	if (state == 0)
-	{
-		if (current == NULL)
-			return (1);
-		if (current->content->type == CMD)
-		{
-			state = 3;
-			return (state);
-		}
-		if (current->content->type == REDIR_L
-			|| current->content->type == REDIR_R
-			|| current->content->type == APPEND
-			|| current->content->type == HEREDOC)
-		{
-			state = 2;
-			return (state);
-		}
-		else
-			return (-1);
-	}
-	// State 2
-	if (state == 2)
-	{
-		if (current->content->type == CMD)
-		{
-			state = 3;
-			return (state);
-		}
-		else
-			return (-1);
-	}
-	// State 3
-	if (state == 3)
-	{
-		if (current->content->type == CMD)
-		{
-			state = 3;
-			return (state);
-		}
-		if (current->content->type == REDIR_L
-			|| current->content->type == REDIR_R
-			|| current->content->type == APPEND
-			|| current->content->type == HEREDOC)
-		{
-			state = 2;
-			return (state);
-		}
-		if (current->content->type == PIPE)
-		{
-			state = 4;
-			return (state);
-		}
-		else
-			return (-1);
-	}
-	// State 4
-	if (state == 4)
-	{
-		if (current->content->type == CMD)
-		{
-			state = 3;
-			return (state);
-		}
-		if (current->content->type == REDIR_L
-			|| current->content->type == REDIR_R
-			|| current->content->type == APPEND
-			|| current->content->type == HEREDOC)
-		{
-			state = 2;
-			return (state);
-		}
-		else
-			return (-1);
-	}
-	return (state);
+    if (state == 0)
+    {
+        if (current == NULL)
+            return (1);
+        if (current->content->type == CMD)
+            return (3);
+        if (current->content->type == REDIR_L
+            || current->content->type == REDIR_R
+            || current->content->type == APPEND
+            || current->content->type == HEREDOC)
+            return (2);
+        else
+            return (-1);
+    }
+    if (state == 2)
+    {
+        if (current->content->type == CMD)
+            return (3);
+        else
+            return (-1);
+    }
+    return state;
+}
+
+// Function to handle states 3 to 4
+int dfa_body_part2(t_list_token *current, int state)
+{
+    // State 3
+    if (state == 3)
+    {
+        if (current->content->type == CMD)
+            return (3);
+        if (current->content->type == REDIR_L
+            || current->content->type == REDIR_R
+            || current->content->type == APPEND
+            || current->content->type == HEREDOC)
+            return (2);
+        if (current->content->type == PIPE)
+            return (4);
+        else
+            return (-1);
+    }
+    // State 4
+    if (state == 4)
+    {
+        if (current->content->type == CMD)
+            return (3);
+        if (current->content->type == REDIR_L
+            || current->content->type == REDIR_R
+            || current->content->type == APPEND
+            || current->content->type == HEREDOC)
+            return (2);
+        else
+            return (-1);
+    }
+    return state;
+}
+
+// Main DFA function
+int dfa_body(t_list_token *current, int state)
+{
+	if (state == -1)
+		return -1;
+    if (state >= 0 && state <= 2)
+        return dfa_body_part1(current, state);
+	if (state >= 3 && state <= 4)
+        return dfa_body_part2(current, state);
+    
+    return (state);
 }
 
 // Final of the DFA
-
-int	dfa_main(t_list_token *token_list)
+int dfa_main(t_list_token *token_list)
 {
-	t_list_token	*head;
-	t_list_token	*current;
-	int				state;
+    t_list_token *head;
+    t_list_token *current;
+    int state;
 
-	head = token_list;
-	current = head;
-	state = 0;
-	// Start the DFA
-	if (token_list == NULL)
-		return (0);
-	// Real DFA process REVIEW THIS
-	while (current != NULL)
-	{
-		state = dfa_body(current, state);
-		// DELETE
-		//printf("Token content: %s\n", current->content->read);
-		//printf("Token type: %d\n", current->content->type);
-		//printf("State: %d\n", state);
-		// UNTIL HERE
-		current = current->next;
-	}
-	current = head;
-	// Final state
-	// printf("First content: %s\n", current->content->read);
-	return (state);
+    head = token_list;
+    current = head;
+    state = 0;
+    if (token_list == NULL)
+        return (0);
+    while (current != NULL)
+    {
+        state = dfa_body(current, state);
+        current = current->next;
+    }
+    current = head;
+    return (state);
 }
