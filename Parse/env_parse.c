@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:02:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/04 23:04:29 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:26:17 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	first_env(char **env)
 {
 	// Only keep the first if
 	if (env == NULL || *env == NULL)
-		ft_exit ("NO ENV", 128);
+		ft_exit("NO ENV", 128);
 	else if (!getenv("PATH"))
 		ft_exit("NO PATH", EXIT_FAILURE);
 	else if (!getenv("USER"))
@@ -50,45 +50,46 @@ char	**get_env(char **env)
 	return (new_env);
 }
 
-#include "minishell.h"
-
 // Function to create the linked list from the environment variables
-t_list_env *create_env_list(char **env)
+t_list_env	*create_env_list(char **env)
 {
-    t_list_env *head = NULL;
-    t_list_env *new = NULL;
-    t_list_env *current = NULL;
-    int i = 0;
+	t_list_env	*head;
+	t_list_env	*new;
+	t_list_env	*current;
+	int			i;
 
-    while (env[i])
-    {
+	head = NULL;
+	new = NULL;
+	current = NULL;
+	i = 0;
+	while (env[i])
+	{
 		new = (t_list_env *)calloc(1, sizeof(t_list_env));
-        if (!new)
-            ft_exit("malloc failed", EXIT_FAILURE);
-        new->content = ft_strdup(env[i]);
-        new->next = NULL;
-
-        if (head == NULL)
-        {
-            head = new;
-            current = head;
-        }
-        else
-        {
-            current->next = new;
-            current = new;
-        }
-        i++;
-    }
-    return head;
+		if (!new)
+			ft_exit("malloc failed", EXIT_FAILURE);
+		new->content = ft_strdup(env[i]);
+		new->next = NULL;
+		if (head == NULL)
+		{
+			head = new;
+			current = head;
+		}
+		else
+		{
+			current->next = new;
+			current = new;
+		}
+		i++;
+	}
+	return (head);
 }
 
-t_list_env *env_parse(char **env)
+t_list_env	*env_parse(char **env)
 {
-    t_list_env *head;
+	t_list_env	*head;
 
-    head = create_env_list(env); // Call the new function to create the linked list
-    head->path = get_path(getenv("PATH"));
-    head->env = get_env(env);
-    return head;
+	head = create_env_list(env);
+	head->path = get_path(getenv("PATH"));
+	head->env = get_env(env);
+	return (head);
 }

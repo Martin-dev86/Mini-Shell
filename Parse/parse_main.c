@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/04 23:06:04 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:04:38 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ t_node	*main_parser(t_list_shellenv *shellenv, t_token *token, t_son *son)
 	token_list_typer(token_list);
 	final_state = dfa_main(token_list);
 	if (final_state <= 0 || final_state == 2 || final_state == 4)
-		ft_exit("Syntax FAILURE", EXIT_FAILURE);
-
+		ft_exit("Syntax FAILURE", EXIT_FAILURE); // this should return NULL and change the main to exit execute nothing
 	end = token_list;
 	while (end->next != NULL)
 		end = end->next;

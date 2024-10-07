@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 17:39:29 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/09/26 12:26:34 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:23:54 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	count_pipe_tokens(t_node *root)
 	t_node	*head;
 
 	head = root;
-	counter = 1; 	// There must be at least one son process
+	counter = 1;
 	count_pipe_tokens_helper(root, &counter);
 	root = head;
 	return (counter);

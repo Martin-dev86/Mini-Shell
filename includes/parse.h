@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/06 23:40:09 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:45:17 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ctype.h>
 #include <fcntl.h>
-#include <sys/wait.h>
+#include <limits.h>
 #include <memory.h>
-#include <stdint.h>
+#include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 #include <unistd.h>
-#include <limits.h>
-#include <ctype.h>
-#include <stdbool.h>
 
 typedef enum e_type
 {
@@ -41,16 +41,16 @@ typedef enum e_type
 	HEREDOC,
 	ENDLINE,
 	APPEND,
-}	t_type;
+}						t_type;
 
 typedef struct s_token
 {
-	char		*read;
-	t_type		type;
-	int			priority;
-	char		*path;
-	int			len;
-}	t_token;
+	char				*read;
+	t_type				type;
+	int					priority;
+	char				*path;
+	int					len;
+}						t_token;
 
 typedef struct s_node
 {
@@ -59,7 +59,7 @@ typedef struct s_node
 	struct s_node		*right;
 	int					n_childs;
 	int					is_executing;
-}	t_node;
+}						t_node;
 
 typedef struct s_list_env
 {
@@ -69,47 +69,69 @@ typedef struct s_list_env
 	struct s_list_env	*next;
 	char				**path;
 	char				**env;
-}	t_list_env;
+}						t_list_env;
 
 typedef struct s_list_token
 {
 	t_token				*content;
 	struct s_list_token	*next;
 	struct s_list_token	*prev;
-}	t_list_token;
+}						t_list_token;
 
 typedef struct s_list_shellenv
 {
-	t_list_env	*env;
-}	t_list_shellenv;
+	t_list_env			*env;
+}						t_list_shellenv;
+
+// For the expansion of the $ variables
+typedef struct s_process_state
+{
+	bool				in_single_quote;
+	bool				in_double_quote;
+	size_t				res_index;
+	size_t				i;
+	size_t				len;
+	size_t				alloc_size;
+	char				*result;
+	char				*exit_status;
+	size_t				exit_len;
+	size_t				var_start;
+	char				var_name[256];
+	char				*var_value;
+	size_t				var_value_len;
+}		t_processState;
+
 // Helper functions
-int				ft_token_lst_size(t_list_token *lst);
+int						ft_token_lst_size(t_list_token *lst);
 
 // Exit function
-void			ft_exit(char *str, int code);
+void					ft_exit(char *str, int code);
 
 // Environment parser
-char			**get_path(char *path);
-char	*replace_variables(const char *input, t_list_shellenv *env, t_son *son);
+char					**get_path(char *path);
+char					*replace_variables(const char *input,
+							t_list_shellenv *env, t_son *son);
 
 // Tokenizer
-void			token_list_typer(t_list_token *token_list);
-t_list_token	*token_read_filler(t_token token, t_list_token *head);
+void					token_list_typer(t_list_token *token_list);
+t_list_token			*token_read_filler(t_token token, t_list_token *head);
 
 // DFA
-int				dfa_main(t_list_token *token_list);
+int						dfa_main(t_list_token *token_list);
 
 // Expander
-void			replace_env_vars(t_list_token *tokens, t_list_shellenv *env);
-t_node			*expand_tree(t_node *ast, t_list_shellenv *env);
-t_node			*final_tree(t_node *ast, t_list_shellenv *env);
+void					replace_env_vars(t_list_token *tokens,
+							t_list_shellenv *env);
+t_node					*expand_tree(t_node *ast, t_list_shellenv *env);
+t_node					*final_tree(t_node *ast, t_list_shellenv *env);
 
 // Pipe counter
-int				count_pipe_tokens(t_node *root);
+int						count_pipe_tokens(t_node *root);
 
 // AST creator
-t_node			*ast_creator(t_list_token *start, t_list_token *end);
-t_node			*final_tree(t_node *ast, t_list_shellenv *env);
+t_node					*ast_creator(t_list_token *start, t_list_token *end);
+t_node					*final_tree(t_node *ast, t_list_shellenv *env);
 
 // Main parser
-t_node			*main_parser(t_list_shellenv *env, t_token *token, t_son *son);
+t_node					*main_parser(t_list_shellenv *env, t_token *token,
+							t_son *son);

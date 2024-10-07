@@ -1,145 +1,179 @@
 /* ************************************************************************** */
-/*												      */
-/*									    :::      ::::::::   */
+/*														*/
+/*											:::      ::::::::   */
 /*   expand_dollar.c									:+:      :+:    :+:   */
 /*									+:+ +:+         +:+     */
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
-/*						        +#+#+#+#+#+   +#+           */
+/*									+#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 12:40:30 by jeandrad          #+#    #+#			*/
 /*   Updated: 2024/10/04 18:48:43 by cagarci2         ###   ########.fr       */
-/*												      */
-/* ************************************************************************** */
-
-/*												      */
-/*									    :::      ::::::::   */
-/*   expand_dollar.c									:+:      :+:    :+:   */
-/*									+:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
-/*						        +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 12:40:30 by jeandrad          #+#    #+#			*/
-/*   Updated: 2024/09/24 16:51:08 by jeandrad         ###   ########.fr       */
-/*												      */
+/*														*/
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *get_env_value(const char *key, t_list_shellenv *shellenv)
+char	*get_env_value(const char *key, t_list_shellenv *shellenv)
 {
-    size_t key_len = strlen(key);
-	t_list_env *current = shellenv->env;
+	size_t		key_len;
+	t_list_env	*current;
 
-    while (current)
+	key_len = strlen(key);
+	current = shellenv->env;
+	while (current)
 	{
-        if (strncmp(current->content, key, key_len) == 0 && current->content[key_len] == '=')
+		if (strncmp(current->content, key, key_len) == 0
+			&& current->content[key_len] == '=')
+		{
 			return (current->content + key_len + 1); // Skip past "key="
-        current = current->next;
-    }
-    return (NULL);
-}
-void print_env(t_list_shellenv *shellenv) {
-    t_list_env *current = shellenv->env; // Comienza desde el inicio de la lista
-
-    printf("Variables de entorno:\n");
-    while (current) {
-        printf("%s\n", current->content); // Imprime cada variable de entorno
-        current = current->next; // Mueve al siguiente nodo
-    }
+		}
+		current = current->next;
+	}
+	return (NULL);
 }
 
-char *replace_variables(const char *input, t_list_shellenv *shellenv, t_son *son) 
+void	print_env(t_list_shellenv *shellenv)
 {
-    bool in_single_quote = false;
-    bool in_double_quote = false;
-    size_t len = strlen(input);
-    size_t alloc_size = len + 1;  // Asignamos memoria inicialmente para la longitud del input + '\0'
-    char *result = malloc(alloc_size); // Inicialmente asignamos lo que cabe en el input
-    if (!result) return NULL;
-    
-    size_t res_index = 0;
-    size_t i = 0;
+	t_list_env	*current;
 
-    while (i < len)
-    {
-        if (input[i] == '\'' && !in_double_quote)
-        {
-            in_single_quote = !in_single_quote;
-            result[res_index++] = input[i];
-        }
-        else if (input[i] == '"' && !in_single_quote)
-        {
-            in_double_quote = !in_double_quote;
-            result[res_index++] = input[i];
-        }
-        else if (input[i] == '$' && input[i + 1] == '?')
-        {
-            char *exit_status = ft_itoa(son->code); // Convierte el código de salida a cadena
-            if (exit_status)
-            {
-                size_t exit_len = strlen(exit_status);
-                
-                // Verificamos si necesitamos más memoria
-                if (res_index + exit_len >= alloc_size)
-                {
-                    alloc_size += exit_len + 1;
-                    result = realloc(result, alloc_size);  // Redimensionamos la memoria
-                    if (!result) return NULL;  // En caso de fallo
-                }
+	current = shellenv->env; // Comienza desde el inicio de la lista
+	printf("Variables de entorno:\n");
+	while (current)
+	{
+		printf("%s\n", current->content); // Imprime cada variable de entorno
+		current = current->next;          // Mueve al siguiente nodo
+	}
+}
 
-                strcpy(&result[res_index], exit_status);
-                res_index += exit_len;
-                free(exit_status);
-            }
-            i++; // Saltamos el '?'
-        }
-        else if (input[i] == '$' && !in_single_quote)
-        {
-            size_t var_start = ++i;
-            while (i < len && (isalnum(input[i]) || input[i] == '_')) i++;
+void	handle_quotes(const char *input, t_processState *state)
+{
+	if (input[state->i] == '\'' && !state->in_double_quote)
+	{
+		state->in_single_quote = !state->in_single_quote;
+		state->result[state->res_index++] = input[state->i];
+	}
+	else if (input[state->i] == '"' && !state->in_single_quote)
+	{
+		state->in_double_quote = !state->in_double_quote;
+		state->result[state->res_index++] = input[state->i];
+	}
+}
 
-            char var_name[256];
-            ft_strlcpy(var_name, &input[var_start], i - var_start + 1);
+void	expand_exit_status(t_son *son, t_processState *state)
+{
+	state->exit_status = ft_itoa(son->code);
+	if (state->exit_status)
+	{
+		state->exit_len = strlen(state->exit_status);
+		if (state->res_index + state->exit_len >= state->alloc_size)
+		{
+			state->alloc_size += state->exit_len + 1;
+			state->result = realloc(state->result, state->alloc_size);
+			if (!state->result)
+				return ;
+		}
+		strcpy(&state->result[state->res_index], state->exit_status);
+		state->res_index += state->exit_len;
+		free(state->exit_status);
+	}
+}
 
-            char *var_value = get_env_value(var_name, shellenv);
-            size_t var_value_len = var_value ? strlen(var_value) : 0;
+void	expand_env_variable(const char *input, t_list_shellenv *shellenv,
+		t_processState *state)
+{
+	state->var_start = ++state->i;
+	while (state->i < state->len && (isalnum(input[state->i])
+			|| input[state->i] == '_'))
+		state->i++;
+	ft_strlcpy(state->var_name, &input[state->var_start], state->i
+		- state->var_start + 1);
+	state->var_value = get_env_value(state->var_name, shellenv);
+	if (state->var_value)
+		state->var_value_len = strlen(state->var_value);
+	else
+		state->var_value_len = 0;
+	if (state->var_value)
+	{
+		if (state->res_index + state->var_value_len >= state->alloc_size)
+		{
+			state->alloc_size += state->var_value_len + 1;
+			state->result = realloc(state->result, state->alloc_size);
+			if (!state->result)
+				return ;
+		}
+		strcpy(&state->result[state->res_index], state->var_value);
+		state->res_index += state->var_value_len;
+	}
+	state->i--;
+}
 
-            if (var_value)
-            {
-                // Verificamos si necesitamos más memoria
-                if (res_index + var_value_len >= alloc_size)
-                {
-                    alloc_size += var_value_len + 1;
-                    result = realloc(result, alloc_size);  // Redimensionamos la memoria
-                    if (!result) return NULL;  // En caso de fallo
-                }
+void	expand_variable(const char *input, t_list_shellenv *shellenv,
+		t_son *son, t_processState *state)
+{
+	if (input[state->i + 1] == '?')
+	{
+		expand_exit_status(son, state);
+		state->i++;
+	}
+	else
+		expand_env_variable(input, shellenv, state);
+}
 
-                strcpy(&result[res_index], var_value);
-                res_index += var_value_len;
-            }
-            i--;  // Ajustamos por el incremento del ciclo
-        }
-        else
-        {
-            if (res_index + 1 >= alloc_size)
-            {
-                alloc_size += 1;
-                result = realloc(result, alloc_size);  // Redimensionamos la memoria
-                if (!result) return NULL;  // En caso de fallo
-            }
+void	process_characters(const char *input, t_processState *state)
+{
+	if (state->res_index + 1 >= state->alloc_size)
+	{
+		state->alloc_size += 1;
+		state->result = realloc(state->result, state->alloc_size);
+		if (!state->result)
+			return ;
+	}
+	state->result[state->res_index++] = input[state->i];
+}
 
-            result[res_index++] = input[i];
-        }
+void	process_input(const char *input, t_list_shellenv *shellenv, t_son *son,
+		t_processState *state)
+{
+	state->in_single_quote = false;
+	state->in_double_quote = false;
+	state->res_index = 0;
+	state->i = 0;
+	state->len = strlen(input);
+	while (state->i < state->len)
+	{
+		handle_quotes(input, state);
+		if (!state->in_single_quote && input[state->i] == '$')
+			expand_variable(input, shellenv, son, state);
+		else if (input[state->i] != '\'' && input[state->i] != '"')
+			process_characters(input, state);
+		state->i++;
+	}
+	state->result[state->res_index] = '\0';
+	if (state->in_single_quote || state->in_double_quote)
+	{
+		free(state->result);
+		state->result = NULL;
+	}
+}
 
-        i++;
-    }
+char	*replace_variables(const char *input, t_list_shellenv *shellenv,
+		t_son *son)
+{
+	size_t			len;
+	size_t			alloc_size;
+	char			*result;
+	t_processState	state;
 
-    result[res_index] = '\0';
+	len = strlen(input);
+	alloc_size = len + 1;
+	result = calloc(alloc_size, sizeof(char));
+	if (!result)
+		return (NULL);
 
-    // Verificamos si alguna comilla quedó sin cerrar
-    if (in_single_quote || in_double_quote)
-    {
-        free(result);
-        return NULL; // Comillas no emparejadas
-    }
+	ft_memset(&state, 0, sizeof(t_processState));
+	state.alloc_size = alloc_size;
+	state.result = result;
 
-    return result;
+	process_input(input, shellenv, son, &state);
+
+	return (state.result);
 }
