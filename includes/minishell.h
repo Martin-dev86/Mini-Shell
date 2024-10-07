@@ -48,9 +48,11 @@
 extern int prompt_active;
 
 int			execute(t_son *son, t_list_shellenv *shellenv, t_node *node);
-int			execute_builtins(t_son *son, t_list_shellenv *shellenv, t_node *node);
+int			execute_builtins(t_son *son, t_list_shellenv *shellenv, \
+			t_node *node);
 char		*get_pwd(void);
-void		mini_exit(t_node *node, t_list_shellenv *shellenv, t_son *son, int status);
+void		mini_exit(t_node *node, t_list_shellenv *shellenv, \
+			t_son *son, int status);
 int			mini_pwd(t_son *son);
 int			mini_echo(t_node *node);
 int			mini_redirect(t_node *node, t_son *son, t_list_shellenv *shellenv);
@@ -72,5 +74,8 @@ void		sigint_handler(int signo);
 void		setup_signals(void);
 void		handle_heredoc(t_node *node, t_son *son);
 void		ft_baby_yoda_banner(void);
-void        del_node(t_list_env *env);
+void		del_node(t_list_env *env);
+int			mini_strlen(const char *c);
+void		ft_free(t_list_shellenv *shellenv, t_node *node, \
+			t_list_token *token, t_son *son);
 #endif

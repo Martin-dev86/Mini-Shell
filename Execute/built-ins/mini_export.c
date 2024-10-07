@@ -12,17 +12,6 @@
 
 #include "minishell.h"
 
-int	mini_strlen(const char *c)
-{
-	int	i;
-
-	i = 0;
-	while (c[i] != '=')
-		i++;
-	i++;
-	return (i);
-}
-
 void	print_sorted(t_list_env *env)
 {
 	int	i;
@@ -74,49 +63,54 @@ void	swap_list(t_list_env *env, t_list_env *sorted_env)
 	}
 }
 
-void found_equal(t_list_shellenv *shellenv, t_node *node)
+void	final_unset(t_list_shellenv *shellenv, \
+		size_t len, char *final_unset_var)
 {
-    char *unset_var;
-    t_list_env *current;
-    t_list_env *prev = NULL;
-    t_list_env *last_match = NULL;
-    t_list_env *prev_last_match = NULL;
-    size_t len;
+	t_list_env	*current;
+	t_list_env	*prev;
+	t_list_env	*last_match;
+	t_list_env	*prev_last_match;
 
-    char *equals_pos = ft_strchr(node->right->operation->read, '=');
-    unset_var = (equals_pos != NULL) ? 
-                 ft_substr(node->right->operation->read, 0, equals_pos - node->right->operation->read) : 
-                 ft_strdup(node->right->operation->read);
-    char *final_unset_var = ft_strjoin(unset_var, "=");
-    free(unset_var); 
-
-    len = ft_strlen(final_unset_var);
-    current = shellenv->env;
-
-    while (current)
-    {
-        if (ft_strncmp(current->content, final_unset_var, len) == 0)
-        {
-            last_match = current;
-            prev_last_match = prev;
-        }
-        prev = current;
-        current = current->next;
-    }
-
-    if (last_match)
-    {
-        if (prev_last_match)
-            prev_last_match->next = last_match->next;
-        else
-            shellenv->env = last_match->next;
-
-        free(last_match->content);
-        free(last_match);
-    }
-
-    free(final_unset_var);
+	current = shellenv->env;
+	while (current)
+	{
+		if (ft_strncmp(current->content, final_unset_var, len) == 0)
+		{
+			last_match = current;
+			prev_last_match = prev;
+		}
+		prev = current;
+		current = current->next;
+	}
+	if (last_match)
+	{
+		if (prev_last_match)
+			prev_last_match->next = last_match->next;
+		else
+			shellenv->env = last_match->next;
+	}
+	free(final_unset_var);
 }
+
+void	found_equal(t_list_shellenv *shellenv, t_node *node)
+{
+	char		*unset_var;
+	size_t		len;
+	char		*final_unset_var;
+	char		*equals_pos;
+
+	equals_pos = ft_strchr(node->right->operation->read, '=');
+	if (equals_pos != NULL)
+		unset_var = ft_substr(node->right->operation->read, 0, \
+		equals_pos - node->right->operation->read);
+	else
+		unset_var = ft_strdup(node->right->operation->read);
+	final_unset_var = ft_strjoin(unset_var, "=");
+	free(unset_var);
+	len = ft_strlen(final_unset_var);
+	final_unset(shellenv, len, final_unset_var);
+}
+
 int	mini_export(t_list_shellenv *shellenv, t_node *node)
 {
 	t_list_env	*new_node;
