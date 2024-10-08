@@ -6,29 +6,11 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:57:35 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/07 16:23:02 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:24:24 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// Function to create a new AST node
-t_node	*create_ast_node(t_token *operation)
-{
-	t_node	*node;
-
-	node = (t_node *)malloc(sizeof(t_node));
-	if (!node)
-	{
-		perror("malloc failed");
-		exit(EXIT_FAILURE);
-	}
-	node->operation = operation;
-	node->left = NULL;
-	node->right = NULL;
-	node->n_childs = 0;
-	return (node);
-}
 
 // Function to find the highest-priority token in the token list
 t_list_token	*find_highest_priority_token(t_list_token *start,

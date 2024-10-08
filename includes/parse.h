@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/08 19:21:29 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:31:23 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct s_list_shellenv
 	t_list_env			*env;
 }						t_list_shellenv;
 
-
 // For the tokenizer
 typedef struct s_token_counters
 {
@@ -109,27 +108,37 @@ typedef struct s_process_state
 	size_t				var_value_len;
 }						t_processState;
 
+//dollar_tools.c
+char					*get_env_value(const char *key,
+							t_list_shellenv *shellenv);
+void					print_env(t_list_shellenv *shellenv);
+void					handle_quotes(const char *input, t_processState *state);
+void					expand_exit_status(t_son *son, t_processState *state);
+
+
 // token_utils.c
-void	set_prev_pointers(t_list_token *head);
+void					set_prev_pointers(t_list_token *head);
 
 // tokenizer_handle.c
-char	*quote_catcher(char *str, int *i, int quote);
-void	handle_quotes1(char **tokens, char *str,
-			t_token_counters *counters, char quote);
-void	handle_operator(char **tokens, char *op, int *j);
-void	handle_token(char **tokens, char *str, int *i, int *j);
-void	handle_special_operator(char **tokens, char *str,
-			t_token_counters *counters);
+char					*quote_catcher(char *str, int *i, int quote);
+void					handle_quotes1(char **tokens, char *str,
+							t_token_counters *counters, char quote);
+void					handle_operator(char **tokens, char *op, int *j);
+void					handle_token(char **tokens, char *str, int *i, int *j);
+void					handle_special_operator(char **tokens, char *str,
+							t_token_counters *counters);
 
-//token_alloc.c
-void	handle_redirection_operator(char **tokens, char *str,
-		t_token_counters *counters);
-void	handle_single_redirection_operator(char **tokens, char *str,
-		t_token_counters *counters);
-void	allocate_tokens(char **tokens, char *str);
-void	count_quote_tokens(char *str, int *i, int *token_count);
-void	skip_non_token_characters(char *str, int *i);
+// token_alloc.c
+void					handle_redirection_operator(char **tokens, char *str,
+							t_token_counters *counters);
+void					handle_single_redirection_operator(char **tokens,
+							char *str, t_token_counters *counters);
+void					allocate_tokens(char **tokens, char *str);
+void					count_quote_tokens(char *str, int *i, int *token_count);
+void					skip_non_token_characters(char *str, int *i);
 
+// node_creator.c
+t_node					*create_ast_node(t_token *operation);
 
 // Helper functions
 int						ft_token_lst_size(t_list_token *lst);
