@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:00:52 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/08 19:44:57 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/08 23:50:01 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	create_temp_file(char **temp_filename, int *temp_fd)
 	*temp_filename = strdup("/tmp/heredocXXXXXX");
 	if (!(*temp_filename))
 		ft_exit("strdup failed", EXIT_FAILURE);
-	*temp_fd = mkstemp(*temp_filename);
+	*temp_fd = open(*temp_filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (*temp_fd == -1)
 	{
 		free(*temp_filename);
@@ -48,18 +48,18 @@ void	process_heredoc_content(t_node *node, int temp_fd)
 
 void	handle_heredoc(t_node *node, t_son *son)
 {
-	int		temp_fd;
 	char	*temp_filename;
-
+	char buffer[256] = {0};
+	
 	if (node == NULL)
 		return ;
 	handle_heredoc(node->left, son);
 	handle_heredoc(node->right, son);
 	if (node->operation->type == HEREDOC)
 	{
-		create_temp_file(&temp_filename, &temp_fd);
-		process_heredoc_content(node, temp_fd);
-		close(temp_fd);
+		create_temp_file(&temp_filename, &node->temp_fd);
+		process_heredoc_content(node, node->temp_fd);
+		close(node->temp_fd);
 		son->fd_heredoc = open(temp_filename, O_RDONLY);
 		if (son->fd_heredoc == -1)
 		{
@@ -67,6 +67,9 @@ void	handle_heredoc(t_node *node, t_son *son)
 			free(temp_filename);
 			ft_exit("open failed", EXIT_FAILURE);
 		}
+		while (read(son->fd_heredoc, buffer, sizeof(buffer)) > 0)
+            write(STDOUT_FILENO, buffer, ft_strlen(buffer));
+		close(son->fd_heredoc);
 		unlink(temp_filename);
 		free(temp_filename);
 	}

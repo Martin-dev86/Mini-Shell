@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/08 20:14:47 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/09 00:14:06 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,23 @@ void	shell_loop(t_list_shellenv *result, t_son *son)
 	node = ft_calloc(0, sizeof(t_node));
 	while (1)
 	{
-		prompt_active = 0;
+		//prompt_active = 0;
 		token = ft_calloc(1, sizeof(t_token));
 		if (!token)
 			ft_exit("Failed to allocate memory for token", EXIT_FAILURE);
 		token->read = readline("Minishell>");
-		add_history(token->read);
 		if (token->read == NULL)
 			break ;
 		if (token->read[0] == '\0')
 			continue ;
-		if (token->read == NULL)
-			break ;
+		add_history(token->read);
 		node = main_parser(result, token, son);
 		if (node == NULL)
 			continue ;
-		prompt_active = 1;
+		//prompt_active = 1;
 		execute(son, result, node);
+		free(token->read);
+        free(token);
 	}
 }
 

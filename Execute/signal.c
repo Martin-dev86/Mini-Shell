@@ -37,6 +37,9 @@ void	sigquit_handler(int signo)
 void	sigint_handler(int signo)
 {
 	(void)signo;
-	write(STDOUT_FILENO, "^C", 2);
-	write(STDOUT_FILENO, "\nMinishell>", 12);
+	
+ 	write(STDOUT_FILENO, "\n", 1); // Escribe una nueva línea
+    rl_replace_line("", 0); // Limpia la línea de readline
+    rl_on_new_line(); // Mueve el cursor a la nueva línea
+    rl_redisplay();
 }

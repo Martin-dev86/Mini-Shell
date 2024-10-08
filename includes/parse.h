@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/08 19:56:23 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/08 23:59:50 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <termios.h>
 
 typedef enum e_type
 {
@@ -59,6 +60,7 @@ typedef struct s_node
 	struct s_node		*right;
 	int					n_childs;
 	int					is_executing;
+	int					temp_fd;
 }						t_node;
 
 typedef struct s_list_env
