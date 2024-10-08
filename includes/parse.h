@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/08 00:22:33 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:01:27 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,14 @@ typedef struct s_list_shellenv
 	t_list_env			*env;
 }						t_list_shellenv;
 
+
+// For the tokenizer
+typedef struct s_token_counters
+{
+	int					i;
+	int					j;
+}						t_token_counters;
+
 // For the expansion of the $ variables
 typedef struct s_process_state
 {
@@ -99,7 +107,17 @@ typedef struct s_process_state
 	char				var_name[256];
 	char				*var_value;
 	size_t				var_value_len;
-}		t_processState;
+}						t_processState;
+
+// tokenizer_handle.c
+char	*quote_catcher(char *str, int *i, int quote);
+void	handle_quotes1(char **tokens, char *str,
+			t_token_counters *counters, char quote);
+void	handle_operator(char **tokens, char *op, int *j);
+void	handle_token(char **tokens, char *str, int *i, int *j);
+void	handle_special_operator(char **tokens, char *str,
+			t_token_counters *counters);
+
 
 // Helper functions
 int						ft_token_lst_size(t_list_token *lst);
