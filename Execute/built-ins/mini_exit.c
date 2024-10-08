@@ -6,15 +6,16 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:53:57 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/04 19:26:54 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:41:29 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	mini_exit(t_node *node, t_list_shellenv *shellenv, t_son *son, int status)
+void	mini_exit(t_node *node, t_list_shellenv *shellenv, \
+	t_son *son, int status)
 {
-    int		exit_status;
+	int	exit_status;
 
 	exit_status = status;
 	if (!node || !node->operation || !node->operation->read)
@@ -30,9 +31,5 @@ void	mini_exit(t_node *node, t_list_shellenv *shellenv, t_son *son, int status)
 	(void) node;
 	(void) shellenv;
 	(void) son;
-	//t_free_node(node);
-	//ft_free_env_list(env);
-	//ft_free_son(son);
-
 	exit(exit_status);
 }
