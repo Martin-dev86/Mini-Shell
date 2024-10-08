@@ -6,7 +6,7 @@
 #    By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/22 12:45:34 by cagarci2          #+#    #+#              #
-#    Updated: 2024/10/08 18:02:02 by jeandrad         ###   ########.fr        #
+#    Updated: 2024/10/08 19:21:44 by jeandrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ READLINE = -lreadline -ltinfo
 
 LIBS	= $(LIBFT)/libft.a
 SRC_FILES =		$(shell find $(SRC_DIR) -name '*.c')
-OBJ_SRC		=	Parse/tokenizer_handle.o\
+OBJ_SRC		=	Parse/token_utils.o Parse/tokenizer_handle.o Parse/token_alloc.o\
 				Execute/built-ins/mini_exit.o Execute/ft_free.o Execute/ft_free_token.o\
 				Execute/redirect.o Execute/execute.o Parse/ft_exit.o Parse/token_lst_size.o Parse/get_path.o Parse/env_parse.o\
 				Parse/token_typer.o Parse/count_pipe.o Parse/tokenizer.o Parse/expand_dollar.o\

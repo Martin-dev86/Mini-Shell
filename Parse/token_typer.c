@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:50:05 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/07 17:03:15 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:23:27 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	handle_1_redir(t_list_token **token_list)
 		(*token_list)->content->type = CMD;
 		(*token_list)->content->priority = 3;
 	}
-
 }
 
 void	handle_2_redir(t_list_token **token_list)

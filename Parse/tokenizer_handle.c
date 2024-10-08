@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:58:58 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/08 17:59:35 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:22:43 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	handle_token(char **tokens, char *str, int *i, int *j)
 		return ;
 	(*j)++;
 }
-
 
 void	handle_special_operator(char **tokens, char *str,
 		t_token_counters *counters)
