@@ -6,28 +6,11 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:02:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/07 16:26:17 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:55:39 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	first_env(char **env)
-{
-	// Only keep the first if
-	if (env == NULL || *env == NULL)
-		ft_exit("NO ENV", 128);
-	else if (!getenv("PATH"))
-		ft_exit("NO PATH", EXIT_FAILURE);
-	else if (!getenv("USER"))
-		ft_exit("NO USER", EXIT_FAILURE);
-	else if (!getenv("HOME"))
-		ft_exit("NO HOME", EXIT_FAILURE);
-	else if (!getenv("PWD"))
-		ft_exit("NO PWD", EXIT_FAILURE);
-	else if (!getenv("OLDPWD"))
-		ft_exit("NO OLDPWD", EXIT_FAILURE);
-}
 
 char	**get_env(char **env)
 {
@@ -50,35 +33,53 @@ char	**get_env(char **env)
 	return (new_env);
 }
 
-// Function to create the linked list from the environment variables
+int	calculate_length(const char *content)
+{
+	if (content != NULL)
+		return (strlen((content)));
+	else
+		return (0);
+}
+
+// Función para agregar un nuevo nodo a la lista
+void	add_node_to_list(t_list_env **head, char *content)
+{
+	t_list_env	*new;
+	t_list_env	*current;
+
+	new = (t_list_env *)calloc(1, sizeof(t_list_env));
+	if (!new)
+		ft_exit("malloc failed", EXIT_FAILURE);
+	new->content = ft_strdup(content);
+	new->len = calculate_length(content);
+	new->variable_len = new->len;
+	new->next = NULL;
+	if (*head == NULL)
+	{
+		*head = new;
+	}
+	else
+	{
+		current = *head;
+		while (current->next)
+		{
+			current = current->next;
+		}
+		current->next = new;
+	}
+}
+
+// Función para crear la lista enlazada desde las variables de entorno
 t_list_env	*create_env_list(char **env)
 {
 	t_list_env	*head;
-	t_list_env	*new;
-	t_list_env	*current;
 	int			i;
 
 	head = NULL;
-	new = NULL;
-	current = NULL;
 	i = 0;
 	while (env[i])
 	{
-		new = (t_list_env *)calloc(1, sizeof(t_list_env));
-		if (!new)
-			ft_exit("malloc failed", EXIT_FAILURE);
-		new->content = ft_strdup(env[i]);
-		new->next = NULL;
-		if (head == NULL)
-		{
-			head = new;
-			current = head;
-		}
-		else
-		{
-			current->next = new;
-			current = new;
-		}
+		add_node_to_list(&head, env[i]);
 		i++;
 	}
 	return (head);

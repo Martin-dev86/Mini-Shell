@@ -6,27 +6,11 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/08 19:27:59 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:49:56 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	print_tokens(t_list_token *head)
-// {
-// 	t_list_token	*current;
-
-// 	current = head;
-// 	while (current != NULL)
-// 	{
-// 		printf("Token: %s, Type: %d, Priority: %d, Previous: %s, Next: %s\n",
-// 			current->content->read, current->content->type,
-// 			current->content->priority,
-// 			current->prev ? current->prev->content->read : "NULL",
-// 			current->next ? current->next->content->read : "NULL");
-// 		current = current->next;
-// 	}
-// }
 
 t_node	*main_parser(t_list_shellenv *shellenv, t_token *token, t_son *son)
 {
@@ -44,7 +28,7 @@ t_node	*main_parser(t_list_shellenv *shellenv, t_token *token, t_son *son)
 	token_list_typer(token_list);
 	final_state = dfa_main(token_list);
 	if (final_state <= 0 || final_state == 2 || final_state == 4)
-		ft_exit("Syntax FAILURE", EXIT_FAILURE); // this should return NULL and change the main to exit execute nothing
+		return (NULL);
 	end = token_list;
 	while (end->next != NULL)
 		end = end->next;

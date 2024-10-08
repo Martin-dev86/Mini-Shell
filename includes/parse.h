@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/08 19:31:23 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/08 19:56:23 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,9 @@ void					skip_non_token_characters(char *str, int *i);
 
 // node_creator.c
 t_node					*create_ast_node(t_token *operation);
+
+// first_env.c
+void					first_env(char **env);
 
 // Helper functions
 int						ft_token_lst_size(t_list_token *lst);
