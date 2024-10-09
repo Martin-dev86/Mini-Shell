@@ -48,13 +48,14 @@ int	mini_cd(t_node *node, t_list_shellenv *shellenv)
 	{
 		home = getenv("HOME");
 		if (chdir(home) == -1)
-			ft_exit("change directory fail", 1);
+			ft_exit("change directory fail\n", 1);
 		return (0);
 	}
 	else
 	{
 		if (chdir(node->right->operation->read) == -1)
-			ft_exit("change directory fail", 1);
+			printf("change directory fail\n");
+		return(1);
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/09 19:00:52 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/10 00:38:18 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,22 @@
 
 int	prompt_active;
 
-char	*getenv_path(t_list_shellenv *shellenv)
+void find_and_set_path(t_list_shellenv *env_list)
 {
-	while (shellenv->env)
-	{
-		if (ft_strncmp(shellenv->env->content, "PATH=", 5) == 0)
-			return (shellenv->env->content);
-		shellenv->env = shellenv->env->next;
-	}
-	return(NULL);
+    t_list_env *current;
+    char *path_value;
+
+	current = env_list->env;
+    while (current)
+    {
+        if (ft_strncmp(current->content, "PATH=", 5) == 0)
+        {
+            path_value = current->content + 5;
+            current->path = get_path(path_value);
+            break;
+        }
+        current = current->next;
+    }
 }
 
 void	shell_loop(t_list_shellenv *result, t_son *son)
@@ -45,8 +52,10 @@ void	shell_loop(t_list_shellenv *result, t_son *son)
 		node = main_parser(result, token, son);
 		if (node == NULL)
 			continue ;
+		find_and_set_path(result);
 		execute(son, result, node);
-		result->env->path = get_path(getenv_path(result));
+		 free(result->env);
+		result->env = env_parse(result->env->env);
 		free(token->read);
 		free(token);
 	}
