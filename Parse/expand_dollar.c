@@ -44,9 +44,14 @@ void	expand_env_variable(const char *input, t_list_shellenv *shellenv,
 void	expand_variable(const char *input, t_list_shellenv *shellenv,
 		t_son *son, t_processState *state)
 {
-	if (input[state->i + 1] == '?')
+	if (input[state->i + 1] == '$' && input[state->i + 2] == '?')
 	{
 		expand_exit_status(son, state);
+		state->i += 2;
+	}
+	else if (input[state->i + 1] == '$')
+	{
+		state->result[state->res_index++] = '$';
 		state->i++;
 	}
 	else
