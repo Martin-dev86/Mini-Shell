@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 12:35:37 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/08/28 15:34:51 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:17:38 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,9 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
+char	*ft_strndup(const char *s, size_t n);
+void	ft_realloc(void **s, size_t old_size, size_t new_size);
+char	*ft_strcpy(char *s1, char *s2);
 
 #endif

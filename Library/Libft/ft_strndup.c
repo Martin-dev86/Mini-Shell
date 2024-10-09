@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 16:09:46 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/09 16:12:20 by cagarci2         ###   ########.fr       */
+/*   Created: 2023/10/10 10:31:29 by cagarci2          #+#    #+#             */
+/*   Updated: 2024/10/09 16:08:41 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_realloc(void **s, size_t old_size, size_t new_size)
+char	*ft_strndup(const char *s, size_t n)
 {
-	size_t			i;
-	unsigned char	*m;
+	char			*res;
+	unsigned int	i;
 
-	m = *(unsigned char **)s;
-	if (!*(unsigned char **)s)
-	{
-		(*(unsigned char **)s = \
-			(unsigned char *)malloc(sizeof(unsigned char) * new_size));
-		return ;
-	}
 	i = 0;
-	while (i < old_size)
+	res = malloc(sizeof(char) * (n + 1));
+	if (res == NULL)
+		return (NULL);
+	while (i < n)
 	{
-		(*(unsigned char **)s)[i] = m[i];
+		res[i] = s[i];
 		i++;
 	}
-	free(m);
+	res[i] = '\0';
+	return (res);
 }

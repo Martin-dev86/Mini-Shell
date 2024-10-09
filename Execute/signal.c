@@ -50,6 +50,5 @@ void sigint_handler(int signo, t_son *son)
     write(STDOUT_FILENO, "\n", 1); 
     rl_replace_line("", 0);         // Limpiar la línea de readline
     rl_on_new_line();               // Mover el cursor a la nueva línea
-    rl_redisplay();                 // Redibujar el prompt
-    son->g_interrupted = 1;         // Indica que se ha interrumpido
+    rl_redisplay();                 // Redibujar el prompt       // Indica que se ha interrumpido
 }
