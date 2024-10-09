@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/08 23:59:50 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/09 20:27:24 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ char					*get_env_value(const char *key,
 void					print_env(t_list_shellenv *shellenv);
 void					handle_quotes(const char *input, t_processState *state);
 void					expand_exit_status(t_son *son, t_processState *state);
+void					extract_variable_name(const char *input, t_processState *state);
+
 
 
 // token_utils.c

@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:29:39 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/08 19:33:24 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/09 20:27:08 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,20 @@ char	*get_env_value(const char *key, t_list_shellenv *shellenv)
 {
 	size_t		key_len;
 	t_list_env	*current;
+	char		*delimiter_position;
 
 	key_len = ft_strlen(key);
 	current = shellenv->env;
 	while (current)
 	{
-		if (ft_strncmp(current->content, key, key_len) == 0
-			&& current->content[key_len] == '=')
+		delimiter_position = ft_strchr(current->content, '=');
+		if (delimiter_position)
 		{
-			return (current->content + key_len + 1);
+			if ((size_t)(delimiter_position - current->content) == key_len &&
+				ft_strncmp(current->content, key, key_len) == 0)
+			{
+				return (delimiter_position + 1);
+			}
 		}
 		current = current->next;
 	}
@@ -75,4 +80,20 @@ void	expand_exit_status(t_son *son, t_processState *state)
 		state->res_index += state->exit_len;
 		free(state->exit_status);
 	}
+}
+
+void	extract_variable_name(const char *input, t_processState *state)
+{
+	state->var_start = ++state->i;
+	while (state->i < state->len && \
+		(ft_isalnum(input[state->i]) || input[state->i] == '_'))
+		state->i++;
+	if (state->i == state->var_start)
+	{
+		state->result[state->res_index++] = '$';
+		return ;
+	}
+	ft_strlcpy(state->var_name, &input[state->var_start], \
+		state->i - state->var_start + 1);
+	state->i--;
 }
