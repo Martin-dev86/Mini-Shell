@@ -59,10 +59,9 @@ int	execute_builtins(t_son *son, t_list_shellenv *shellenv, t_node *node)
 
 int execute(t_son *son, t_list_shellenv *shellenv, t_node *node)
 {
-    if (g_interrupted) // Si la última acción fue una interrupción
-    {
-        g_interrupted = 0; // Restablecer la bandera
-        return 0; // Termina la ejecución sin hacer nada
+    if (g_interrupted) 
+        g_interrupted = 0;
+        return 0;
     }
     if (ft_strncmp(node->operation->read, "exit", 4) == 0)
     {

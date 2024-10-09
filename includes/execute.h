@@ -26,4 +26,5 @@ typedef struct s_son
 	int		fd_heredoc;
 	int		flag;
 	int		i;
+	int		g_interrupted;
 }	t_son;
