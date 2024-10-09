@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/09 00:14:06 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/09 19:00:52 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,25 @@
 
 int	prompt_active;
 
+char	*getenv_path(t_list_shellenv *shellenv)
+{
+	while (shellenv->env)
+	{
+		if (ft_strncmp(shellenv->env->content, "PATH=", 5) == 0)
+			return (shellenv->env->content);
+		shellenv->env = shellenv->env->next;
+	}
+	return(NULL);
+}
+
 void	shell_loop(t_list_shellenv *result, t_son *son)
 {
-	t_token	*token;
-	t_node	*node;
+	t_token		*token;
+	t_node		*node;
 
 	node = ft_calloc(0, sizeof(t_node));
 	while (1)
 	{
-		//prompt_active = 0;
 		token = ft_calloc(1, sizeof(t_token));
 		if (!token)
 			ft_exit("Failed to allocate memory for token", EXIT_FAILURE);
@@ -35,10 +45,10 @@ void	shell_loop(t_list_shellenv *result, t_son *son)
 		node = main_parser(result, token, son);
 		if (node == NULL)
 			continue ;
-		//prompt_active = 1;
 		execute(son, result, node);
+		result->env->path = get_path(getenv_path(result));
 		free(token->read);
-        free(token);
+		free(token);
 	}
 }
 

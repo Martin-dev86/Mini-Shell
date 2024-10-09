@@ -52,7 +52,7 @@ int	create_pipes(t_son *son, int num_pipes)
 			perror("malloc");
 			return (-1);
 		}
-		if (pipe(son->fd[i]) == -1) 
+		if (pipe(son->fd[i]) == -1)
 		{
 			perror("pipe");
 			return (-1);
@@ -63,18 +63,20 @@ int	create_pipes(t_son *son, int num_pipes)
 }
 
 void	handle_child_process(t_son *son, t_node *current_node, \
-	t_list_shellenv *shellenv, t_node *node)
+	t_list_shellenv *shellenv)
 {
 	int	j;
 	int	i;
 
 	i = son->i;
 	j = 0;
-	if (i > 0 && dup2(son->fd[i - 1][0], STDIN_FILENO) == -1)
-		ft_exit("dup2 error", son->code);
-	if (i < node->n_childs - 1 && dup2(son->fd[i][1], STDOUT_FILENO) == -1)
-		ft_exit("dup2 error", son->code);
-	while (j < node->n_childs - 1)
+	if (i > 0)
+		if (dup2(son->fd[i - 1][0], STDIN_FILENO) == -1)
+			ft_exit("dup2 error", son->code);
+	if (i < son->n_child - 1)
+		if (dup2(son->fd[i][1], STDOUT_FILENO) == -1)
+			ft_exit("dup2 error", son->code);
+	while (j < son->n_child - 1)
 	{
 		close(son->fd[j][0]);
 		close(son->fd[j][1]);
@@ -99,23 +101,16 @@ void	forking(t_son *son, t_list_shellenv *shellenv, t_node *node)
 	else
 		current_node = node->right;
 	son->pid = fork();
+	prompt_active = son->pid;
 	if (son->pid == -1)
 		ft_exit("fork error", son->code);
 	if (son->pid == 0)
-		handle_child_process(son, current_node, shellenv, node);
+		handle_child_process(son, current_node, shellenv);
 	son->pids[son->i] = son->pid;
-	son->i++;
-	if (node->right->operation->type == PIPE)
-	{
-		node = node->right;
-		son->flag = -1;
-	}
 }
 
 int	mini_pipe(t_son *son, t_node *node, t_list_shellenv *shellenv)
 {
-	int		n_child;
-
 	son->flag = -1;
 	son->i = 0;
 	son->pids = malloc(node->n_childs * sizeof(int));
@@ -123,9 +118,17 @@ int	mini_pipe(t_son *son, t_node *node, t_list_shellenv *shellenv)
 		ft_exit("Memory allocation error", 1);
 	if (create_pipes(son, node->n_childs - 1) == -1)
 		ft_exit("Error create pipe", 128);
-	n_child = node->n_childs;
-	while (son->i < n_child)
+	son->n_child = node->n_childs;
+	while (son->i < son->n_child)
+	{
 		forking(son, shellenv, node);
-	close_wait(son, n_child);
+		if (node->right->operation->type == PIPE)
+		{
+			node = node->right;
+			son->flag = -1;
+		}
+		son->i++;
+	}
+	close_wait(son, son->n_child);
 	return (son->code);
 }
