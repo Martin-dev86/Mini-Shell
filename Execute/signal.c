@@ -34,12 +34,12 @@ void	sigquit_handler(int signo)
 		write(STDOUT_FILENO, "Quit (core dumped)\n", 20);
 }
 
-void	sigint_handler(int signo)
+void sigint_handler(int signo)
 {
-	(void)signo;
-	
- 	write(STDOUT_FILENO, "\n", 1); // Escribe una nueva línea
-    rl_replace_line("", 0); // Limpia la línea de readline
-    rl_on_new_line(); // Mueve el cursor a la nueva línea
-    rl_redisplay();
+    (void)signo;
+    write(STDOUT_FILENO, "\n", 1); 
+    rl_replace_line("", 0);         // Limpiar la línea de readline
+    rl_on_new_line();               // Mover el cursor a la nueva línea
+    rl_redisplay();                 // Redibujar el prompt
+    g_interrupted = 1;              // Indica que se ha interrumpido
 }

@@ -57,24 +57,29 @@ int	execute_builtins(t_son *son, t_list_shellenv *shellenv, t_node *node)
 	return (0);
 }
 
-int	execute(t_son *son, t_list_shellenv *shellenv, t_node *node)
+int execute(t_son *son, t_list_shellenv *shellenv, t_node *node)
 {
-	if (ft_strncmp(node->operation->read, "exit", 4) == 0)
-	{
-		printf("entra en exit\n");
-		mini_exit(node, shellenv, son, 0);
-	}
-	else if (node->operation->type == HEREDOC)
-		handle_heredoc(node, son);
-	else if (node->operation->type == REDIR_R
-		|| node->operation->type == REDIR_L
-		|| node->operation->type == APPEND)
-		mini_redirect(node, son, shellenv);
-	else if (node->operation->type == BUILTIN)
-		execute_builtins(son, shellenv, node);
-	else if (node->n_childs <= 1 && node->operation->type == CMD)
-		executing(son, shellenv, node);
-	else if (node->n_childs >= 2 && node->operation->type == PIPE)
-		mini_pipe(son, node, shellenv);
-	return (0);
+    if (g_interrupted) // Si la última acción fue una interrupción
+    {
+        g_interrupted = 0; // Restablecer la bandera
+        return 0; // Termina la ejecución sin hacer nada
+    }
+    if (ft_strncmp(node->operation->read, "exit", 4) == 0)
+    {
+        printf("entra en exit\n");
+        mini_exit(node, shellenv, son, 0);
+    }
+    else if (node->operation->type == HEREDOC)
+        handle_heredoc(node, son);
+    else if (node->operation->type == REDIR_R
+        || node->operation->type == REDIR_L
+        || node->operation->type == APPEND)
+        mini_redirect(node, son, shellenv);
+    else if (node->operation->type == BUILTIN)
+        execute_builtins(son, shellenv, node);
+    else if (node->n_childs <= 1 && node->operation->type == CMD)
+        executing(son, shellenv, node);
+    else if (node->n_childs >= 2 && node->operation->type == PIPE)
+        mini_pipe(son, node, shellenv);
+    return (0);
 }
