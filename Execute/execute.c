@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/09 16:20:27 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:58:31 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	executing(t_son *son, t_list_shellenv *shellenv, t_node *node)
 {
 	son->pid = fork();
+	prompt_active = son->pid;
 	if (son->pid < 0)
 	{
 		perror("fork");
@@ -57,24 +58,24 @@ int	execute_builtins(t_son *son, t_list_shellenv *shellenv, t_node *node)
 	return (0);
 }
 
-int execute(t_son *son, t_list_shellenv *shellenv, t_node *node)
+int	execute(t_son *son, t_list_shellenv *shellenv, t_node *node)
 {
-    if (ft_strncmp(node->operation->read, "exit", 4) == 0)
-    {
-        printf("entra en exit\n");
-        mini_exit(node, shellenv, son, 0);
-    }
-    else if (node->operation->type == HEREDOC)
-        handle_heredoc(node, son);
-    else if (node->operation->type == REDIR_R
-        || node->operation->type == REDIR_L
-        || node->operation->type == APPEND)
-        mini_redirect(node, son, shellenv);
-    else if (node->operation->type == BUILTIN)
-        execute_builtins(son, shellenv, node);
-    else if (node->n_childs <= 1 && node->operation->type == CMD)
-        executing(son, shellenv, node);
-    else if (node->n_childs >= 2 && node->operation->type == PIPE)
-        mini_pipe(son, node, shellenv);
-    return (0);
+	if (ft_strncmp(node->operation->read, "exit", 4) == 0)
+	{
+		printf("entra en exit\n");
+		mini_exit(node, shellenv, son, 0);
+	}
+	else if (node->operation->type == HEREDOC)
+		handle_heredoc(node, son);
+	else if (node->operation->type == REDIR_R
+		|| node->operation->type == REDIR_L
+		|| node->operation->type == APPEND)
+		mini_redirect(node, son, shellenv);
+	else if (node->operation->type == BUILTIN)
+		execute_builtins(son, shellenv, node);
+	else if (node->n_childs <= 1 && node->operation->type == CMD)
+		executing(son, shellenv, node);
+	else if (node->n_childs >= 2 && node->operation->type == PIPE)
+		mini_pipe(son, node, shellenv);
+	return (0);
 }

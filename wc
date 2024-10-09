@@ -1,0 +1,16 @@
+banner.c
+banner.o
+echo
+Execute
+includes
+Library
+main.c
+main.o
+Makefile
+Makefile copy
+minishell
+Parse
+Print_tree.c
+Print_tree.o
+README.md
+wc

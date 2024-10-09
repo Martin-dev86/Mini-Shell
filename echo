@@ -1,1 +1,1 @@
-echo "hola $USER" | pwd | ls
+echo "hola $USER" | pwd | ls hola

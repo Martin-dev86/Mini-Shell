@@ -38,8 +38,16 @@ void	sigint_handler(int signo)
 {
 	(void)signo;
 
- 	write(STDOUT_FILENO, "\n", 1); // Escribe una nueva línea
-    rl_replace_line("", 0); // Limpia la línea de readline
-    rl_on_new_line(); // Mueve el cursor a la nueva línea
-    rl_redisplay();
+	if (prompt_active)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		kill(prompt_active, SIGINT);
+	}
+	else if (!prompt_active)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
