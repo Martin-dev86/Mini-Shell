@@ -14,7 +14,7 @@
 
 void	create_temp_file(char **temp_filename, int *temp_fd)
 {
-	*temp_filename = strdup("/tmp/heredocXXXXXX");
+	*temp_filename = ft_strdup("/tmp/heredocXXXXXX");
 	if (!(*temp_filename))
 		ft_exit("strdup failed", EXIT_FAILURE);
 	*temp_fd = open(*temp_filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -33,9 +33,9 @@ void	process_heredoc_content(t_node *node, int temp_fd)
 	line = readline("> ");
 	while (line != NULL)
 	{
-		if (strcmp(line, node->right->operation->read) == 0)
+		if (ft_strcmp(line, node->right->operation->read) == 0)
 			break ;
-		write(temp_fd, line, strlen(line));
+		write(temp_fd, line, ft_strlen(line));
 		write(temp_fd, "\n", 1);
 		free(line);
 		line = readline("> ");

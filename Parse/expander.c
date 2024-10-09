@@ -19,12 +19,12 @@ void	exp_ast_helper(t_node *node, int depth)
 		return ;
 	else if (node->operation->type == CMD)
 	{
-		if (strcmp(node->operation->read, "pwd") == 0
-			|| strcmp(node->operation->read, "echo") == 0
-			|| strcmp(node->operation->read, "env") == 0
-			|| strcmp(node->operation->read, "export") == 0
-			|| strcmp(node->operation->read, "unset") == 0
-			|| strcmp(node->operation->read, "cd") == 0)
+		if (ft_strcmp(node->operation->read, "pwd") == 0
+			|| ft_strcmp(node->operation->read, "echo") == 0
+			|| ft_strcmp(node->operation->read, "env") == 0
+			|| ft_strcmp(node->operation->read, "export") == 0
+			|| ft_strcmp(node->operation->read, "unset") == 0
+			|| ft_strcmp(node->operation->read, "cd") == 0)
 		{
 			node->operation->type = BUILTIN;
 			exp_ast_helper(node->left, depth + 2);
