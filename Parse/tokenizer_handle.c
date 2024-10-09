@@ -20,7 +20,7 @@ char	*quote_catcher(char *str, int *i, int quote)
 
 	temp[0] = str[*i];
 	temp[1] = '\0';
-	result = strdup("");
+	result = ft_strdup("");
 	while (str[*i] && str[*i] != quote)
 	{
 		temp[0] = str[*i];
@@ -61,7 +61,7 @@ void	handle_token(char **tokens, char *str, int *i, int *j)
 		&& str[*i] != '>' && str[*i] != '<' && str[*i] != '$' && str[*i] != '\n'
 		&& str[*i] != ' ')
 		(*i)++;
-	tokens[*j] = strndup(str + start, *i - start);
+	tokens[*j] = ft_strndup(str + start, *i - start);
 	if (tokens[*j] == NULL)
 		return ;
 	(*j)++;
