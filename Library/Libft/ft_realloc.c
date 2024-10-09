@@ -3,32 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 16:09:46 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/09 16:12:20 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:20:04 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_realloc(void **s, size_t old_size, size_t new_size)
-{
-	size_t			i;
-	unsigned char	*m;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/09 16:15:01 by jeandrad          #+#    #+#             */
+/*   Updated: 2024/10/09 16:15:10 by jeandrad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-	m = *(unsigned char **)s;
-	if (!*(unsigned char **)s)
+#include "libft.h"
+
+char	*ft_realloc(char *ptr, int n)
+{
+	int		copy_n;
+	char	*new_ptr;
+
+	copy_n = 0;
+	new_ptr = NULL;
+	if (n <= 0)
+		return (NULL);
+	new_ptr = malloc(n * sizeof(char));
+	if (!new_ptr)
+		return (free(ptr), NULL);
+	if (ptr)
 	{
-		(*(unsigned char **)s = \
-			(unsigned char *)malloc(sizeof(unsigned char) * new_size));
-		return ;
+		copy_n = ft_strlen(ptr);
+		if (copy_n > n - 1)
+			copy_n = n - 1;
+		ft_memcpy(new_ptr, ptr, copy_n);
+		free(ptr);
 	}
-	i = 0;
-	while (i < old_size)
-	{
-		(*(unsigned char **)s)[i] = m[i];
-		i++;
-	}
-	free(m);
+	new_ptr[copy_n] = '\0';
+	return (new_ptr);
 }

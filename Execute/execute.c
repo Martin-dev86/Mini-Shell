@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/06 23:48:04 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/09 16:20:27 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,6 @@ int	execute_builtins(t_son *son, t_list_shellenv *shellenv, t_node *node)
 
 int execute(t_son *son, t_list_shellenv *shellenv, t_node *node)
 {
-    if (g_interrupted) 
-        g_interrupted = 0;
-        return 0;
-    }
     if (ft_strncmp(node->operation->read, "exit", 4) == 0)
     {
         printf("entra en exit\n");
