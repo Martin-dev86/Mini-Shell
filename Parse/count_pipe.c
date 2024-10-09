@@ -18,7 +18,7 @@ void	count_pipe_tokens_helper(t_node *node, int *counter)
 	if (node == NULL)
 		return ;
 	if (node->operation != NULL && node->operation->read != NULL
-		&& strcmp(node->operation->read, "|") == 0)
+		&& ft_strcmp(node->operation->read, "|") == 0)
 		(*counter)++;
 	count_pipe_tokens_helper(node->left, counter);
 	count_pipe_tokens_helper(node->right, counter);

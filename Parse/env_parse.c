@@ -36,7 +36,7 @@ char	**get_env(char **env)
 int	calculate_length(const char *content)
 {
 	if (content != NULL)
-		return (strlen((content)));
+		return (ft_strlen((content)));
 	else
 		return (0);
 }
@@ -47,7 +47,7 @@ void	add_node_to_list(t_list_env **head, char *content)
 	t_list_env	*new;
 	t_list_env	*current;
 
-	new = (t_list_env *)calloc(1, sizeof(t_list_env));
+	new = (t_list_env *)ft_calloc(1, sizeof(t_list_env));
 	if (!new)
 		ft_exit("malloc failed", EXIT_FAILURE);
 	new->content = ft_strdup(content);

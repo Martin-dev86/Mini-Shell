@@ -16,14 +16,14 @@ void	expand_env_variable(const char *input, t_list_shellenv *shellenv,
 		t_processState *state)
 {
 	state->var_start = ++state->i;
-	while (state->i < state->len && (isalnum(input[state->i])
+	while (state->i < state->len && (ft_isalnum(input[state->i])
 			|| input[state->i] == '_'))
 		state->i++;
 	ft_strlcpy(state->var_name, &input[state->var_start], state->i
 		- state->var_start + 1);
 	state->var_value = get_env_value(state->var_name, shellenv);
 	if (state->var_value)
-		state->var_value_len = strlen(state->var_value);
+		state->var_value_len = ft_strlen(state->var_value);
 	else
 		state->var_value_len = 0;
 	if (state->var_value)
@@ -31,11 +31,11 @@ void	expand_env_variable(const char *input, t_list_shellenv *shellenv,
 		if (state->res_index + state->var_value_len >= state->alloc_size)
 		{
 			state->alloc_size += state->var_value_len + 1;
-			state->result = realloc(state->result, state->alloc_size);
+			state->result = ft_realloc(state->result, state->alloc_size);
 			if (!state->result)
 				return ;
 		}
-		strcpy(&state->result[state->res_index], state->var_value);
+		ft_strcpy(&state->result[state->res_index], state->var_value);
 		state->res_index += state->var_value_len;
 	}
 	state->i--;
@@ -58,7 +58,7 @@ void	process_characters(const char *input, t_processState *state)
 	if (state->res_index + 1 >= state->alloc_size)
 	{
 		state->alloc_size += 1;
-		state->result = realloc(state->result, state->alloc_size);
+		state->result = ft_realloc(state->result, state->alloc_size);
 		if (!state->result)
 			return ;
 	}
@@ -72,7 +72,7 @@ void	process_input(const char *input, t_list_shellenv *shellenv, t_son *son,
 	state->in_double_quote = false;
 	state->res_index = 0;
 	state->i = 0;
-	state->len = strlen(input);
+	state->len = ft_strlen(input);
 	while (state->i < state->len)
 	{
 		handle_quotes(input, state);
@@ -98,9 +98,9 @@ char	*replace_variables(const char *input, t_list_shellenv *shellenv,
 	char			*result;
 	t_processState	state;
 
-	len = strlen(input);
+	len = ft_strlen(input);
 	alloc_size = len + 1;
-	result = calloc(alloc_size, sizeof(char));
+	result = ft_calloc(alloc_size, sizeof(char));
 	if (!result)
 		return (NULL);
 	ft_memset(&state, 0, sizeof(t_processState));

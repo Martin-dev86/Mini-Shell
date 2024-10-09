@@ -17,11 +17,11 @@ char	*get_env_value(const char *key, t_list_shellenv *shellenv)
 	size_t		key_len;
 	t_list_env	*current;
 
-	key_len = strlen(key);
+	key_len = ft_strlen(key);
 	current = shellenv->env;
 	while (current)
 	{
-		if (strncmp(current->content, key, key_len) == 0
+		if (ft_strncmp(current->content, key, key_len) == 0
 			&& current->content[key_len] == '=')
 		{
 			return (current->content + key_len + 1);
@@ -63,15 +63,15 @@ void	expand_exit_status(t_son *son, t_processState *state)
 	state->exit_status = ft_itoa(son->code);
 	if (state->exit_status)
 	{
-		state->exit_len = strlen(state->exit_status);
+		state->exit_len = ft_strlen(state->exit_status);
 		if (state->res_index + state->exit_len >= state->alloc_size)
 		{
 			state->alloc_size += state->exit_len + 1;
-			state->result = realloc(state->result, state->alloc_size);
+			state->result = ft_realloc(state->result, state->alloc_size);
 			if (!state->result)
 				return ;
 		}
-		strcpy(&state->result[state->res_index], state->exit_status);
+		ft_strcpy(&state->result[state->res_index], state->exit_status);
 		state->res_index += state->exit_len;
 		free(state->exit_status);
 	}
