@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:42:36 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/10 16:08:30 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 16:15:39 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ int	count_quotes(const char *str)
 			s_quote++;
 		i++;
 	}
-	if (d_quote == 0 || s_quote == 0)
-		return (0);
 	if (d_quote % 2 != 0 || s_quote % 2 != 0)
 		return (0);
 	return (1);
