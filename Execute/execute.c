@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/09 16:58:31 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/10 07:58:35 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,7 @@ int	execute_builtins(t_son *son, t_list_shellenv *shellenv, t_node *node)
 int	execute(t_son *son, t_list_shellenv *shellenv, t_node *node)
 {
 	if (ft_strncmp(node->operation->read, "exit", 4) == 0)
-	{
-		printf("entra en exit\n");
 		mini_exit(node, shellenv, son, 0);
-	}
 	else if (node->operation->type == HEREDOC)
 		handle_heredoc(node, son);
 	else if (node->operation->type == REDIR_R
