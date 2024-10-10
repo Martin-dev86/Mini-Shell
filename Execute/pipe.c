@@ -101,7 +101,7 @@ void	forking(t_son *son, t_list_shellenv *shellenv, t_node *node)
 	else
 		current_node = node->right;
 	son->pid = fork();
-	prompt_active = son->pid;
+	g_prompt_active = son->pid;
 	if (son->pid == -1)
 		ft_exit("fork error", son->code);
 	if (son->pid == 0)

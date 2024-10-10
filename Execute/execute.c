@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/10 07:58:35 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 08:01:06 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	executing(t_son *son, t_list_shellenv *shellenv, t_node *node)
 {
 	son->pid = fork();
-	prompt_active = son->pid;
+	g_prompt_active = son->pid;
 	if (son->pid < 0)
 	{
 		perror("fork");

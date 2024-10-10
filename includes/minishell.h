@@ -45,7 +45,7 @@
 # define RESET		"\x1b[0m"
 # define CLEAR		"\033[2J"
 
-extern int prompt_active;
+extern int g_prompt_active;
 
 int			execute(t_son *son, t_list_shellenv *shellenv, t_node *node);
 int			execute_builtins(t_son *son, t_list_shellenv *shellenv, \

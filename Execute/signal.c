@@ -30,7 +30,7 @@ void	setup_signals(void)
 void	sigquit_handler(int signo)
 {
 	(void)signo;
-	if (prompt_active == 1)
+	if (g_prompt_active == 1)
 		write(STDOUT_FILENO, "Quit (core dumped)\n", 20);
 }
 
@@ -38,12 +38,12 @@ void	sigint_handler(int signo)
 {
 	(void)signo;
 
-	if (prompt_active)
+	if (g_prompt_active)
 	{
 		write(STDOUT_FILENO, "\n", 1);
-		kill(prompt_active, SIGINT);
+		kill(g_prompt_active, SIGINT);
 	}
-	else if (!prompt_active)
+	else if (!g_prompt_active)
 	{
 		write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
