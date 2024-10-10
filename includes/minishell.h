@@ -49,6 +49,7 @@ extern int g_prompt_active;
 
 void		ft_free_token(t_token *token);
 void		ft_free_env(t_list_env *env);
+void		free_token_list_without_content(t_list_token *start);
 int			execute(t_son *son, t_list_shellenv *shellenv, t_node *node);
 int			execute_builtins(t_son *son, t_list_shellenv *shellenv, \
 			t_node *node);
