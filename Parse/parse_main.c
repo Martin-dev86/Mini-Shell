@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/10 18:12:13 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:50:45 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ t_node	*main_parser(t_list_shellenv *shellenv, t_token *token, t_son *son)
 	ast->n_childs = count_pipe_tokens(ast);
 	ast = final_tree(ast, shellenv);
 	free_token_list_without_content(token_list);
+	print_ast(ast);
 	return (ast);
 }

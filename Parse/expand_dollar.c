@@ -32,7 +32,7 @@ void	expand_variable_value(t_processState *state, t_list_shellenv *shellenv)
 void	expand_variable(const char *input, t_list_shellenv *shellenv, \
 	t_son *son, t_processState *state)
 {
-	if (input[state->i + 1] == '$' && input[state->i + 2] == '?')
+	if (input[state->i] == '$' && input[state->i +1] == '?')
 	{
 		expand_exit_status(son, state);
 		state->i += 2;
