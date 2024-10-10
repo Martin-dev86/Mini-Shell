@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:26:29 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/07 17:28:21 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/10 16:46:55 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list_env	*mini_lstnew(void *content)
 {
 	t_list_env	*new;
 
-	new = (t_list_env *) malloc(sizeof(t_list_env));
+	new = ft_calloc(1, sizeof(t_list_env));
 	if (!new)
 		return (NULL);
 	new->content = content;

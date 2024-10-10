@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 10:45:22 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/09 16:29:49 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:07:31 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ t_node	*main_parser(t_list_shellenv *shellenv, t_token *token, t_son *son)
 		return (NULL);
 	ast->n_childs = count_pipe_tokens(ast);
 	ast = final_tree(ast, shellenv);
+	printf("token_list item: %s \n",token_list->content->read);
+	//free_token_list(token_list);
 	print_ast(ast);
 	return (ast);
 }

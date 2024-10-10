@@ -6,7 +6,7 @@
 #    By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/22 12:45:34 by cagarci2          #+#    #+#              #
-#    Updated: 2024/10/10 14:49:11 by jeandrad         ###   ########.fr        #
+#    Updated: 2024/10/10 16:27:17 by jeandrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ OBJ_SRC		=	Parse/token_utils.o Parse/tokenizer_handle.o Parse/token_alloc.o Pars
 				Execute/built-ins/mini_exit.o Execute/ft_free.o Execute/ft_free_token.o Parse/count_quotes.o\
 				Execute/redirect.o Execute/execute.o Parse/ft_exit.o Parse/token_lst_size.o Parse/get_path.o Parse/env_parse.o\
 				Parse/token_typer.o Parse/count_pipe.o Parse/tokenizer.o Parse/expand_dollar.o\
-				Execute/pipe.o Execute/cmd.o Parse/ft_heredoc.o banner.o\
+				Execute/pipe.o Execute/cmd.o Parse/ft_heredoc.o banner.o Execute/ft_free_env.o\
 				Parse/parse_main.o Parse/dfa.o Parse/list.o Parse/ast_creator.o Parse/expander.o Execute/signal.o \
 				Execute/built-ins/mini_pwd.o Execute/built-ins/mini_unset.o Execute/built-ins/mini_export.o \
 				Execute/built-ins/mini_env.o Execute/built-ins/mini_echo.o Execute/built-ins/mini_cd.o  main.o Print_tree.o

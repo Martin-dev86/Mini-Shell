@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/10 16:01:54 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:06:41 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	shell_loop(t_list_shellenv *result, t_son *son)
 		if (node == NULL)
 			continue ;
 		execute(son, result, node);
-		ft_free_token(token);
+		//ft_free_token(token);
 		ft_free(NULL, node, NULL, NULL);
 	}
 }

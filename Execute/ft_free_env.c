@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   ft_free_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 18:33:11 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/10 16:35:55 by jeandrad         ###   ########.fr       */
+/*   Created: 2024/10/10 16:25:05 by jeandrad          #+#    #+#             */
+/*   Updated: 2024/10/10 16:26:21 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**get_path(char *path)
+void	ft_free_env(t_list_env *env)
 {
-	char	**paths;
-	char	*tmp;
+	t_list_env	*tmp;
 
-	paths = ft_calloc(0, sizeof(char *));
-	tmp = ft_strtrim(path, ":");
-	paths = ft_split(tmp, ':');
-	free(tmp);
-	return (paths);
+	while (env)
+	{
+		tmp = env->next;
+		if (env->content != NULL)
+			free(env->content);
+		free(env);
+		env = tmp;
+	}
 }

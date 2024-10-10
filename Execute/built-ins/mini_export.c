@@ -72,6 +72,7 @@ void	final_unset(t_list_shellenv *shellenv, \
 	t_list_env	*prev_last_match;
 
 	current = shellenv->env;
+	last_match = NULL;
 	while (current)
 	{
 		if (ft_strncmp(current->content, final_unset_var, len) == 0)
@@ -118,6 +119,7 @@ int	mini_export(t_list_shellenv *shellenv, t_node *node)
 	t_list_env	*sorted_current;
 	t_list_env	*env;
 
+	new_node = ft_calloc(1, sizeof(t_list_env));
 	if (node->right == NULL)
 	{
 		sorted_current = NULL;
@@ -136,5 +138,6 @@ int	mini_export(t_list_shellenv *shellenv, t_node *node)
 	found_equal(shellenv, node);
 	promp = mini_lstnew(ft_strdup(node->right->operation->read));
 	mini_lstadd_back(&(shellenv->env), promp);
+	ft_free_env(new_node);
 	return (0);
 }
