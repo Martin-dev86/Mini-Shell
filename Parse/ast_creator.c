@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:57:35 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/08 19:24:24 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 10:32:49 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,15 @@ t_node	*ast_creator(t_list_token *start, t_list_token *end)
 {
 	t_list_token	*highest_priority_token;
 	t_node			*node;
+	//t_list_token	*head;
 
+	//head = start;
 	if (start == NULL || start == end->next)
 		return (NULL);
 	highest_priority_token = find_highest_priority_token(start,
 			end);
 	node = create_ast_node(highest_priority_token->content);
 	handle_token_type(node, highest_priority_token, start, end);
+	//free_token_list(head);
 	return (node);
 }

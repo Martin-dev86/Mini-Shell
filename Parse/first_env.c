@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:55:26 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/08 19:55:43 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:52:49 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	first_env(char **env)
 {
 	if (env == NULL || *env == NULL)
-		ft_exit("NO ENV", 128);
+		ft_exit("NO ENV", 010);
 	else if (!getenv("PATH"))
-		ft_exit("NO PATH", EXIT_FAILURE);
+		ft_exit("NO PATH", 010);
 	else if (!getenv("USER"))
-		ft_exit("NO USER", EXIT_FAILURE);
+		ft_exit("NO USER", 010);
 	else if (!getenv("HOME"))
-		ft_exit("NO HOME", EXIT_FAILURE);
+		ft_exit("NO HOME", 010);
 	else if (!getenv("PWD"))
-		ft_exit("NO PWD", EXIT_FAILURE);
+		ft_exit("NO PWD", 010);
 }

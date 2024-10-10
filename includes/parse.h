@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/10 07:59:01 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:34:06 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,11 +140,17 @@ void					allocate_tokens(char **tokens, char *str);
 void					count_quote_tokens(char *str, int *i, int *token_count);
 void					skip_non_token_characters(char *str, int *i);
 
+/// free_token_list.c
+void					free_token_list(t_list_token *start);
+
 // node_creator.c
 t_node					*create_ast_node(t_token *operation);
 
 // first_env.c
 void					first_env(char **env);
+
+// update_env_matrix.c
+char					**create_env_matrix(t_list_env *env_list);
 
 // Helper functions
 int						ft_token_lst_size(t_list_token *lst);

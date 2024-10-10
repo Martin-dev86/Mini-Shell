@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 13:02:15 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/09 18:40:25 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:50:52 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ t_list_env	*env_parse(char **env)
 {
 	t_list_env	*head;
 
+	first_env(env);
 	head = create_env_list(env);
 	head->env = get_env(env);
 	head->path = get_path(getenv("PATH"));

@@ -78,4 +78,5 @@ void		del_node(t_list_env *env);
 int			mini_strlen(const char *c);
 void		ft_free(t_list_shellenv *shellenv, t_node *node, \
 			t_list_token *token, t_son *son);
+
 #endif
