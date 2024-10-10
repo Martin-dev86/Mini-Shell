@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:00:52 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/08 23:50:01 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:25:59 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	handle_heredoc(t_node *node, t_son *son)
 {
 	char	*temp_filename;
 	char buffer[256] = {0};
-	
+
 	if (node == NULL)
 		return ;
 	handle_heredoc(node->left, son);
@@ -68,7 +68,7 @@ void	handle_heredoc(t_node *node, t_son *son)
 			ft_exit("open failed", EXIT_FAILURE);
 		}
 		while (read(son->fd_heredoc, buffer, sizeof(buffer)) > 0)
-            write(STDOUT_FILENO, buffer, ft_strlen(buffer));
+			write(STDOUT_FILENO, buffer, ft_strlen(buffer));
 		close(son->fd_heredoc);
 		unlink(temp_filename);
 		free(temp_filename);

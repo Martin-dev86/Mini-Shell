@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:42:36 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/10 14:52:09 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:36:14 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	count_quotes(const char *str)
 	int	s_quote;
 
 	i = 0;
+	d_quote = 0;
+	s_quote = 0;
 	while (str[i])
 	{
 		if (str[i] == 34)

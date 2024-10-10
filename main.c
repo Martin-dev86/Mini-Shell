@@ -6,31 +6,13 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/10 12:30:47 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:31:35 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int		g_prompt_active;
-
-void	find_and_set_path(t_list_shellenv *env_list)
-{
-	t_list_env	*current;
-	char		*path_value;
-
-	current = env_list->env;
-	while (current)
-	{
-		if (ft_strncmp(current->content, "PATH=", 5) == 0)
-		{
-			path_value = current->content + 5;
-			current->path = get_path(path_value);
-			break ;
-		}
-		current = current->next;
-	}
-}
 
 void	shell_loop(t_list_shellenv *result, t_son *son)
 {
@@ -53,12 +35,8 @@ void	shell_loop(t_list_shellenv *result, t_son *son)
 		node = main_parser(result, token, son);
 		if (node == NULL)
 			continue ;
-		//find_and_set_path(result);
 		execute(son, result, node);
-		//free(result->env);
-		//result->env = env_parse(result->env->env);
-		//free(token->read);
-		//free(token);
+		ft_free(NULL, node, NULL, NULL);
 	}
 }
 
