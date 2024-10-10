@@ -1,0 +1,59 @@
+==932962== 
+==932962== HEAP SUMMARY:
+==932962==     in use at exit: 226,756 bytes in 610 blocks
+==932962==   total heap usage: 1,754 allocs, 1,144 frees, 307,474 bytes allocated
+==932962== 
+==932962== 0 bytes in 1 blocks are definitely lost in loss record 1 of 91
+==932962==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==932962==    by 0x10EED0: ft_calloc (in /home/jeandrad/Desktop/Mini/minishell)
+==932962==    by 0x10B323: get_path (get_path.c:20)
+==932962==    by 0x10B637: env_parse (env_parse.c:95)
+==932962==    by 0x10E786: main (main.c:60)
+==932962== 
+==932962== 40 bytes in 1 blocks are definitely lost in loss record 26 of 91
+==932962==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==932962==    by 0x10EED0: ft_calloc (in /home/jeandrad/Desktop/Mini/minishell)
+==932962==    by 0x10E601: shell_loop (main.c:22)
+==932962==    by 0x10E7A0: main (main.c:61)
+==932962== 
+==932962== 52 bytes in 7 blocks are definitely lost in loss record 31 of 91
+==932962==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==932962==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==932962==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==932962==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==932962==    by 0x10E656: shell_loop (main.c:29)
+==932962==    by 0x10E7A0: main (main.c:61)
+==932962== 
+==932962== 204 (168 direct, 36 indirect) bytes in 7 blocks are definitely lost in loss record 42 of 91
+==932962==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==932962==    by 0x10EED0: ft_calloc (in /home/jeandrad/Desktop/Mini/minishell)
+==932962==    by 0x10BCCC: token_split (tokenizer.c:53)
+==932962==    by 0x10BE53: token_read_filler (tokenizer.c:99)
+==932962==    by 0x10D1DA: main_parser (parse_main.c:25)
+==932962==    by 0x10E6A1: shell_loop (main.c:35)
+==932962==    by 0x10E7A0: main (main.c:61)
+==932962== 
+==932962== 236 (192 direct, 44 indirect) bytes in 6 blocks are definitely lost in loss record 44 of 91
+==932962==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==932962==    by 0x10EED0: ft_calloc (in /home/jeandrad/Desktop/Mini/minishell)
+==932962==    by 0x10E62E: shell_loop (main.c:26)
+==932962==    by 0x10E7A0: main (main.c:61)
+==932962== 
+==932962== 336 (168 direct, 168 indirect) bytes in 7 blocks are definitely lost in loss record 46 of 91
+==932962==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==932962==    by 0x10EED0: ft_calloc (in /home/jeandrad/Desktop/Mini/minishell)
+==932962==    by 0x10D1BB: main_parser (parse_main.c:24)
+==932962==    by 0x10E6A1: shell_loop (main.c:35)
+==932962==    by 0x10E7A0: main (main.c:61)
+==932962== 
+==932962== LEAK SUMMARY:
+==932962==    definitely lost: 620 bytes in 29 blocks
+==932962==    indirectly lost: 248 bytes in 23 blocks
+==932962==      possibly lost: 0 bytes in 0 blocks
+==932962==    still reachable: 225,888 bytes in 558 blocks
+==932962==         suppressed: 0 bytes in 0 blocks
+==932962== Reachable blocks (those to which a pointer was found) are not shown.
+==932962== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==932962== 
+==932962== For lists of detected and suppressed errors, rerun with: -s
+==932962== ERROR SUMMARY: 6 errors from 6 contexts (suppressed: 0 from 0)

@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:20:25 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/10 15:35:19 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:48:40 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void	t_free_node(t_node *node)
 	t_free_node(node->left);
 	t_free_node(node->right);
 	if (node->operation != NULL)
-	{
 		free(node->operation);
-	}
 	free(node);
 }
 

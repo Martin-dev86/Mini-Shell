@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/10 15:31:35 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:51:12 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int argc, char **argv, char **env)
 	setup_signals();
 	rl_catch_signals = 0;
 	result = (t_list_shellenv *)malloc(sizeof(t_list_shellenv));
-	son = malloc(sizeof(t_son));
+	son = ft_calloc(1, sizeof(t_son));
 	if (son == NULL)
 		ft_exit("Failed to allocate memory for son", EXIT_FAILURE);
 	if (son == NULL)
