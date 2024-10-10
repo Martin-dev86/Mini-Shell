@@ -82,21 +82,13 @@ void	final_unset(t_list_shellenv *shellenv, \
 		prev = current;
 		current = current->next;
 	}
-	//peta aqui
 	if (last_match)
 	{
 		if (prev_last_match)
-		{
-			printf("1\n");
 			prev_last_match->next = last_match->next;
-		}
 		else
-		{
-			printf("2\n");
 			shellenv->env = last_match->next;
-		}
 	}
-	//hasta aqui
 	free(final_unset_var);
 }
 

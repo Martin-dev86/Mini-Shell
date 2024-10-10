@@ -88,7 +88,8 @@ void	process_input(const char *input, t_list_shellenv *shellenv, \
 	}
 }
 
-char	*replace_variables(const char *input, t_list_shellenv *shellenv, t_son *son)
+char	*replace_variables(const char *input, \
+	t_list_shellenv *shellenv, t_son *son)
 {
 	size_t			len;
 	size_t			alloc_size;
@@ -100,12 +101,12 @@ char	*replace_variables(const char *input, t_list_shellenv *shellenv, t_son *son
 	result = ft_calloc(alloc_size, sizeof(char));
 	if (!result)
 		return (NULL);
-
 	ft_memset(&state, 0, sizeof(t_processState));
 	state.alloc_size = alloc_size;
 	state.result = result;
-
-	process_input(input, shellenv, son, &state);
-
+	if (count_quotes(input) == -1)
+		return (ft_strdup(""));
+	else
+		process_input(input, shellenv, son, &state);
 	return (state.result);
 }

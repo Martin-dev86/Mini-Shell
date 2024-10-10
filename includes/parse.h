@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/10 12:34:06 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:48:58 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,9 @@ void					first_env(char **env);
 
 // update_env_matrix.c
 char					**create_env_matrix(t_list_env *env_list);
+
+// count_quotes.c
+int						count_quotes(const char *str);
 
 // Helper functions
 int						ft_token_lst_size(t_list_token *lst);
