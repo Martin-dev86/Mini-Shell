@@ -31,9 +31,11 @@ char	*cmd_found(char **array_path, t_node *node)
 	return (NULL);
 }
 
-int count_nodes(t_node *node)
+int	count_nodes(t_node *node)
 {
-	int count = 0;
+	int	count;
+
+	count = 0;
 	while (node)
 	{
 		count++;
@@ -41,6 +43,7 @@ int count_nodes(t_node *node)
 	}
 	return (count);
 }
+
 char	**exe_args(t_node *node)
 {
 	char	**array_cmd;

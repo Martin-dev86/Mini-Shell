@@ -23,7 +23,6 @@ void	close_wait(t_son *son, int n_child)
 		close(son->fd[i][1]);
 		i++;
 	}
-
 	i = 0;
 	while (i < n_child)
 	{

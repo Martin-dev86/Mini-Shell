@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:00:52 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/10 15:25:59 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:20:21 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	process_heredoc_content(t_node *node, int temp_fd)
 void	handle_heredoc(t_node *node, t_son *son)
 {
 	char	*temp_filename;
-	char buffer[256] = {0};
+	char	buffer[256] = {0};
 
 	if (node == NULL)
 		return ;

@@ -138,6 +138,5 @@ int	mini_export(t_list_shellenv *shellenv, t_node *node)
 	found_equal(shellenv, node);
 	promp = mini_lstnew(ft_strdup(node->right->operation->read));
 	mini_lstadd_back(&(shellenv->env), promp);
-	ft_free_env(new_node);
-	return (0);
+	return (ft_free_env(new_node), 0);
 }

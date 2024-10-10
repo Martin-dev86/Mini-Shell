@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 13:17:23 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/07/23 23:13:30 by cagarci2         ###   ########.fr       */
+/*   Created: 2024/10/10 18:18:44 by cagarci2          #+#    #+#             */
+/*   Updated: 2024/10/10 18:18:49 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 
 	if ((unsigned char *)dst == 0 || (unsigned char *)src == 0)
 		return (0);
-
 	p_src = (unsigned char *)src;
 	p_dst = (unsigned char *)dst;
 	while (n > 0)
