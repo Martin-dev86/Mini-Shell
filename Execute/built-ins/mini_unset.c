@@ -39,18 +39,19 @@ int	mini_unset(t_list_shellenv *shellenv, t_node *node)
 
 	current = shellenv->env;
 	unset_var = ft_strjoin(node->right->operation->read, "=");
-	printf("\n\n UNSET VAR == %s\n\n", unset_var);
 	len = ft_strlen(unset_var);
-	while (current && current->next)
+	while (current && current->next != NULL)
 	{
 		if (ft_strncmp(current->next->content, unset_var, len) == 0)
 		{
 			del_node(current);
-			printf("%s\n", current->next->content);
 			continue ;
 		}
+		if (current->next == NULL)
+			break;
 		current = current->next;
 	}
 	free(unset_var);
+	update_path(shellenv);
 	return (0);
 }

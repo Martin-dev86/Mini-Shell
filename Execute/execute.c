@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/10 08:01:06 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 23:29:45 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	execute_builtins(t_son *son, t_list_shellenv *shellenv, t_node *node)
 	if (ft_strcmp(node->operation->read, "pwd") == 0)
 		mini_pwd(son);
 	if (ft_strcmp(node->operation->read, "echo") == 0)
-		mini_echo(node);
+		mini_echo(node, son);
 	if (ft_strcmp(node->operation->read, "unset") == 0)
 		mini_unset(shellenv, node);
 	if (ft_strcmp(node->operation->read, "cd") == 0)

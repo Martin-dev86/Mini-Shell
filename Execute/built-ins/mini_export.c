@@ -67,9 +67,9 @@ void	final_unset(t_list_shellenv *shellenv, \
 		size_t len, char *final_unset_var)
 {
 	t_list_env	*current;
-	t_list_env	*prev;
-	t_list_env	*last_match;
-	t_list_env	*prev_last_match;
+	t_list_env	*prev = NULL;
+	t_list_env	*last_match = NULL;
+	t_list_env	*prev_last_match = NULL;
 
 	current = shellenv->env;
 	last_match = NULL;
@@ -83,9 +83,9 @@ void	final_unset(t_list_shellenv *shellenv, \
 		prev = current;
 		current = current->next;
 	}
-	if (last_match)
+	if (last_match != NULL)
 	{
-		if (prev_last_match)
+		if (prev_last_match != NULL)
 			prev_last_match->next = last_match->next;
 		else
 			shellenv->env = last_match->next;
@@ -138,5 +138,6 @@ int	mini_export(t_list_shellenv *shellenv, t_node *node)
 	found_equal(shellenv, node);
 	promp = mini_lstnew(ft_strdup(node->right->operation->read));
 	mini_lstadd_back(&(shellenv->env), promp);
+	update_path(shellenv);
 	return (ft_free_env(new_node), 0);
 }

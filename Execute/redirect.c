@@ -33,8 +33,8 @@ t_node	*redir_r(t_son *son, t_node *node)
 			| O_RDWR, 0644);
 	if (son->fd_out < 0)
 	{
-		perror("output");
-		exit (1);
+		printf("output failure\n");
+		son->code = 1;
 	}
 	dup2(son->fd_out, STDOUT_FILENO);
 	close(son->fd_out);
@@ -60,8 +60,8 @@ t_node	*redir_l(t_son *son, t_node *node)
 	son->fd_in = open(node->right->operation->read, O_RDONLY);
 	if (son->fd_in < 0)
 	{
-		perror("input");
-		exit (1);
+		printf("input failure\n");
+		son->code = 1;
 	}
 	dup2(son->fd_in, STDIN_FILENO);
 	close(son->fd_in);

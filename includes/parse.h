@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:29:21 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/10 15:30:02 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/11 00:06:21 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int						ft_token_lst_size(t_list_token *lst);
 void					ft_exit(char *str, int code);
 
 // Environment parser
-char					**get_path(char *path);
+char					**get_path(t_list_env *env_list);
 char					*replace_variables(const char *input,
 							t_list_shellenv *env, t_son *son);
 

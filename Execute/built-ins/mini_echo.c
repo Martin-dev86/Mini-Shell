@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:20:09 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/09 20:33:02 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 23:29:12 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo_loop(t_node *node)
+void	echo_loop(t_node *node, t_son *son)
 {
 	char	*result;
 
@@ -24,13 +24,15 @@ void	echo_loop(t_node *node)
 			perror ("echo");
 			exit (1);
 		}
+		if (son->code != 0)
+			break ;
 		printf("%s ", result);
 		free (result);
 		node = node->right;
 	}
 }
 
-int	mini_echo(t_node *node)
+int	mini_echo(t_node *node, t_son *son)
 {
 	int		flag;
 
@@ -45,7 +47,7 @@ int	mini_echo(t_node *node)
 		flag = 1;
 		node = node->right;
 	}
-	echo_loop(node);
+	echo_loop(node, son);
 	if (flag == 0)
 		printf("\n");
 	return (0);

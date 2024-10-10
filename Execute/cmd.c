@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+void update_path(t_list_shellenv *shellenv)
+{
+	if (shellenv->env)
+        shellenv->env->path = get_path(shellenv->env);
+}
 char	*cmd_found(char **array_path, t_node *node)
 {
 	int		i;
@@ -68,9 +73,18 @@ int	mini_cmd(t_list_shellenv *shellenv, t_son *son, t_node *node)
 	char	*path_cmd;
 	char	**array_cmd;
 
+	update_path(shellenv);
+	if(shellenv->env->path == NULL)
+	 {
+        fprintf(stderr, "Command not found: %s\n", node->operation->read);
+        return 127;
+    }	
 	path_cmd = cmd_found(shellenv->env->path, node);
-	if (!path_cmd)
-		ft_exit("Command not found\n", 127);
+	 if (!path_cmd)
+    {
+        fprintf(stderr, "Command not found: %s\n", node->operation->read);
+        return 127;
+    }
 	array_cmd = exe_args(node);
 	if (execve(path_cmd, array_cmd, shellenv->env->env) == -1)
 	{

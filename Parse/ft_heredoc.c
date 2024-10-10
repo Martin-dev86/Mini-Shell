@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 19:00:52 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/10 18:20:21 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/10 23:20:03 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	create_temp_file(char **temp_filename, int *temp_fd)
 	if (*temp_fd == -1)
 	{
 		free(*temp_filename);
-		ft_exit("mkstemp failed", EXIT_FAILURE);
+		ft_exit("open failed", EXIT_FAILURE);
 	}
 }
 

@@ -54,7 +54,7 @@ char		*get_pwd(void);
 void		mini_exit(t_node *node, t_list_shellenv *shellenv, \
 			t_son *son, int status);
 int			mini_pwd(t_son *son);
-int			mini_echo(t_node *node);
+int			mini_echo(t_node *node, t_son *son);
 int			mini_redirect(t_node *node, t_son *son, t_list_shellenv *shellenv);
 int			mini_env(t_list_shellenv *shellenv);
 int			mini_unset(t_list_shellenv *shellenv, t_node *node);
@@ -78,5 +78,6 @@ void		del_node(t_list_env *env);
 int			mini_strlen(const char *c);
 void		ft_free(t_list_shellenv *shellenv, t_node *node, \
 			t_list_token *token, t_son *son);
+void		update_path(t_list_shellenv *shellenv);
 
 #endif
