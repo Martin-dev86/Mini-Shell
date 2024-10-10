@@ -17,7 +17,7 @@
 
 void	del_node(t_list_env *env)
 {
-	t_list_env *node_delete;
+	t_list_env	*node_delete;
 
 	if (env == NULL || env->next == NULL)
 		return ;
@@ -33,9 +33,9 @@ void	del_node(t_list_env *env)
 
 int	mini_unset(t_list_shellenv *shellenv, t_node *node)
 {
-	char *unset_var;
-	t_list_env *current;
-	size_t len;
+	char		*unset_var;
+	t_list_env	*current;
+	size_t		len;
 
 	current = shellenv->env;
 	unset_var = ft_strjoin(node->right->operation->read, "=");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:56:35 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/07/24 00:07:10 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:08:41 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,13 @@ char	**ft_split(const char *str, char c)
 	while (j < wrds)
 	{
 		i = next_word(str, c, i);
-		int start = i;
-        int end = delimiter(str, c, i);
-		result[j] = ft_substr(str, start, end - start);
+		result[j] = ft_substr(str, i, delimiter(str, c, i) - i);
 		if (!result[j])
 		{
 			free_split(result);
 			return (NULL);
 		}
-		i = end;
+		i = delimiter(str, c, i);
 		j++;
 	}
 	result[j] = NULL;

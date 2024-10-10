@@ -14,13 +14,12 @@
 
 void	setup_signals(void)
 {
-	struct	sigaction	sa;
+	struct sigaction	sa;
 
 	sa.sa_handler = sigint_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
-
 	sa.sa_handler = sigquit_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
@@ -37,7 +36,6 @@ void	sigquit_handler(int signo)
 void	sigint_handler(int signo)
 {
 	(void)signo;
-
 	if (g_prompt_active)
 	{
 		write(STDOUT_FILENO, "\n", 1);

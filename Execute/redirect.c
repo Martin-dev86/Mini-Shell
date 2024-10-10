@@ -38,7 +38,7 @@ t_node	*redir_r(t_son *son, t_node *node)
 	}
 	dup2(son->fd_out, STDOUT_FILENO);
 	close(son->fd_out);
-	return(current_node);
+	return (current_node);
 }
 
 t_node	*redir_l(t_son *son, t_node *node)
@@ -47,12 +47,13 @@ t_node	*redir_l(t_son *son, t_node *node)
 
 	current_node = node->left;
 	if (node->left == NULL)
-    {
+	{
 		printf("Error: missing a command before the input redirection.\n");
 		return (NULL);
 	}
-    if (node->right == NULL || node->right->operation == NULL || node->right->operation->read == NULL)
-    {
+	if (node->right == NULL || node->right->operation == NULL
+		|| node->right->operation->read == NULL)
+	{
 		printf("Error: file not specified in the input redirection.\n");
 		return (NULL);
 	}
@@ -64,17 +65,17 @@ t_node	*redir_l(t_son *son, t_node *node)
 	}
 	dup2(son->fd_in, STDIN_FILENO);
 	close(son->fd_in);
-	return(current_node);
+	return (current_node);
 }
 
 int	mini_redirect(t_node *node, t_son *son, t_list_shellenv *shellenv)
 {
 	t_node	*current_node;
-	int temp_stdout;
-    int temp_stdin;
+	int		temp_stdout;
+	int		temp_stdin;
 
 	temp_stdout = dup(STDOUT_FILENO);
-    temp_stdin = dup(STDIN_FILENO);
+	temp_stdin = dup(STDIN_FILENO);
 	if (node->operation->type == APPEND)
 	{
 		mini_apendd(node, son);
@@ -83,15 +84,15 @@ int	mini_redirect(t_node *node, t_son *son, t_list_shellenv *shellenv)
 		close(son->fd_out);
 	}
 	if (node->operation->type == REDIR_R)
-		current_node =	redir_r(son, node);
+		current_node = redir_r(son, node);
 	else
-		current_node =	redir_l(son, node);
+		current_node = redir_l(son, node);
 	if (current_node == NULL)
-		return(1);
+		return (1);
 	execute(son, shellenv, current_node);
 	dup2(temp_stdout, STDOUT_FILENO);
-    dup2(temp_stdin, STDIN_FILENO);
-    close(temp_stdout);
-    close(temp_stdin);
+	dup2(temp_stdin, STDIN_FILENO);
+	close(temp_stdout);
+	close(temp_stdin);
 	return (0);
 }
