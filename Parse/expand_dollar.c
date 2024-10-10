@@ -104,7 +104,7 @@ char	*replace_variables(const char *input, \
 	ft_memset(&state, 0, sizeof(t_processState));
 	state.alloc_size = alloc_size;
 	state.result = result;
-	if (count_quotes(input) == -1)
+	if (count_quotes(input) == 0)
 		return (ft_strdup(""));
 	else
 		process_input(input, shellenv, son, &state);
