@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   free_token_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 08:10:36 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/10 18:11:31 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:42:15 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Free the content of a t_token structure
 void	free_token_content(t_token *content)
 {
 	if (content == NULL)
@@ -33,7 +32,6 @@ void	free_token_content(t_token *content)
 	content = NULL;
 }
 
-// Free a doubly linked list of tokens
 void	free_token_list(t_list_token *start)
 {
 	t_list_token	*current;
@@ -57,7 +55,6 @@ void	free_token_list(t_list_token *start)
 	start = NULL;
 }
 
-// Free the doubly linked list of tokens without freeing the content (t_token)
 void	free_token_list_without_content(t_list_token *start)
 {
 	t_list_token	*current;
@@ -69,7 +66,6 @@ void	free_token_list_without_content(t_list_token *start)
 	while (current != NULL)
 	{
 		next = current->next;
-
 		free(current);
 		current = next;
 	}

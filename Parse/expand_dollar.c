@@ -29,7 +29,7 @@ void	expand_variable_value(t_processState *state, t_list_shellenv *shellenv)
 	state->res_index += state->var_value_len;
 }
 
-void	expand_variable(const char *input, t_list_shellenv *shellenv,\
+void	expand_variable(const char *input, t_list_shellenv *shellenv, \
 	t_son *son, t_processState *state)
 {
 	if (input[state->i + 1] == '$' && input[state->i + 2] == '?')
@@ -70,7 +70,6 @@ void	process_input(const char *input, t_list_shellenv *shellenv, \
 	state->res_index = 0;
 	state->i = 0;
 	state->len = ft_strlen(input);
-
 	while (state->i < state->len)
 	{
 		handle_quotes(input, state);

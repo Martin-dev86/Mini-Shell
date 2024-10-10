@@ -42,7 +42,7 @@
 # define RESET		"\x1b[0m"
 # define CLEAR		"\033[2J"
 
-extern int g_prompt_active;
+extern int	g_prompt_active;
 
 void		ft_free_token(t_token *token);
 void		ft_free_env(t_list_env *env);

@@ -14,7 +14,7 @@
 
 int	mini_apendd(t_node *node, t_son *son)
 {
-	son->fd_out = open(node->right->operation->read,  O_APPEND | O_CREAT
+	son->fd_out = open(node->right->operation->read, O_APPEND | O_CREAT
 			| O_RDWR, 0644);
 	if (son->fd_out < 0)
 	{
