@@ -18,8 +18,8 @@ int	mini_apendd(t_node *node, t_son *son)
 			| O_RDWR, 0644);
 	if (son->fd_out < 0)
 	{
-		perror("output");
-		exit (1);
+		printf("Append failure\n");
+		son->code = 1;
 	}
 	return (0);
 }

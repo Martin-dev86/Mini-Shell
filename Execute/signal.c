@@ -39,6 +39,7 @@ void	sigint_handler(int signo)
 	if (g_prompt_active)
 	{
 		write(STDOUT_FILENO, "\n", 1);
+		write(STDOUT_FILENO, "Minishell>", 10);
 		kill(g_prompt_active, SIGINT);
 	}
 	else if (!g_prompt_active)

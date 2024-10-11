@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/10 23:29:45 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:38:39 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	executing(t_son *son, t_list_shellenv *shellenv, t_node *node)
 {
+	int	last_status;
+
 	son->pid = fork();
 	g_prompt_active = son->pid;
 	if (son->pid < 0)
@@ -23,15 +25,17 @@ int	executing(t_son *son, t_list_shellenv *shellenv, t_node *node)
 	}
 	if (son->pid == 0)
 	{
-		mini_cmd(shellenv, son, node);
+		son->code = mini_cmd(shellenv, son, node);
 		exit (son->code);
 	}
 	waitpid(son->pid, &son->code, 0);
 	if (WIFEXITED(son->code))
-		son->code = WEXITSTATUS(son->code);
+		last_status = WEXITSTATUS(son->code);
 	else if (WIFSIGNALED(son->code))
-		son->code = 128 + WTERMSIG(son->code);
-	return (son->code);
+		last_status = 128 + WTERMSIG(son->code);
+	son->code = last_status;
+	printf("\nSON CODE = %d\n", son->code);
+	return (last_status);
 }
 
 int	execute_builtins(t_son *son, t_list_shellenv *shellenv, t_node *node)
@@ -67,12 +71,12 @@ int	execute(t_son *son, t_list_shellenv *shellenv, t_node *node)
 	else if (node->operation->type == REDIR_R
 		|| node->operation->type == REDIR_L
 		|| node->operation->type == APPEND)
-		mini_redirect(node, son, shellenv);
+		son->code = mini_redirect(node, son, shellenv);
 	else if (node->operation->type == BUILTIN)
-		execute_builtins(son, shellenv, node);
+		son->code = execute_builtins(son, shellenv, node);
 	else if (node->n_childs <= 1 && node->operation->type == CMD)
-		executing(son, shellenv, node);
+		son->code = executing(son, shellenv, node);
 	else if (node->n_childs >= 2 && node->operation->type == PIPE)
-		mini_pipe(son, node, shellenv);
+		son->code = mini_pipe(son, node, shellenv);
 	return (0);
 }

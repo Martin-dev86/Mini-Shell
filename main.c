@@ -6,7 +6,7 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/11 10:20:21 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/11 11:22:00 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	first_env(env);
-	ft_baby_yoda_banner();
 	setup_signals();
 	rl_catch_signals = 0;
 	result = (t_list_shellenv *)malloc(sizeof(t_list_shellenv));
