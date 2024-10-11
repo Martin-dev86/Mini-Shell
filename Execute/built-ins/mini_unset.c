@@ -48,7 +48,7 @@ int	mini_unset(t_list_shellenv *shellenv, t_node *node)
 			continue ;
 		}
 		if (current->next == NULL)
-			break;
+			break ;
 		current = current->next;
 	}
 	free(unset_var);

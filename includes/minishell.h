@@ -57,6 +57,11 @@ int			mini_pwd(t_son *son);
 int			mini_echo(t_node *node, t_son *son);
 int			mini_redirect(t_node *node, t_son *son, t_list_shellenv *shellenv);
 int			mini_env(t_list_shellenv *shellenv);
+t_list_env	*find_last_match(t_list_env *env, size_t len, \
+				char *final_unset_var, t_list_env **prev_last_match);
+void		found_equal(t_list_shellenv *shellenv, t_node *node);
+void		final_unset(t_list_shellenv *shellenv,
+				size_t len, char *final_unset_var);
 int			mini_unset(t_list_shellenv *shellenv, t_node *node);
 int			mini_export(t_list_shellenv *shellenv, t_node *node);
 int			mini_cd(t_node *node, t_list_shellenv *shellenv);

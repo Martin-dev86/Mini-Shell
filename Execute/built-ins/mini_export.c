@@ -63,26 +63,14 @@ void	swap_list(t_list_env *env, t_list_env *sorted_env)
 	}
 }
 
-void	final_unset(t_list_shellenv *shellenv, \
-		size_t len, char *final_unset_var)
+void	final_unset(t_list_shellenv *shellenv,
+	size_t len, char *final_unset_var)
 {
-	t_list_env	*current;
-	t_list_env	*prev = NULL;
-	t_list_env	*last_match = NULL;
-	t_list_env	*prev_last_match = NULL;
+	t_list_env	*last_match;
+	t_list_env	*prev_last_match;
 
-	current = shellenv->env;
-	last_match = NULL;
-	while (current)
-	{
-		if (ft_strncmp(current->content, final_unset_var, len) == 0)
-		{
-			last_match = current;
-			prev_last_match = prev;
-		}
-		prev = current;
-		current = current->next;
-	}
+	last_match = find_last_match(shellenv->env, len, \
+		final_unset_var, &prev_last_match);
 	if (last_match != NULL)
 	{
 		if (prev_last_match != NULL)
@@ -93,23 +81,20 @@ void	final_unset(t_list_shellenv *shellenv, \
 	free(final_unset_var);
 }
 
-void	found_equal(t_list_shellenv *shellenv, t_node *node)
+t_list_env	*copy_and_sort_env(t_list_env *env)
 {
-	char		*unset_var;
-	size_t		len;
-	char		*final_unset_var;
-	char		*equals_pos;
+	t_list_env	*new_node;
+	t_list_env	*sorted_current;
 
-	equals_pos = ft_strchr(node->right->operation->read, '=');
-	if (equals_pos != NULL)
-		unset_var = ft_substr(node->right->operation->read, 0, \
-		equals_pos - node->right->operation->read);
-	else
-		unset_var = ft_strdup(node->right->operation->read);
-	final_unset_var = ft_strjoin(unset_var, "=");
-	free(unset_var);
-	len = ft_strlen(final_unset_var);
-	final_unset(shellenv, len, final_unset_var);
+	sorted_current = NULL;
+	while (env)
+	{
+		new_node = mini_lstnew(ft_strdup(env->content));
+		mini_lstadd_back(&sorted_current, new_node);
+		env = env->next;
+	}
+	swap_list(env, sorted_current);
+	return (sorted_current);
 }
 
 int	mini_export(t_list_shellenv *shellenv, t_node *node)
@@ -117,22 +102,12 @@ int	mini_export(t_list_shellenv *shellenv, t_node *node)
 	t_list_env	*new_node;
 	t_list_env	*promp;
 	t_list_env	*sorted_current;
-	t_list_env	*env;
 
 	new_node = ft_calloc(1, sizeof(t_list_env));
 	if (node->right == NULL)
 	{
-		sorted_current = NULL;
-		env = shellenv->env;
-		while (env)
-		{
-			new_node = mini_lstnew(ft_strdup(env->content));
-			mini_lstadd_back(&sorted_current, new_node);
-			env = env->next;
-		}
-		swap_list(shellenv->env, sorted_current);
-		env = sorted_current;
-		print_sorted(env);
+		sorted_current = copy_and_sort_env(shellenv->env);
+		print_sorted(sorted_current);
 		return (0);
 	}
 	found_equal(shellenv, node);
