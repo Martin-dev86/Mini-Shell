@@ -6,11 +6,24 @@
 /*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:20:25 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/10 15:48:40 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:10:01 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_free_matrix(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
 
 // Recursive function to free the AST
 void	t_free_node(t_node *node)
@@ -35,9 +48,9 @@ void	ft_free_env_list(t_list_shellenv *shellenv)
 		if (shellenv->env->content != NULL)
 			free(shellenv->env->content);
 		if (shellenv->env->path != NULL)
-			free(shellenv->env->path);
+			ft_free_matrix(shellenv->env->path);
 		if (shellenv->env->env != NULL)
-			free(shellenv->env->env);
+			ft_free_matrix(shellenv->env->env);
 		free(shellenv->env);
 		shellenv->env = tmp;
 	}

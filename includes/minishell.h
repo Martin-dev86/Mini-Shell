@@ -44,6 +44,8 @@
 
 extern int	g_prompt_active;
 
+void		ft_free_matrix(char **str);
+void		free_node(t_node *node);
 void		ft_free_token(t_token *token);
 void		ft_free_env(t_list_env *env);
 void		free_token_list_without_content(t_list_token *start);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/10 23:49:50 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:20:21 by jeandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	shell_loop(t_list_shellenv *result, t_son *son)
 			continue ;
 		update_path(result);
 		execute(son, result, node);
-		ft_free(NULL, node, NULL, NULL);
+		ft_free_token(token);
 	}
 }
 
