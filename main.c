@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cagarci2 <cagarci2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/10 23:49:50 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:28:34 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int		g_prompt_active;
+int		last_exit_status;
 
 void	shell_loop(t_list_shellenv *result, t_son *son)
 {
@@ -36,6 +37,7 @@ void	shell_loop(t_list_shellenv *result, t_son *son)
 		if (node == NULL)
 			continue ;
 		update_path(result);
+		print_ast(node);
 		execute(son, result, node);
 		ft_free(NULL, node, NULL, NULL);
 	}
@@ -49,7 +51,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	first_env(env);
-	ft_baby_yoda_banner();
 	setup_signals();
 	rl_catch_signals = 0;
 	result = (t_list_shellenv *)malloc(sizeof(t_list_shellenv));

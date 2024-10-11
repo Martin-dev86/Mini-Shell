@@ -80,13 +80,13 @@ int	mini_cmd(t_list_shellenv *shellenv, t_son *son, t_node *node)
 	update_path(shellenv);
 	if (shellenv->env->path == NULL)
 	{
-		fprintf(stderr, "Command not found: %s\n", node->operation->read);
+		printf("Command not found: %s\n", node->operation->read);
 		return (127);
 	}
 	path_cmd = cmd_found(shellenv->env->path, node);
 	if (!path_cmd)
 	{
-		fprintf(stderr, "Command not found: %s\n", node->operation->read);
+		printf("Command not found: %s\n", node->operation->read);
 		return (127);
 	}
 	array_cmd = exe_args(node);

@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:53:57 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/10 18:00:28 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/11 09:25:37 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	mini_exit(t_node *node, t_list_shellenv *shellenv, \
 	exit_status = status;
 	if (!node || !node->operation || !node->operation->read)
 	{
-		fprintf(stderr, "exit: invalid node or operation\n");
+		printf("exit: invalid node or operation\n");
 		exit(1);
 	}
 	if (node->right != NULL)
