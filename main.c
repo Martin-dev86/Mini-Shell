@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 12:04:06 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/11 11:22:00 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/11 12:50:02 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	shell_loop(t_list_shellenv *result, t_son *son)
 	t_token	*token;
 	t_node	*node;
 
-	node = ft_calloc(1, sizeof(t_node));
 	while (1)
 	{
 		result->env->env = create_env_matrix(result->env);
@@ -37,7 +36,8 @@ void	shell_loop(t_list_shellenv *result, t_son *son)
 			continue ;
 		update_path(result);
 		execute(son, result, node);
-		ft_free_token(token);
+		ft_free_node(node);
+		free(token);
 	}
 }
 

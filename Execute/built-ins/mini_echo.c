@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:20:09 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/11 10:40:32 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:00:41 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	echo_loop(t_node *node, t_son *son)
 			perror ("echo");
 			exit (1);
 		}
-
 		printf("%s ", result);
 		free (result);
 		node = node->right;

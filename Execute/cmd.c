@@ -17,6 +17,8 @@
 
 void	update_path(t_list_shellenv *shellenv)
 {
+	if (shellenv->env->path)
+		ft_free_matrix(shellenv->env->path);
 	if (shellenv->env)
 		shellenv->env->path = get_path(shellenv->env);
 }

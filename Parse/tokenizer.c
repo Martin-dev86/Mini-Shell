@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:34:56 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/11 10:17:45 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/11 12:29:48 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	fill_token_list(char **tokens, t_list_token *current)
 		new_token = ft_calloc(1, sizeof(t_token));
 		if (!new_token)
 			return (0);
-		new_token->read = tokens[i];
+		new_token->read = ft_strdup(tokens[i]);
 		current->content = new_token;
 		if (tokens[i + 1])
 		{
@@ -88,6 +88,7 @@ int	fill_token_list(char **tokens, t_list_token *current)
 		}
 		i++;
 	}
+	ft_free_matrix(tokens);
 	return (1);
 }
 
@@ -101,7 +102,9 @@ t_list_token	*token_read_filler(t_token token, t_list_token *head)
 		return (NULL);
 	current = head;
 	if (!fill_token_list(tokens, current))
+	{
 		return (NULL);
+	}
 	set_prev_pointers(head);
 	return (head);
 }

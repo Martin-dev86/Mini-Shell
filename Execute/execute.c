@@ -6,7 +6,7 @@
 /*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:41:41 by cagarci2          #+#    #+#             */
-/*   Updated: 2024/10/11 10:38:39 by cagarci2         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:04:25 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	executing(t_son *son, t_list_shellenv *shellenv, t_node *node)
 	else if (WIFSIGNALED(son->code))
 		last_status = 128 + WTERMSIG(son->code);
 	son->code = last_status;
-	printf("\nSON CODE = %d\n", son->code);
 	return (last_status);
 }
 

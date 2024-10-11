@@ -86,5 +86,6 @@ int			mini_strlen(const char *c);
 void		ft_free(t_list_shellenv *shellenv, t_node *node, \
 			t_list_token *token, t_son *son);
 void		update_path(t_list_shellenv *shellenv);
+void		ft_free_node(t_node *node);
 
 #endif

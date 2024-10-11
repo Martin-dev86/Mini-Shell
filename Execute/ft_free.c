@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeandrad <jeandrad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: cagarci2 <cagarci2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:20:25 by jeandrad          #+#    #+#             */
-/*   Updated: 2024/10/11 10:10:01 by jeandrad         ###   ########.fr       */
+/*   Updated: 2024/10/11 12:32:49 by cagarci2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_free_matrix(char **str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return ;
 	while (str[i])
 	{
 		free(str[i]);
@@ -26,12 +28,12 @@ void	ft_free_matrix(char **str)
 }
 
 // Recursive function to free the AST
-void	t_free_node(t_node *node)
+void	ft_free_node(t_node *node)
 {
 	if (node == NULL)
 		return ;
-	t_free_node(node->left);
-	t_free_node(node->right);
+	ft_free_node(node->left);
+	ft_free_node(node->right);
 	if (node->operation != NULL)
 		free(node->operation);
 	free(node);
@@ -92,7 +94,7 @@ void	ft_free(t_list_shellenv *shellenv, t_node *node, t_list_token *token,
 	if (shellenv != NULL && shellenv->env != NULL)
 		ft_free_env_list(shellenv);
 	if (node != NULL)
-		t_free_node(node);
+		ft_free_node(node);
 	if (token != NULL)
 		ft_free_token_list(token);
 	if (son != NULL)
