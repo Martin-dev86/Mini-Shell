@@ -15,17 +15,17 @@
 
 #include "minishell.h"
 
-
 void	update_path(t_list_shellenv *shellenv)
 {
 	if (shellenv->env)
 		shellenv->env->path = get_path(shellenv->env);
 }
+
 char	*cmd_found(char **array_path, t_node *node)
 {
-	int i;
-	char *command;
-	char *cmd;
+	int		i;
+	char	*command;
+	char	*cmd;
 
 	i = 0;
 	cmd = node->operation->read;
@@ -42,7 +42,7 @@ char	*cmd_found(char **array_path, t_node *node)
 
 int	count_nodes(t_node *node)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (node)
@@ -55,9 +55,9 @@ int	count_nodes(t_node *node)
 
 char	**exe_args(t_node *node)
 {
-	char **array_cmd;
-	int i;
-	int node_count;
+	char	**array_cmd;
+	int		i;
+	int		node_count;
 
 	i = 0;
 	node_count = count_nodes(node);
